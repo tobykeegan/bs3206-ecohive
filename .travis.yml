@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - 20
+
+cache:
+  npm: true # Cache npm packages to speed up builds
+
+before_install:
+  - curl -fsSL https://bun.sh/install | bash
+  - source ~/.bashrc
+  - bun --version
+
+# Install project dependencies
+install:
+  - bun install
+  - npx playwright install
+
+script:
+  - bun run format
+  - bun run lint
+  - bun run build
+  - bun run test
