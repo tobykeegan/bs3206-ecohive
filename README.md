@@ -1,4 +1,5 @@
-## Built using Bun instead of node
+# EcoHive 🐝
+## Built with Bun 
 
 To install Bun, a drop in replacement for node, issue
 ```sh
@@ -6,6 +7,10 @@ curl -fsSL https://bun.sh/install | bash
 ```
 
 ## Available Scripts
+
+If this is your first time cloning the repository, install the dependencies by issuing
+
+### `bun install`
 
 In the project directory, you can run:
 
