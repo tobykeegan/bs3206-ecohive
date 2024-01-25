@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "development": "bun run dev",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "start": "next start",
     "prod": "bun run build && bun run start",
     "production": "bun run prod",
