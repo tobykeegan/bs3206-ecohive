@@ -6,7 +6,7 @@ node_js:
 cache:
   npm: true # Cache npm packages to speed up builds
 
-services: 
+services:
   - docker
 
 before_install:
@@ -19,12 +19,15 @@ install:
   - bun install
   - npx playwright install
 
-
 jobs:
   include:
-    - stage: Local Build
+    - stage: Code Tests
       if: type = push
-      name: Code Linting
-      script: bun run lint
-      name: Code Tests
-      script: bun run test
+
+      script:
+        - bun run lint
+        - bun run test
+
+    - stage: Build
+      script:
+        - bun run build
