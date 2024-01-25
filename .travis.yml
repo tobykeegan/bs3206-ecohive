@@ -9,6 +9,9 @@ cache:
 services:
   - docker
 
+env:
+  
+
 before_install:
   - curl -fsSL https://bun.sh/install | bash
   - source ~/.bashrc
@@ -21,13 +24,17 @@ install:
 
 jobs:
   include:
-    - stage: Code Tests
+    - stage: Development Build
       if: type = push
 
       script:
         - bun run lint
         - bun run test
 
-    - stage: Build
+    - stage: Production Build
+      if: type = PR
+
       script:
+        - bun run lint
         - bun run build
+        - bun run test
