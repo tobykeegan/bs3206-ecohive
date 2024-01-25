@@ -6,6 +6,9 @@ node_js:
 cache:
   npm: true # Cache npm packages to speed up builds
 
+services: 
+  - docker
+
 before_install:
   - curl -fsSL https://bun.sh/install | bash
   - source ~/.bashrc
@@ -14,10 +17,13 @@ before_install:
 # Install project dependencies
 install:
   - bun install
-  - bun i -D @playwright/test@latest
 
-script:
-  - bun run format
-  - bun run lint
-  - bun run build
-  - bun run test
+
+jobs:
+  include:
+    - stage: Local Build
+      if: type = push
+      name: Code Linting
+      script: bun lint
+      name: Code Tests
+      script: bun test
