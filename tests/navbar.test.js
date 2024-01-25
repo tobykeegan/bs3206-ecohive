@@ -7,27 +7,29 @@ import { implemented } from "./utils";
 */
 
 test.describe("Navbar visibility", () => {
-  const pages = {
-    visible: ["/home", "/settings", "/events/feed", "/events/myevents"],
-    hidden: [
-      "/", // shouldn't ever be here!
-      "/login",
-      "/register",
-    ],
-  };
-  pages.visible.forEach((url) => {
-    test(`Visible on '${url}' page`, async ({ page }) => {
-      await page.goto(url);
-      await expect(page.locator("nav", { name: "navbar" })).toBeVisible();
-    });
-  });
+	const pages = {
+		visible: ["/home", "/settings", "/events/feed", "/events/myevents"],
+		hidden: [
+			"/", // shouldn't ever be here!
+			"/login",
+			"/register",
+		],
+	};
+	pages.visible.forEach((url) => {
+		test(`Visible on '${url}' page`, async ({ page }) => {
+			await page.goto(url);
+			await expect(page.locator("nav", { name: "navbar" })).toBeVisible();
+		});
+	});
 
-  pages.hidden.forEach((url) => {
-    test(`Not visible on '${url}' page`, async ({ page }) => {
-      implemented(false);
+	pages.hidden.forEach((url) => {
+		test(`Not visible on '${url}' page`, async ({ page }) => {
+			implemented(false);
 
-      await page.goto(url);
-      await expect(page.locator("nav", { name: "navbar" })).not.toBeVisible();
-    });
-  });
+			await page.goto(url);
+			await expect(
+				page.locator("nav", { name: "navbar" }),
+			).not.toBeVisible();
+		});
+	});
 });
