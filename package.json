@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "prod": "bun run build && bun run start",
-    "production" : "bun run prod",
+    "production": "bun run prod",
     "lint": "next lint && prettier . --check",
     "format": "prettier . --write",
     "test": "npx playwright test --reporter=html"
