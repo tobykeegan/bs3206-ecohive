@@ -25,6 +25,6 @@ jobs:
     - stage: Local Build
       if: type = push
       name: Code Linting
-      script: bun lint
+      script: bun run lint
       name: Code Tests
-      script: bun test
+      script: bun run test
