@@ -17,6 +17,7 @@ before_install:
 # Install project dependencies
 install:
   - bun install
+  - npx playwright install
 
 
 jobs:
