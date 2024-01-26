@@ -1,0 +1,37 @@
+language: node_js
+
+node_js:
+    - 20
+
+cache:
+    npm: true # Cache npm packages to speed up builds
+    directories:
+        - /home/travis/.bun
+        - /home/travis/.cache/ms-playwright
+
+before_install:
+    - curl -fsSL https://bun.sh/install | bash
+    - source ~/.bashrc
+    - bun --version
+
+# Install project dependencies
+install:
+    - bun install
+    - npx playwright install
+    - npx playwright install-deps
+
+jobs:
+    include:
+        - stage: Development Build
+          if: type = push
+
+          script:
+              - bun run test
+
+        - stage: Production Build
+          if: type = PR
+
+          script:
+              - bun run lint
+              - bun run build
+              - bun run test
