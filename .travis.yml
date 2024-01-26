@@ -16,7 +16,7 @@ before_install:
 install:
     - bun install
     - npx playwright install
-    - sudo npx playwright install-deps
+    - npx playwright install-deps
 
 jobs:
     include:
