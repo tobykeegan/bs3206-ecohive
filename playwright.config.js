@@ -1,7 +1,7 @@
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 const config = {
 	webServer: {
-		command: `bun run ${process.env.NODE_ENV}`,
+		command: `bun run ${process.env.NODE_ENV || "dev"}`,
 		port: 3000,
 	},
 	testDir: "tests",
