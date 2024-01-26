@@ -5,6 +5,9 @@ node_js:
 
 cache:
     npm: true # Cache npm packages to speed up builds
+    directories:
+        - /home/travis/.bun
+        - /home/travis/.cache/ms-playwright
 
 before_install:
     - curl -fsSL https://bun.sh/install | bash
