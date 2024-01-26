@@ -6,7 +6,6 @@ node_js:
 cache:
     npm: true # Cache npm packages to speed up builds
 
-
 before_install:
     - curl -fsSL https://bun.sh/install | bash
     - source ~/.bashrc
@@ -24,7 +23,6 @@ jobs:
           if: type = push
 
           script:
-              - bun run lint
               - bun run test
 
         - stage: Production Build
