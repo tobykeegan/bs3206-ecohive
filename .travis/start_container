@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ssh -oStrictHostKeyChecking=no                               \
+      -i $SCRIPTS/key                                        \
+      -oPreferredAuthentications=publickey                   \
+    "$PRODUCTION_SERVER_USER"@"$PRODUCTION_SERVER_ADDRESS"   \
+    /usr/bin/python3 < $SCRIPTS/deploy_container.py - ecohive-ui $TRAVIS_BRANCH
