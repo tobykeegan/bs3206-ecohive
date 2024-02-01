@@ -29,11 +29,13 @@ jobs:
   include:
     - stage: Run Development Tests
       if: branch != main AND type != pull_request
-      script: bun run test
+      script: 
+        - bun run test
 
     - stage: Run Production Tests
       if: branch = main AND type != pull_request
-    - script: bun run test:prod
+      script: 
+        - bun run test:prod
 
     - stage: Code Linting
       if: type = pull_request
