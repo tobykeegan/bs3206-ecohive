@@ -28,15 +28,12 @@ install:
 jobs:
   include:
     - stage: Run Development Tests
-      if: branch != main
+      if: branch != main AND type != PR
       script: bun run test
 
     - stage: Run Production Tests
-      if: branch = main
-      name : "Tests ignoring non-implemented"
-      script: bun run test
-    - script: bun run test:prd
-      name: "Production Tests"
+      if: branch = main AND type != PR
+    - script: bun run test:prod
 
     - stage: Code Linting
       if: type = pull_request
