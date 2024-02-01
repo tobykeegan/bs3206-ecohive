@@ -56,10 +56,12 @@ class DeployHelper:
 
         port = self.get_free_port()
         self.log.info("Starting new container:")
-        self.log.info(self.run(f"docker run -d --name {container_name} -p {port}:3000 {self.image}:{self.branch}"))
-        time.sleep(3)
-        
-        if self.run(f'docker ps | grep {self.image}:{self.branch} | awk \'{{print $1}}\''):
+        container = self.run(f"docker run -d --name {container_name} -p {port}:3000 {self.image}:{self.branch}")
+        self.log.info("Container ID: " + container)
+        WAIT_TIME = 20
+        self.log.info("Waiting %d seconds to verify container up", WAIT_TIME)
+        time.sleep(WAIT_TIME)
+        if self.run(f'docker ps {container}'):
             self.log.info("Container appears to be up")
         else:
             self.fail("Container did not appear to start.")
