@@ -22,6 +22,8 @@ before_install:
 
 install:
   - bun install
+  - npx playwright install
+  - npx playwright install-deps
 
 jobs:
   include:
