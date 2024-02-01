@@ -32,7 +32,6 @@ class DeployHelper:
             "ecohive-ui": 3000,
             "ecohive-api" : 4000
             }
-        }
     
         
         
