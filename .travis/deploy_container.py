@@ -52,7 +52,7 @@ class DeployHelper:
         try:
             self.run(f"docker container rm {container_name}")
         except:
-            self.log.warning("No dangling container '{container_name}' to remove")
+            self.log.warning(f"No dangling container '{container_name}' to remove")
 
         port = self.get_free_port()
         self.log.info("Starting new container:")
@@ -77,8 +77,8 @@ class DeployHelper:
         self.log.fatal(reason)
         exit(1)
         
-    def container_is_running(self, container) -> bool:
-        running_count = int(self.run(f'docker ps | grep {container} | wc -l'))
+    def container_is_running(self, container_name) -> bool:
+        running_count = int(self.run(f'docker ps | grep \'{container_name}\' | wc -l'))
         return running_count > 0
 
     def docker_ps(self):
