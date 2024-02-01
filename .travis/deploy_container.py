@@ -61,7 +61,7 @@ class DeployHelper:
         WAIT_TIME = 20
         self.log.info("Waiting %d seconds to verify container up", WAIT_TIME)
         time.sleep(WAIT_TIME)
-        if self.run(f'docker ps {container}'):
+        if self.container_is_running(container):
             self.log.info("Container appears to be up")
         else:
             self.fail("Container did not appear to start.")
@@ -76,6 +76,10 @@ class DeployHelper:
     def fail(self, reason: str):
         self.log.fatal(reason)
         exit(1)
+        
+    def container_is_running(self, container) -> bool:
+        running_count = int(self.run(f'docker ps | grep {container} | wc -l'))
+        return running_count > 0
 
     def docker_ps(self):
         self.log.debug("$ docker ps ")
