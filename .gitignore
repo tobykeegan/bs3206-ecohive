@@ -41,3 +41,4 @@ bun.lockb
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+.travis/adv-soft-dev-stack-travis
