@@ -27,6 +27,12 @@ class DeployHelper:
         
         self.image = image
         self.branch = branch
+        
+        self.ports = {
+            "ecohive-ui": 3000,
+            "ecohive-api" : 4000
+            }
+        }
     
         
         
@@ -75,10 +81,18 @@ class DeployHelper:
         self.log.debug("\n" + self.run("docker ps"))
 
     def get_free_port(self):
-        self.log.info("Getting a free port")
+        
+        # If this is a production image, return the standard port
+        if self.branch == 'main':
+            return self.ports[self.image]
+        
+        self.log.info("Dev %s image, getting a free port", self.image)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        for port in range(3000,4000):
+        min_port = self.ports[self.image] + 1
+        max_port = min_port + 999
+        
+        for port in range(min_port, max_port):
             try:
                 s.bind(("127.0.0.1", port))
                 usable_port = port
