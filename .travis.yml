@@ -33,7 +33,7 @@ jobs:
               - bun run test
 
         - stage: Run Production Tests
-          if: branch = main AND type != pull_request
+          if: branch = main AND type = pull_request
           script:
               - npx playwright install
               - npx playwright install-deps > /dev/null
