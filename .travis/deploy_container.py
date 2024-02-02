@@ -88,6 +88,8 @@ class DeployHelper:
 
         port = self.get_free_port()
         
+        self.docker_ps()
+        
         
         self.log.info("Starting new container '%s'", container_name)
         
@@ -95,12 +97,13 @@ class DeployHelper:
         
         
         self.log.info("Started container with id '%s'", container_id[:12])
+        self.docker_ps()
         
         WAIT_TIME = 5
         
         self.log.info("Waiting %d seconds to verify container up", WAIT_TIME)
         time.sleep(WAIT_TIME)
-        
+        self.docker_ps()
         
         if self.container_is_running(container):
             self.log.info("Container appears to be up")
