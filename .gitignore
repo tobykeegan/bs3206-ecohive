@@ -8,7 +8,7 @@
 
 # testing
 /coverage
-/playwright-report
+/playwright-report/playwright-report
 # next.js
 /.next/
 /out/
@@ -41,4 +41,3 @@ bun.lockb
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-.travis/adv-soft-dev-stack-travis
