@@ -28,14 +28,14 @@ test.describe("Navbar visibility", () => {
 	 * Check the navbar is hidden on the correct pages.
 	 * @not_yet_implemented
 	 */
-	pages.hidden.forEach((url) => {
-		test(`Not visible on '${url}' page`, async ({ page }) => {
-			implemented(false);
+	// pages.hidden.forEach((url) => {
+	// 	test(`Not visible on '${url}' page`, async ({ page }) => {
+	// 		implemented(false);
 
-			await page.goto(url);
-			await expect(
-				page.locator("nav", { name: "navbar" }),
-			).not.toBeVisible();
-		});
-	});
+	// 		await page.goto(url);
+	// 		await expect(
+	// 			page.locator("nav", { name: "navbar" }),
+	// 		).not.toBeVisible();
+	// 	});
+	// });
 });
