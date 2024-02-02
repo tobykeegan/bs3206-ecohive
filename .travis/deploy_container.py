@@ -73,7 +73,7 @@ class DeployHelper:
                 self.log.info("Container '%s' successfully stopped", container_name)
                 break
             else:
-                self.fail("Container '%s' could not be stopped", container_name)
+                self.fail(f"Container '{container_name}' could not be stopped")
                 
                 
         try:

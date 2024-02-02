@@ -1,13 +1,15 @@
-FROM oven/bun:latest
+FROM oven/bun:latest 
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . .
 COPY .next .next
-
-ARG PORT
-EXPOSE 3000
 
 ENV NODE_ENV production
 
-CMD [ "bun", "start" ]
+EXPOSE 3000
+
+ENV PORT 3000
+# set hostname to localhost
+ENV HOSTNAME "0.0.0.0"
+
+CMD [ "bun", ".next/standalone/server.js" ]
