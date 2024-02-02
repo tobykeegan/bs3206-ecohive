@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker save ecohive-ui:$TRAVIS_BRANCH                       \
+| bzip2                                                      \
+| ssh -oStrictHostKeyChecking=no                             \
+      -i $SCRIPTS/key                                        \
+      -oPreferredAuthentications=publickey                   \
+    "$PRODUCTION_SERVER_USER"@"$PRODUCTION_SERVER_ADDRESS"   \
+docker load 
