@@ -1,4 +1,7 @@
 #!/bin/bash
+
+bun run build
+
 if [[ "$TRAVIS_BRANCH" == "main" ]]; then
     docker build -t "ecohive-ui:latest" .
 else
