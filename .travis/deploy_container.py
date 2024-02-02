@@ -65,7 +65,7 @@ class DeployHelper:
         self.log.info("Setting up a new instance of %s from branch %s", self.image, self.branch)
 
         if self.container_is_running(container_name):
-            self.log.info("'%s' is running, attempting to stop")
+            self.log.info("'%s' is running, attempting to stop", container_name)
             self.run(f"docker kill {container_name}")
         
         for _ in range(5):
@@ -105,14 +105,14 @@ class DeployHelper:
         time.sleep(WAIT_TIME)
         self.docker_ps()
         
-        if self.container_is_running(container):
+        if self.container_is_running(container_id):
             self.log.info("Container appears to be up")
         else:
             self.fail("Container did not appear to start.")
             
         self.docker_ps()
         
-        self.log.info("======= START DEPLOYMENT of '%s' =======", container_name)
+        self.log.info("======= END DEPLOYMENT of '%s' =======", container_name)
             
     def run(self, cmd):
         '''
@@ -134,6 +134,7 @@ class DeployHelper:
         the container name are found, which indicates if it is running.
         '''
         running_count = int(self.run(f'docker ps | grep \'{container_name}\' | wc -l'))
+        self.log.debug("Running count for '%s' was %d", container_name, running_count)
         return running_count > 0
 
     def docker_ps(self):
