@@ -1,7 +1,10 @@
+import Navbar from "./ui/Navbar";
+
 export default function Home() {
 	return (
 		<main>
-			<h1> Entry point to app </h1>
+			<Navbar />
+			<h1> Home page </h1>
 		</main>
 	);
 }
