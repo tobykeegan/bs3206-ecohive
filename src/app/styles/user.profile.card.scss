@@ -1,0 +1,6 @@
+@use "global";
+
+#userProfile {
+	background-color: global.$secondary;
+	height: fit-content;
+}

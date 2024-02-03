@@ -1,0 +1,9 @@
+@use "global";
+
+#sidebar {
+	background-color: global.$primary;
+}
+
+.btnTooltip {
+	color: global.$interaction;
+}
