@@ -2,20 +2,18 @@ import { expect, test } from "@playwright/test";
 import { implemented } from "./utils";
 
 /**
- *  Navbar visibility tests
+ *  Navbar visibility tests.
+ * @author Toby Keegan
  */
 test.describe("Navbar visibility", () => {
 	const pages = {
-		visible: ["/home", "/settings", "/events/feed", "/events/myevents"],
-		hidden: [
-			"/", // shouldn't ever be here!
-			"/login",
-			"/register",
-		],
+		visible: ["/", "/settings", "/events/feed", "/events/myevents"],
+		hidden: ["/login", "/register"],
 	};
 
 	/**
 	 * Check that the navbar is visible on the correct pages
+	 * @author Toby Keegan
 	 */
 	pages.visible.forEach((url) => {
 		test(`Visible on '${url}' page`, async ({ page }) => {
@@ -26,16 +24,14 @@ test.describe("Navbar visibility", () => {
 
 	/**
 	 * Check the navbar is hidden on the correct pages.
-	 * @not_yet_implemented
+	 * @author Toby Keegan
 	 */
-	// pages.hidden.forEach((url) => {
-	// 	test(`Not visible on '${url}' page`, async ({ page }) => {
-	// 		implemented(false);
-
-	// 		await page.goto(url);
-	// 		await expect(
-	// 			page.locator("nav", { name: "navbar" }),
-	// 		).not.toBeVisible();
-	// 	});
-	// });
+	pages.hidden.forEach((url) => {
+		test(`Not visible on '${url}' page`, async ({ page }) => {
+			await page.goto(url);
+			await expect(
+				page.locator("nav", { name: "navbar" }),
+			).not.toBeVisible();
+		});
+	});
 });
