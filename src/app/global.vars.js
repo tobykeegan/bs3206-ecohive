@@ -1,6 +1,6 @@
 module.exports = {
 	metadata: {
-		title: "Ecohive",
+		title: "EcoHive",
 		tagline: "Saving bees or something",
 	},
 };
