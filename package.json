@@ -13,6 +13,7 @@
 		"format": "prettier . --write",
 		"test:dev": "npx playwright test",
 		"test:prod": "NODE_ENV=production npx playwright test",
+		"test:gen": "npx playwright codegen localhost:3000/ ",
 		"test": "bun test:dev"
 	},
 	"dependencies": {
