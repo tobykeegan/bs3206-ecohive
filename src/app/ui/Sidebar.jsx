@@ -34,15 +34,15 @@ export function Sidebar({ ...props }) {
 			<Offcanvas.Body>
 				<Nav className="justify-content-start flex-grow-1 pe-3">
 					<NavDropdown title="Events">
-						<NavDropdown.Item href="/events/feed">
+						<NavDropdown.Item href="/events/discover">
 							Discover Events
 						</NavDropdown.Item>
 						<NavDropdown.Divider />
-						<NavDropdown.Item href="/events/myevents/upcoming">
+						<NavDropdown.Item href="/events/upcoming">
 							My Upcoming Events
 						</NavDropdown.Item>
 						<NavDropdown.Divider />
-						<NavDropdown.Item href="/events/myevents/history">
+						<NavDropdown.Item href="/events/history">
 							My Past Events
 						</NavDropdown.Item>
 					</NavDropdown>
