@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { implemented } from "./utils";
+import { implemented } from "../utils";
 
 /**
  *  Navbar visibility tests.
