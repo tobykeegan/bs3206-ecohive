@@ -1,53 +1,53 @@
 language: node_js
 
 node_js:
-    - 20
+  - 20
 
 env:
-    - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
+  - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
 
 cache:
-    npm: true
+  npm: true
 
 services:
-    - docker
+  - docker
 
 before_script:
-    - echo -e "Host $PRODUCTION_SERVER_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host $PRODUCTION_SERVER_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 before_install:
-    - curl -fsSL https://bun.sh/install | bash
-    - source ~/.bashrc
-    - bun --version
+  - curl -fsSL https://bun.sh/install | bash
+  - source ~/.bashrc
+  - bun --version
 
 install:
-    - bun install
+  - bun install
 
 jobs:
-    include:
-        - stage: Run Development Tests
-          if: branch != main AND type != pull_request
-          script:
-              - npx playwright install
-              - npx playwright install-deps > /dev/null
-              - bun run test
+  include:
+    - stage: Run Development Tests
+      if: branch != main AND type != pull_request
+      script:
+        - npx playwright install
+        - npx playwright install-deps > /dev/null
+        - bun run test
 
-        - stage: Run Production Tests
-          if: branch = main AND type = pull_request
-          script:
-              - npx playwright install
-              - npx playwright install-deps > /dev/null
-              - bun run test:prod
+    - stage: Run Production Tests
+      if: branch = main AND type = pull_request
+      script:
+        - npx playwright install
+        - npx playwright install-deps > /dev/null
+        - bun run test:prod
 
-        - stage: Code Linting
-          if: type = pull_request
-          script:
-              - bun run lint
+    - stage: Code Linting
+      if: type = pull_request
+      script:
+        - bun run lint
 
-        - stage: Deploy Backend Image
-          if: type != pull_request
-          script:
-              - $SCRIPTS/add_ssh_key
-              - $SCRIPTS/build_image
-              - $SCRIPTS/deploy_image
-              - $SCRIPTS/start_container
+    - stage: Deploy Backend Image
+      if: type != pull_request
+      script:
+        - $SCRIPTS/add_ssh_key
+        - $SCRIPTS/build_image
+        - $SCRIPTS/deploy_image
+        - $SCRIPTS/start_container

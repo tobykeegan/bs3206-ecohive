@@ -1,7 +1,7 @@
 {
-	"extends": [
-		"next/core-web-vitals",
-		"plugin:security/recommended-legacy",
-		"prettier"
-	]
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:security/recommended-legacy",
+    "prettier"
+  ]
 }

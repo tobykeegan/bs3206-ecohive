@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test } from '@playwright/test';
 
 /**
  * Skips the test if the functionality is not implemented.
@@ -6,7 +6,7 @@ import { test } from "@playwright/test";
  * @param {boolean} implemented
  */
 export const implemented = (implemented) => {
-	if (implemented === false && process.env.NODE_ENV != "production") {
-		test.skip(true, "Not implemented");
-	}
+  if (implemented === false && process.env.NODE_ENV != 'production') {
+    test.skip(true, 'Not implemented');
+  }
 };

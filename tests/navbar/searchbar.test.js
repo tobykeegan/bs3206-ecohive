@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
-import { implemented } from "../utils";
-import { metadata } from "../../src/app/global.vars";
+import { expect, test } from '@playwright/test';
+import { implemented } from '../utils';
+import { metadata } from '../../src/app/global.vars';
 /**
  *  Navbar Search Functionality Tests
  * @author Toby Keegan
@@ -11,24 +11,24 @@ import { metadata } from "../../src/app/global.vars";
  * website.
  */
 test.beforeEach(async ({ page }) => {
-	await page.goto("/");
+  await page.goto('/');
 });
 
-test.describe("Persistent Searchbar Functionality", () => {
-	test("Search bar is empty on load", async ({ page }) => {
-		const searchbar = await page.getByPlaceholder("Search");
+test.describe('Persistent Searchbar Functionality', () => {
+  test('Search bar is empty on load', async ({ page }) => {
+    const searchbar = await page.getByPlaceholder('Search');
 
-		// we initially expect the searchbar to be empty
-		await expect(searchbar).toBeEmpty();
-	});
+    // we initially expect the searchbar to be empty
+    await expect(searchbar).toBeEmpty();
+  });
 
-	test("Search bar can have text input", async ({ page }) => {
-		const searchbar = await page.getByPlaceholder("Search");
+  test('Search bar can have text input', async ({ page }) => {
+    const searchbar = await page.getByPlaceholder('Search');
 
-		const TEST_INPUT = "Hello, world!";
+    const TEST_INPUT = 'Hello, world!';
 
-		await searchbar.fill(TEST_INPUT);
+    await searchbar.fill(TEST_INPUT);
 
-		await expect(searchbar).toHaveValue(TEST_INPUT);
-	});
+    await expect(searchbar).toHaveValue(TEST_INPUT);
+  });
 });
