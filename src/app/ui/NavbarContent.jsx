@@ -15,7 +15,11 @@ import UserProfile from "./UserProfile";
  */
 export function NavbarContent({ ...props }) {
 	return (
-		<Navbar.Offcanvas show={props.visible} id="NavbarContent" placement="start">
+		<Navbar.Offcanvas
+			show={props.visible}
+			id="NavbarContent"
+			placement="start"
+		>
 			<Offcanvas.Header>
 				<div className="vertical-align">
 					<Offcanvas.Title>
@@ -28,7 +32,6 @@ export function NavbarContent({ ...props }) {
 							></Button>
 						</div>
 					</Offcanvas.Title>
-					
 				</div>
 			</Offcanvas.Header>
 			<Offcanvas.Body>

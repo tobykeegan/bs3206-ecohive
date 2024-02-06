@@ -33,7 +33,10 @@ function MainNavbar() {
 			<Container fluid>
 				<Navbar.Brand href="/">{metadata.title} 🐝</Navbar.Brand>
 
-				<NavbarContent visible={showNavbarContent} setVisible={toggleNavbarContent} />
+				<NavbarContent
+					visible={showNavbarContent}
+					setVisible={toggleNavbarContent}
+				/>
 				<Form id="globalSearch" className="d-flex">
 					<Form.Control
 						type="search"
