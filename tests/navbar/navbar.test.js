@@ -30,17 +30,17 @@ test.describe("Navbar Functionality", () => {
 				{
 					name: "Discover Events",
 					url: "/events/discover",
-					type: 'link'
+					type: "link",
 				},
 				{
 					name: "My Upcoming Events",
 					url: "/events/upcoming",
-					type: 'link'
+					type: "link",
 				},
 				{
 					name: "My Past Events",
 					url: "/events/history",
-					type: 'link'
+					type: "link",
 				},
 			],
 		},
@@ -56,12 +56,12 @@ test.describe("Navbar Functionality", () => {
 				{
 					name: "Settings",
 					url: "/settings",
-					type: 'link'
+					type: "link",
 				},
 				{
 					name: "Sign out",
 					url: null,
-					type: 'link'
+					type: "link",
 				},
 			],
 		},
@@ -83,24 +83,19 @@ test.describe("Navbar Functionality", () => {
 			 * assert that we have (correctly) collapsed the navbar
 			 * so no options are visible.
 			 */
+			const navbar = await page.getByRole(menu.type, {
+				name: menu.name,
+				exact: true,
+			});
+
 			if (isMobile) {
-				await expect(
-					page.getByRole(menu.type, {
-						name: menu.name,
-						exact: true,
-					}),
-				).not.toBeVisible();
+				await expect(navbar).not.toBeVisible();
 			} else {
 				/**
 				 * If this is a desktop, expect the object to
 				 * be visible.
 				 */
-				await expect(
-					page.getByRole(menu.type, {
-						name: menu.name,
-						exact: true,
-					}),
-				).toBeVisible();
+				await expect(navbar).toBeVisible();
 			}
 		});
 
@@ -130,28 +125,31 @@ test.describe("Navbar Functionality", () => {
 		 * and that clicking it correctly directs the user to the expected
 		 * page.
 		 */
-		if(menu.url){
-			test(`Menu '${menu.name}' directs to'${menu.url}'`, async ({page, isMobile})=>{
+		if (menu.url) {
+			test(`Menu '${menu.name}' directs to'${menu.url}'`, async ({
+				page,
+				isMobile,
+			}) => {
 				if (isMobile) {
 					// We're on a mobile device, so click the sidebar toggle
 					await page.getByLabel("Toggle navigation").click();
 				}
-				// Now click the menu to expand its sub-menus
-				await page
+				const submenu = await page
 					.getByRole(menu.type, {
 						name: menu.name,
 						exact: true,
 					})
+					// Now click the menu to expand its sub-menus
+
 					.click();
 				await expect(
 					page.getByRole(menu.type, {
 						name: menu.name,
 						exact: true,
 					}),
-				).toHaveAttribute('href', menu.url)
-			})
+				).toHaveAttribute("href", menu.url);
+			});
 		}
-
 
 		/**
 		 * Test that every dropdown menu item shows the correct links.
@@ -189,8 +187,11 @@ test.describe("Navbar Functionality", () => {
 			 * and that clicking it correctly directs the user to the expected
 			 * page.
 			 */
-			if(submenu.url){
-				test(`Submenu '${submenu.name}' directs to '${submenu.url}'`, async ({page, isMobile})=>{
+			if (submenu.url) {
+				test(`Submenu '${submenu.name}' directs to '${submenu.url}'`, async ({
+					page,
+					isMobile,
+				}) => {
 					if (isMobile) {
 						// We're on a mobile device, so click the sidebar toggle
 						await page.getByLabel("Toggle navigation").click();
@@ -208,11 +209,10 @@ test.describe("Navbar Functionality", () => {
 							name: submenu.name,
 							exact: true,
 						}),
-					).toHaveAttribute('href', submenu.url)
-				})
+					).toHaveAttribute("href", submenu.url);
+				});
 			}
 		});
-
 	});
 
 	/**
@@ -224,7 +224,4 @@ test.describe("Navbar Functionality", () => {
 		await expect(page.getByLabel("Search events")).toBeVisible();
 		await expect(page.getByLabel("Create Event")).toBeVisible();
 	});
-
-
-
 });
