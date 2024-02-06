@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { IoMdSearch } from "react-icons/io";
 import { metadata } from "../global.vars";
-import { Sidebar } from "./Sidebar";
+import { NavbarContent } from "./NavbarContent";
 import { useState, useCallback } from "react";
 import Tooltip from "@mui/joy/Tooltip";
 
@@ -19,13 +19,13 @@ import styles from "../styles/navbar.scss";
  * @author Toby Keegan
  */
 function MainNavbar() {
-	const [showSidebar, setShowSidebar] = useState(false);
+	const [showNavbarContent, setShowNavbarContent] = useState(false);
 
-	const toggleSidebar = useCallback(
+	const toggleNavbarContent = useCallback(
 		(value) => {
-			setShowSidebar(value);
+			setShowNavbarContent(value);
 		},
-		[setShowSidebar],
+		[setShowNavbarContent],
 	);
 
 	return (
@@ -33,8 +33,8 @@ function MainNavbar() {
 			<Container fluid>
 				<Navbar.Brand href="/">{metadata.title} 🐝</Navbar.Brand>
 
-				<Sidebar visible={showSidebar} setVisible={toggleSidebar} />
-				<Form className="d-flex">
+				<NavbarContent visible={showNavbarContent} setVisible={toggleNavbarContent} />
+				<Form id="globalSearch" className="d-flex">
 					<Form.Control
 						type="search"
 						placeholder="Search"
@@ -62,7 +62,7 @@ function MainNavbar() {
 				</Form>
 				<Navbar.Toggle
 					className="justify-content-right"
-					onClick={() => setShowSidebar(true)}
+					onClick={() => setShowNavbarContent(true)}
 				/>
 			</Container>
 		</Navbar>

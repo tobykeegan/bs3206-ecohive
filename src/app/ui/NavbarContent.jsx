@@ -4,18 +4,18 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { metadata } from "../global.vars";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, NavItem } from "react-bootstrap";
 import UserProfile from "./UserProfile";
 
 /**
  * The side bar that pops out of the screen when the
  * Navbar is collapsed.
- * @prop setVisible - toggle the visibility of the sidebar
+ * @prop setVisible - toggle the visibility of the NavbarContent
  * @author Toby Keegan
  */
-export function Sidebar({ ...props }) {
+export function NavbarContent({ ...props }) {
 	return (
-		<Navbar.Offcanvas show={props.visible} id="sidebar" placement="start">
+		<Navbar.Offcanvas show={props.visible} id="NavbarContent" placement="start">
 			<Offcanvas.Header>
 				<div className="vertical-align">
 					<Offcanvas.Title>
@@ -28,11 +28,15 @@ export function Sidebar({ ...props }) {
 							></Button>
 						</div>
 					</Offcanvas.Title>
-					<UserProfile />
+					
 				</div>
 			</Offcanvas.Header>
 			<Offcanvas.Body>
 				<Nav className="justify-content-start flex-grow-1 pe-3">
+					<NavItem>
+						{/* Only render the user profile in the NavbarContent */}
+						{props.visible ? <UserProfile /> : <></>}
+					</NavItem>
 					<NavDropdown title="Events">
 						<NavDropdown.Item href="/events/discover">
 							Discover Events
