@@ -6,7 +6,8 @@ import CardContent from "@mui/joy/CardContent";
 import Chip from "@mui/joy/Chip";
 import Typography from "@mui/joy/Typography";
 import { Skeleton } from "@mui/joy";
-
+import Image from 'next/image'
+import carlos from "../static/carlos.png"
 import style from "../styles/user.profile.card.scss";
 
 // TODO: Implement
@@ -28,12 +29,12 @@ export default function UserProfile() {
 			orientation="horizontal"
 		>
 			<AspectRatio ratio="1" sx={{ width: 90 }}>
-				<img
-					src="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90"
-					srcSet="https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90&dpr=2 2x"
-					loading="lazy"
-					alt=""
-				/>
+			<Image
+				src={carlos}
+				width={500}
+				height={500}
+				alt="Picture of the author"
+			/>
 			</AspectRatio>
 			<CardContent>
 				<Typography level="title-lg" id="card-description">
