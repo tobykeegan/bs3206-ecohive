@@ -9,8 +9,8 @@ const config = {
   testDir: 'tests',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
   fullyParallel: true,
-  workers: process.env.TEST_WORKERS || 2,
-  timeout: (process.env.TEST_TIMEOUT || 30) * 1000,
+  workers: parseInt(process.env.TEST_WORKERS) || 2,
+  timeout: (parseInt(process.env.TEST_TIMEOUT) || 30) * 1000,
 
   projects: [
     {
