@@ -12,28 +12,36 @@ import style from '../styles/user.profile.card.scss';
 
 // TODO: Implement
 const getUsername = () => {
-  return null;
+  let apiResponse = null;
+  return apiResponse || "Carlos";
 };
 
 // TODO: Implement
 const getLocation = () => {
-  return null;
+  let apiResponse = null;
+  return apiResponse || "Oil Rig \"K14\", North Sea";
 };
+
+// TODO: Implement
+const getProfileImg = () => {
+  let apiResponse = null;
+  return apiResponse || carlos;
+}
 
 export default function UserProfile() {
   return (
     <Card id="userProfile" variant="soft" size="lg" orientation="horizontal">
       <AspectRatio ratio="1" sx={{ width: 90 }}>
         <Image
-          src={carlos}
+          src={getProfileImg()}
           width={500}
           height={500}
-          alt="Picture of the author"
+          alt="Picture of Carlos"
         />
       </AspectRatio>
       <CardContent>
         <Typography level="title-lg" id="card-description">
-          {getUsername() || 'Carlos '}
+          {getUsername()}
         </Typography>
         <Typography level="body-sm" aria-describedby="card-description" mb={1}>
           <Link
@@ -42,7 +50,7 @@ export default function UserProfile() {
             href="#interactive-card"
             sx={{ color: 'text.tertiary' }}
           >
-            {getLocation() || 'Winchester, UK'}
+            {getLocation()}
           </Link>
         </Typography>
       </CardContent>
