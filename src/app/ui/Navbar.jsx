@@ -31,7 +31,7 @@ function MainNavbar() {
   return (
     <Navbar expand="md" className="mb-3" bg="primary">
       <Container fluid>
-        <Navbar.Brand href="/">{metadata.title} 🐝</Navbar.Brand>
+        <Navbar.Brand href="/">{metadata.title}</Navbar.Brand>
 
         <NavbarContent
           visible={showNavbarContent}

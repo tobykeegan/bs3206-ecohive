@@ -1,0 +1,5 @@
+@use '../global';
+
+.inputBox {
+  border-color: global.$primary;
+}
