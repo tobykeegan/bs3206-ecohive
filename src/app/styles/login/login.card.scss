@@ -5,19 +5,15 @@
   -webkit-text-stroke: 2px global.$secondary;
   font-size: 3em;
 }
-@media only screen and (min-width: 400px ) {
+@media only screen and (min-width: 400px) {
   #ecohiveNameTitle {
     font-size: 4em;
   }
 }
-@media only screen and (min-width: 500px ) {
+@media only screen and (min-width: 500px) {
   #ecohiveNameTitle {
     font-size: 5em;
   }
-}
-
-#loginButton {
-  background-color: global.$interaction;
 }
 
 #loginSecondaryHeader {
@@ -29,8 +25,11 @@
   display: inline;
 }
 
-
 #signUpLink {
   color: global.$interaction;
   display: inline;
+}
+
+#loginButton {
+  background-color: global.$interaction;
 }

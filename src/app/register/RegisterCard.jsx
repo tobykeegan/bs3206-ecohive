@@ -1,22 +1,18 @@
 'use client';
 import * as React from 'react';
-import { Button, Link, Sheet, Typography } from '@mui/joy';
-import { IoIosArrowRoundForward } from 'react-icons/io';
-import LoginForm from './LoginForm';
+import { Link, Sheet, Typography } from '@mui/joy';
+import { IoIosArrowRoundBack } from 'react-icons/io';
+import RegisterForm from './RegisterForm';
 import styles from '../styles/login/login.card.scss';
-import logo from '../static/ecohivelogo.png';
-import AspectRatio from '@mui/joy/AspectRatio';
-import Image from 'next/image';
-import LoginOAuth from './LoginOAuth';
-import { Ratio } from 'react-bootstrap';
+import RegisterOAuth from './RegisterOAuth';
 
-export default function LoginCard() {
+export default function RegisterCard() {
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (formData) => {
     try {
       const response = await fetch(
-        `http://${window.location.hostname}:3001/api/users/login`,
+        `http://${window.location.hostname}:3001/api/users/register`,
         {
           method: 'POST',
           headers: {
@@ -26,14 +22,13 @@ export default function LoginCard() {
         },
       );
 
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
       const data = await response.json();
-      console.log(data);
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
       setError('');
       // Using href for redirect to simulate a user click
-      window.location.href = '/';
+      window.location.href = '/login';
     } catch (error) {
       setError(error.message);
     }
@@ -56,26 +51,28 @@ export default function LoginCard() {
       variant="plain"
       id="loginCardSheet"
     >
-      <div id="titleDiv">
-        <Typography id="ecohiveNameTitle">ECOHIVE</Typography>
-      </div>
-      <div style={{ width: '80%' }}>
-        <Ratio aspectRatio={'1x1'}>
-          <Image src={logo} alt="Ecohive Logo" />
-        </Ratio>
-      </div>
+      <Link
+        sx={{
+          alignSelf: 'start',
+        }}
+        id="signUpLink"
+        underline="none"
+        href="/login"
+      >
+        <IoIosArrowRoundBack size={50} />
+      </Link>
       <div style={{ alignSelf: 'start' }}>
-        <Typography level="h1">Login</Typography>
+        <Typography level="h1">Create Account</Typography>
         <Typography id="loginSecondaryHeader" level="body-lg">
-          Please sign in to continue
+          Please fill the inputs below
         </Typography>
       </div>
-      <LoginForm error={error} onSubmit={handleSubmit} />
-      <LoginOAuth />
+      <RegisterForm error={error} onSubmit={handleSubmit} />
+      <RegisterOAuth />
       <Typography id="signUpHeader" level="h4">
-        Don't have an account?
-        <Link id="signUpLink" level="h4" underline="none" href="/register">
-          &nbsp;Sign up
+        Already have an account?
+        <Link id="signUpLink" level="h4" underline="none" href="/login">
+          &nbsp;Sign in
         </Link>
       </Typography>
     </Sheet>

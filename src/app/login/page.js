@@ -1,8 +1,9 @@
-import { Sheet } from '@mui/joy';
-import LoginForm from './LoginForm';
 import LoginCard from './LoginCard';
 import style from '../styles/login/login.scss';
 
+/**
+ * @author Alec Painter
+ */
 export default function Login() {
   return (
     <main

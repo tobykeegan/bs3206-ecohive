@@ -1,5 +1,18 @@
 @use '../global';
 
 .inputBox {
-  border-color: global.$primary;
+  border: 2px solid global.$primary;
+}
+
+#forgotPasswordLink {
+  color: global.$interaction;
+  text-decoration: none;
+}
+
+#loginButton {
+  background-color: global.$interaction;
+}
+
+#loginButton:disabled {
+  background-color: global.$interaction-disabled;
 }
