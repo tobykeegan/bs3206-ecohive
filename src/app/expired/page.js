@@ -1,11 +1,10 @@
-import { Sheet } from '@mui/joy';
+import ExpiredCard from './ExpiredCard';
 import style from '../styles/login/login.scss';
-import RegisterCard from './RegisterCard';
 
 /**
  * @author Alec Painter
  */
-export default function Register() {
+export default function Expired() {
   return (
     <main
       style={{
@@ -20,7 +19,7 @@ export default function Register() {
             width: '100%',
           }}
         >
-          <RegisterCard />
+          <ExpiredCard />
         </div>
       </div>
     </main>

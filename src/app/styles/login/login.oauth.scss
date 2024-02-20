@@ -1,0 +1,10 @@
+@use '../global';
+
+.oauthButton {
+  border: 1px solid global.$interaction;
+  font-size: 1.5em;
+}
+
+.oauthButton:hover {
+  background-color: global.$primary;
+}
