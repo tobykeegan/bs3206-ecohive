@@ -8,7 +8,7 @@ const config = {
   webServer: {
     command: `bun run ${process.env.NODE_ENV || 'development'}`,
     port: 3000,
-    timeout: (parseInt(process.env.WEB_TIMEOUT) || 30) * 1000,
+    timeout: (parseInt(process.env.WEB_TIMEOUT) || 60) * 1000,
   },
   testDir: 'tests',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
@@ -21,18 +21,6 @@ const config = {
       name: '(Desktop) Chrome',
       use: { ...devices['Desktop Chrome'] },
     },
-    // {
-    // 	name: "(Desktop) Firefox",
-    // 	use: { ...devices["Desktop Firefox"] },
-    // },
-    // {
-    // 	name: "(Desktop) Safari",
-    // 	use: { ...devices["Desktop Safari"] },
-    // },
-    // {
-    // 	name: "(Mobile) Chrome",
-    // 	use: { ...devices["Pixel 7"] },
-    // },
     {
       name: '(Mobile) Safari',
       use: { ...devices['iPhone 14'] },
