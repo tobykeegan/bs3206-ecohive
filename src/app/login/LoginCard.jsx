@@ -73,7 +73,7 @@ export default function LoginCard() {
       <LoginForm error={error} onSubmit={handleSubmit} />
       <LoginOAuth />
       <Typography id="signUpHeader" level="h4">
-        Don't have an account?
+        Don&apos;t have an account?
         <Link id="signUpLink" level="h4" underline="none" href="/register">
           &nbsp;Sign up
         </Link>
