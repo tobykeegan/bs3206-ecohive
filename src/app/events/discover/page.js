@@ -1,6 +1,7 @@
+'use server'
 import Navbar from '@/app/ui/Navbar';
-import Event from '../Event';
-
+import EventCard from '../EventCard';
+import Event from '@/app/api/models/event.model';
 /**
  * Returns event information from the API.
  * @param eventId     The Object ID of the event you want
@@ -34,13 +35,18 @@ const getEventInfo = () => {
   };
   return event;
 };
-export default function Discover() {
+
+async function discoverEvents(){
+
+}
+
+export default async function Discover() {
   return (
     <main>
       <Navbar />
       <h1> Discover events feed page template </h1>
 
-      <Event details={getEventInfo()} />
+      <EventCard details={getEventInfo()} />
     </main>
   );
 }

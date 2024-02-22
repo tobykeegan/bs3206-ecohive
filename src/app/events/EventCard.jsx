@@ -1,3 +1,4 @@
+'use server'
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
@@ -20,7 +21,8 @@ import Image from 'next/image';
 import { Chip } from '@mui/joy';
 import TagList from './TagList';
 import trees from '../static/default_event.jpeg';
-export default async function Event({ ...props }) {
+
+export default async function EventCard({ ...props }) {
   const event = props.details;
 
   return (
