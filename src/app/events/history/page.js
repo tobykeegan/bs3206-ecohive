@@ -5,8 +5,6 @@ export default function History() {
     <main>
       <Navbar />
       <h1> Events history page template </h1>
-
-
     </main>
   );
 }
