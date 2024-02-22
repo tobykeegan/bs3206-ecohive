@@ -19,7 +19,7 @@ export async function connect() {
     });
 
     client.on('error', (err) => {
-      logger.err('MongoDB connection error: ' + err);
+      logger.error('MongoDB connection error: ' + err);
       process.exit();
     });
 
@@ -27,6 +27,6 @@ export async function connect() {
       logger.debug('MongoDB connection disconnected');
     });
   } catch (error) {
-    logger.err(error);
+    logger.error(error);
   }
 }
