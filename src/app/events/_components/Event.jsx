@@ -109,7 +109,16 @@ export default async function Event({ ...props }) {
           more
         </Link>
 
-        <TagList tags={['Tag 1', 'Tag 2']} />
+        <TagList tags={[
+          {
+            name: "Tag 1",
+            colour : "primary"
+          },
+          {
+            name: "Tag 2",
+            colour : "secondary"
+          }
+        ]} />
       </CardContent>
       <CardContent orientation="horizontal" sx={{ gap: 1 }}>
         <IconButton size="sm" variant="plain" color="neutral" sx={{ ml: -1 }}>

@@ -1,0 +1,6 @@
+@use '../global.scss';
+
+
+:export {
+    chip-colour: global.$additional;
+}
