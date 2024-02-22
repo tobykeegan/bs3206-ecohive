@@ -6,6 +6,6 @@ const PingSchema = new Schema({
   ip: String,
 });
 
-const Ping = mongoose.models.pings || mongoose.model('Ping', PingSchema);
+const Ping = mongoose.models.Ping || mongoose.model('Ping', PingSchema);
 
 export default Ping;
