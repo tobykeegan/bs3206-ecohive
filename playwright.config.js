@@ -1,10 +1,14 @@
 import { devices } from '@playwright/test';
 
+
+
+
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 const config = {
   webServer: {
-    command: `bun run ${process.env.NODE_ENV || 'dev'}`,
+    command: `bun run ${process.env.NODE_ENV || 'development'}`,
     port: 3000,
+    timeout: (parseInt(process.env.WEB_TIMEOUT) || 30) * 1000,
   },
   testDir: 'tests',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
