@@ -19,7 +19,7 @@ import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded
 import Image from 'next/image';
 import { Chip } from '@mui/joy';
 import TagList from './TagList';
-
+import trees from '../../static/default_event.jpeg';
 export default async function Event({ ...props }) {
   const event = props.details;
 
@@ -58,7 +58,10 @@ export default async function Event({ ...props }) {
       </CardContent>
       <CardOverflow>
         <AspectRatio>
-          <Image src="/static/images/cards/yosemite.jpeg" alt="" loading="lazy" />
+          <Image 
+          src={trees}
+          width="200" 
+          height="200"></Image>
         </AspectRatio>
       </CardOverflow>
       <CardContent
