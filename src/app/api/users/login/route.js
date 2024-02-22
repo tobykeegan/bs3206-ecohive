@@ -1,8 +1,9 @@
-import logger from '@/utils/logger';
+import logger from '@/app/api/utils/logger';
 import { connect } from '@/app/api/services/mongoose.service';
 import bcrypt from 'bcrypt';
 import User from '@/app/api/models/user.model';
 import { NextResponse } from 'next/server';
+import { createSession } from '../../services/sessions.service';
 
 connect();
 
@@ -35,11 +36,19 @@ export async function POST(req) {
       );
     }
 
-    // TODO: Session management stuffs
-
     const response = NextResponse.json({
       message: 'User authenticated',
       success: true,
+    });
+
+    const sessionId = await createSession(user);
+    response.cookies.set({
+      name: 'session',
+      value: sessionId,
+      httpOnly: true, // Only send the cookie over HTTP requests
+      maxAge: 3600, // Max age of 1 hour (in seconds)
+      sameSite: 'lax', // Only allow requests to this origin to include the cookie
+      path: '/',
     });
 
     return response;

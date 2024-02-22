@@ -6,6 +6,7 @@ import RegisterForm from './RegisterForm';
 import styles from '../styles/login/login.card.scss';
 import RegisterOAuth from './RegisterOAuth';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function RegisterCard() {
   const router = useRouter();

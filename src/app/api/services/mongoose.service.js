@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { mongo } from '../../../utils/globals';
-import logger from '../../../utils/logger';
+import { mongo } from '../utils/globals';
+import logger from '../utils/logger';
 
 /**
  * Makes a connection to the mongoDB (will use existing if it can)
@@ -19,7 +19,7 @@ export async function connect() {
     });
 
     client.on('error', (err) => {
-      logger.err('MongoDB connection error: ' + err);
+      logger.error('MongoDB connection error: ' + err);
       process.exit();
     });
 
@@ -27,6 +27,6 @@ export async function connect() {
       logger.debug('MongoDB connection disconnected');
     });
   } catch (error) {
-    logger.err(error);
+    logger.error(error);
   }
 }

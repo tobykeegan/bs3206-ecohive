@@ -1,4 +1,4 @@
-import logger from '@/utils/logger';
+import logger from '@/app/api/utils/logger';
 import { connect } from '@/app/api/services/mongoose.service';
 import bcrypt from 'bcrypt';
 import User from '@/app/api/models/user.model';
