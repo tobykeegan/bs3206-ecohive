@@ -16,7 +16,7 @@ import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 import SendOutlined from '@mui/icons-material/SendOutlined';
 import Face from '@mui/icons-material/Face';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
-
+import Image from 'next/image';
 import { Chip } from '@mui/joy';
 import TagList from './TagList';
 
@@ -58,7 +58,7 @@ export default async function Event({ ...props }) {
       </CardContent>
       <CardOverflow>
         <AspectRatio>
-          <img src="/static/images/cards/yosemite.jpeg" alt="" loading="lazy" />
+          <Image src="/static/images/cards/yosemite.jpeg" alt="" loading="lazy" />
         </AspectRatio>
       </CardOverflow>
       <CardContent
@@ -78,8 +78,7 @@ export default async function Event({ ...props }) {
         </Box>
         <Box
           sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mx: 'auto' }}
-        >
-        </Box>
+        ></Box>
         <Box sx={{ width: 0, display: 'flex', flexDirection: 'row-reverse' }}>
           <IconButton variant="plain" color="neutral" size="sm">
             <BookmarkBorderRoundedIcon />
@@ -96,9 +95,7 @@ export default async function Event({ ...props }) {
         >
           1305 sign ups
         </Link>
-        <Typography fontSize="sm">
-          {event.description}
-        </Typography>
+        <Typography fontSize="sm">{event.description}</Typography>
         <Link
           component="button"
           underline="none"
@@ -109,16 +106,18 @@ export default async function Event({ ...props }) {
           more
         </Link>
 
-        <TagList tags={[
-          {
-            name: "Tag 1",
-            colour : "primary"
-          },
-          {
-            name: "Tag 2",
-            colour : "secondary"
-          }
-        ]} />
+        <TagList
+          tags={[
+            {
+              name: 'Tag 1',
+              colour: 'primary',
+            },
+            {
+              name: 'Tag 2',
+              colour: 'secondary',
+            },
+          ]}
+        />
       </CardContent>
       <CardContent orientation="horizontal" sx={{ gap: 1 }}>
         <IconButton size="sm" variant="plain" color="neutral" sx={{ ml: -1 }}>
