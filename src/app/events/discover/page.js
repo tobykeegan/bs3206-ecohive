@@ -1,5 +1,5 @@
 import Navbar from '@/app/ui/Navbar';
-import Event from '../_components/Event';
+import Event from '../Event';
 
 /**
  * Returns event information from the API.
