@@ -58,7 +58,12 @@ export default async function Event({ ...props }) {
       </CardContent>
       <CardOverflow>
         <AspectRatio>
-          <Image src={trees} alt="Default event image" width="200" height="200"></Image>
+          <Image
+            src={trees}
+            alt="Default event image"
+            width="200"
+            height="200"
+          ></Image>
         </AspectRatio>
       </CardOverflow>
       <CardContent
