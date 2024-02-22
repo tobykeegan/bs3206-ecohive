@@ -17,7 +17,7 @@ export async function POST(req) {
     const { email, password } = reqBody;
 
     // Check if user exists
-    var user = await User.findOne({ 'details.email': email });
+    const user = await User.findOne({ 'details.email': email });
     if (!user) {
       logger.debug(`User '${email}' doesn't exist`);
       return NextResponse.json(

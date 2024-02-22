@@ -9,6 +9,7 @@ const config = {
     command: `bun run ${process.env.NODE_ENV || 'dev'}`,
     port: 3000,
     reuseExistingServer: true,
+    timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
   },
   testDir: 'tests',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,

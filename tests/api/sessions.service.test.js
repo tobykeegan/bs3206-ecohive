@@ -25,7 +25,7 @@ test.describe('Create a new user session', () => {
       passwordHash: 'abc',
     });
     const sessionID = await createSession(testUser);
-    var session = await Session.findById(sessionID);
+    let session = await Session.findById(sessionID);
     expect(session).toBeDefined();
     expect(session.userId).toEqual(testUser.id);
   });

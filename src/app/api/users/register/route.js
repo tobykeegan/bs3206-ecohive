@@ -12,11 +12,11 @@ connect();
  */
 export async function POST(req) {
   const reqBody = await req.json();
-  var { fullName, displayName, email, password } = reqBody;
+  let { fullName, displayName, email, password } = reqBody;
   logger.debug(`Attempting to register new user: ${email}`);
   try {
     // Check if user exists
-    var user = await User.findOne({ 'details.email': email });
+    let user = await User.findOne({ 'details.email': email });
     if (user) {
       logger.warn(`User '${email}' already exists`);
       return NextResponse.json(
