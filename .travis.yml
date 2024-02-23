@@ -28,27 +28,33 @@ before_install:
 install:
   - bun install
 
+stages:
+  - Code Linting
+  - Development Tests
+  - Production Tests
+  - Deploy
+
 jobs:
   include:
     - stage: Code Linting
       if: type = pull_request
       script:
         - bun run lint
-    - stage: Run Development Tests
+    - stage: Development Tests
       if: branch != main AND type != pull_request
       script:
         - npx playwright install
         - npx playwright install-deps > /dev/null
         - bun run test
 
-    - stage: Run Production Tests
+    - stage: Production Tests
       if: type = pull_request
       script:
         - npx playwright install
         - npx playwright install-deps > /dev/null
         - bun run test:prod
 
-    - stage: Deploy Backend Image
+    - stage: Deploy
       if: type != pull_request
       script:
         - $SCRIPTS/add_ssh_key
