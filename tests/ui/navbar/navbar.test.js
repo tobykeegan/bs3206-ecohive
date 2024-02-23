@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { implemented } from '../utils';
-import { metadata } from '../../src/app/global.vars';
+import { implemented } from '../../utils';
+import { metadata } from '../../../src/app/global.vars';
 /**
  *  Navbar Functionality Tests
  * @author Toby Keegan

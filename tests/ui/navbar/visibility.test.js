@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { implemented } from '../utils';
+import { implemented } from '../../utils';
 
 /**
  *  Navbar visibility tests.
@@ -7,7 +7,13 @@ import { implemented } from '../utils';
  */
 test.describe('Navbar visibility', () => {
   const pages = {
-    visible: ['/', '/settings', '/events/feed', '/events/myevents'],
+    visible: [
+      '/',
+      '/settings',
+      '/events/discover',
+      '/events/history',
+      '/events/upcoming',
+    ],
     hidden: ['/login', '/register'],
   };
 
