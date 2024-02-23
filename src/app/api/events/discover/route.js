@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connect } from '../../services/mongoose.service';
+import { connect } from '@/services/mongoose';
 
 connect();
 

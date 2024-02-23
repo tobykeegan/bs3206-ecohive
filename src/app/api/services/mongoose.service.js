@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-import { mongo } from '../utils/globals';
-import logger from '../utils/logger';
+import { mongo } from '@/utils/globals';
+import logger from '@/utils/logger';
+
 require('dotenv').config();
 /**
  * Makes a connection to the mongoDB (will use existing if it can)
