@@ -13,6 +13,6 @@ const SessionSchema = new Schema({
 });
 
 const Session =
-  mongoose.models.sessions || mongoose.model('sessions', SessionSchema);
+  mongoose.models.Session || mongoose.model('Session', SessionSchema);
 
 export default Session;
