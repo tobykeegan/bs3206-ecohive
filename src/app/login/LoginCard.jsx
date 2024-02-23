@@ -9,33 +9,23 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Image from 'next/image';
 import LoginOAuth from './LoginOAuth';
 import { Ratio } from 'react-bootstrap';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function LoginCard() {
+  const router = useRouter();
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await fetch(
-        `http://${window.location.hostname}:3001/api/users/login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        },
+      const response = await axios.post(
+        '/api/users/login',
+        JSON.stringify(formData),
       );
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      console.log(data);
       setError('');
-      // Using href for redirect to simulate a user click
-      window.location.href = '/';
+      router.push('/');
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data.message);
     }
   };
 

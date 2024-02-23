@@ -5,32 +5,23 @@ import { IoIosArrowRoundBack } from 'react-icons/io';
 import RegisterForm from './RegisterForm';
 import styles from '../styles/login/login.card.scss';
 import RegisterOAuth from './RegisterOAuth';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function RegisterCard() {
+  const router = useRouter();
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await fetch(
-        `http://${window.location.hostname}:3001/api/users/register`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        },
+      const response = await axios.post(
+        '/api/users/register',
+        JSON.stringify(formData),
       );
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
       setError('');
-      // Using href for redirect to simulate a user click
-      window.location.href = '/login';
+      router.push('/login');
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data.message);
     }
   };
 

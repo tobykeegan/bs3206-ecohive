@@ -9,9 +9,8 @@ import { Typography, Button } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 
 export default function LoginForm({ onSubmit, error }) {
-  const [loading, setLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -41,21 +40,19 @@ export default function LoginForm({ onSubmit, error }) {
       <FormControl>
         <Input
           className="inputBox"
-          // html input attribute
-          name="username"
+          name="email"
           type="email"
           placeholder="Email"
           variant="outlined"
           startDecorator={<IoMdMail />}
           required
-          value={formData.username}
+          value={formData.email}
           onChange={handleChange}
         />
       </FormControl>
       <FormControl>
         <Input
           className="inputBox"
-          // html input attribute
           name="password"
           type="password"
           placeholder="Password"
