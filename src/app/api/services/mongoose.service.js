@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { mongo } from '../utils/globals';
 import logger from '../utils/logger';
-
+require('dotenv').config();
 /**
  * Makes a connection to the mongoDB (will use existing if it can)
  * @author Alec Painter
@@ -15,7 +15,7 @@ export async function connect() {
     const client = mongoose.connection;
 
     client.on('connected', () => {
-      logger.debug('MongoDB connected successfully');
+      logger.info(`MongoDB connected to '${mongo.db}' successfully`);
     });
 
     client.on('error', (err) => {
@@ -24,7 +24,7 @@ export async function connect() {
     });
 
     client.on('disconnected', () => {
-      logger.debug('MongoDB connection disconnected');
+      logger.warn('MongoDB connection disconnected');
     });
   } catch (error) {
     logger.error(error);

@@ -9,7 +9,7 @@ export default async function Discover() {
       <Navbar />
       <h1> Discover events feed page template </h1>
 
-      <EventCard details={getEventInfo()} />
+      {/* <EventCard/> */}
     </main>
   );
 }
