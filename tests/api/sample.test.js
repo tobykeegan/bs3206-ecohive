@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-
+import { mongo } from '@/utils/globals'
 require('dotenv').config();
 
 const IM_A_TEAPOT = 418;
@@ -16,7 +16,7 @@ test.describe('GET /api/ping', () => {
       expect.objectContaining({
         message: 'pong',
         dbstate: {
-          name: process.env.DB_VERSION,
+          name: mongo.db,
           state: 'connected',
         },
       }),
