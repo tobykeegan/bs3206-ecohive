@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+require('dotenv').config()
+
 const IM_A_TEAPOT = 418;
 
 test.describe('GET /api/ping', () => {
@@ -12,10 +14,12 @@ test.describe('GET /api/ping', () => {
 
     expect(body).toEqual(
       expect.objectContaining({
-        message: 'pong',
+        "message": 'pong',
+        "dbstate" : {
+          "name" : process.env.DB_VERSION,
+          "state" : "connected"
+        }
       }),
     );
-
-    expect(body.message).toBe('pong');
   });
 });

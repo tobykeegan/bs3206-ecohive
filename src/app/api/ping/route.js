@@ -22,7 +22,11 @@ export async function GET(request) {
   } catch (err) {
     console.log(err);
     res.message = 'thud';
-    res.dbstate = 'failed';
+    res.dbstate = {
+      name: mongo.db,
+      state: 'disconnected',
+      reason: err.codeName,
+    };
     res.error = err;
   }
 
