@@ -3,9 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
-
-
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 const config = {
   webServer: {

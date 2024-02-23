@@ -48,7 +48,6 @@ jobs:
         - npx playwright install-deps > /dev/null
         - bun run test:prod
 
-
     - stage: Deploy Backend Image
       if: type != pull_request
       script:
