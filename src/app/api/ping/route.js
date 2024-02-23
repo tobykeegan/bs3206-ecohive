@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import Ping from '@/models/ping'
-import { connect } from '@/services/mongoose'
+import Ping from '@/models/ping';
+import { connect } from '@/services/mongoose';
 import { mongo } from '@/utils/globals';
 
 connect();
