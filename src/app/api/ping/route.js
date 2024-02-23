@@ -13,8 +13,8 @@ export async function GET(request) {
     message: 'pong',
     dbstate: {
       name: mongo.db,
-      state: 'connected'
-    }
+      state: 'connected',
+    },
   };
   try {
     await thisPing.save();
