@@ -1,0 +1,55 @@
+@use 'global';
+
+// Styling overrides when the screen is wider than desktop
+@media (min-width: 600px) {
+    #Welcome-Row {
+        flex-direction: row !important;
+        padding: 24px !important;
+        gap: 12px !important;
+    }
+    #Welcome-Card {
+        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px, rgba(21, 21, 21, 0.08) 0px 2px 8px;
+        max-width: 320px;
+    }
+    #Event-Search-Card {
+        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px, rgba(21, 21, 21, 0.08) 0px 2px 8px;
+        width: 600px;
+    }
+    #Event-Search-Card-Heading {
+        font-size: 1.2rem;
+    }
+    #About-EcoHive {
+        padding: 12px; 
+    }
+    #About-EchoHive-Heading {
+        font-size: 1.2rem;
+    }
+    #About-EcoHive-Text {
+        font-size: 1.1rem;
+    }
+    .search-label {
+        font-size: 1.1rem;
+    }
+    .search-input {
+        font-size: 1.0rem;
+    }
+}
+
+#Search-Button {
+    background-color: global.$interaction;
+    border: global.$interaction;
+    color: white;
+}
+
+#Hashtag {
+    color: global.$additional-dark !important;
+}
+
+.search-input {
+    border-color: global.$primary;
+}
+
+.home-link {
+    color: global.$interaction !important;
+    display: inline;
+}
