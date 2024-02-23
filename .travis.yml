@@ -6,8 +6,9 @@ node_js:
   - 20
 
 env:
-  - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
-  - WEB_TIMEOUT=360
+  global: 
+    - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
+    - WEB_TIMEOUT=360
 
 cache:
   npm: true
