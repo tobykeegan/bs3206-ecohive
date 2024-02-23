@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { mongo } from '@/utils/globals'
+import { mongo } from '@/utils/globals';
+
 require('dotenv').config();
 
 const IM_A_TEAPOT = 418;
