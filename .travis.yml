@@ -6,7 +6,7 @@ node_js:
   - 20
 
 env:
-  global: 
+  global:
     - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
     - WEB_TIMEOUT=360
 
@@ -28,12 +28,6 @@ before_install:
 
 install:
   - bun install
-
-# stages:
-#   - Code Linting
-#   - Development Tests
-#   - Production Tests
-#   - Deploy
 
 jobs:
   include:
