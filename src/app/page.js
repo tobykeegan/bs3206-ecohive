@@ -14,52 +14,48 @@ import styles from './styles/home.scss';
  */
 export default function Home() {
   return (
-
     <main
       style={{
         height: '100vh',
-      }}>
-
+      }}
+    >
       <Navbar />
 
       <div
-        id='HomePage'
+        id="HomePage"
         style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           width: '100%',
-        }}>
-
-          <div 
-              id='Welcome-Row'
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100vw',
-                justifyContent: 'center',
-                gap: 0,
-                padding: 0,
-              }}>
-
-              <WelcomeCard/>
-
-              <Divider></Divider>
-
-              <EventSearchCard/>
-            
-          </div>
+        }}
+      >
+        <div
+          id="Welcome-Row"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100vw',
+            justifyContent: 'center',
+            gap: 0,
+            padding: 0,
+          }}
+        >
+          <WelcomeCard />
 
           <Divider></Divider>
 
-          <AboutEcoHiveCard/>
-
-          <Divider></Divider>
-   
-          <HomeLinks/>
-            
+          <EventSearchCard />
         </div>
-        
+
+        <Divider></Divider>
+
+        <AboutEcoHiveCard />
+
+        <Divider></Divider>
+
+        <HomeLinks />
+      </div>
     </main>
   );
 }
