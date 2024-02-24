@@ -39,7 +39,7 @@ export default function HomeLinks() {
         className="home-link"
         level="body-xs"
         underline="always"
-        // href="/settings"
+        href="/settings"
         color="global.$interaction"
       >
         Settings
