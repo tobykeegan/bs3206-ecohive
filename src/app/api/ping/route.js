@@ -3,7 +3,7 @@ import Ping from '@/models/ping';
 import { connect } from '@/services/mongoose';
 import { mongo } from '@/utils/globals';
 
-connect();
+await connect();
 
 const IM_A_TEAPOT = 418;
 
