@@ -3,13 +3,13 @@ import Link from '@mui/joy/Link';
 import styles from '../styles/home.scss';
 
 /**
- * Links at the bottom of the site for user navigation.
+ * Footer with link at the bottom of the site for user navigation.
  * @author Jade Carino
  */
-export default function FooterLinks() {
+export default function Footer() {
   return (
     <div
-      id='Footer-Links'
+      id="Footer"
       style={{
         display: 'flex',
         flexDirection: 'row',

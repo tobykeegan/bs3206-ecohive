@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Divider from '@mui/joy/Divider';
 
-import FooterLinks from './ui/FooterLinks';
+import Footer from './ui/Footer';
 import WelcomeCard from './home/WelcomeCard';
 import EventSearchCard from './home/EventSearchCard';
 import AboutEcoHiveCard from './home/AboutEcoHiveCard';
@@ -43,21 +43,18 @@ export default function Home() {
         >
           <WelcomeCard />
 
-          <Divider></Divider>
+          <Divider />
 
           <EventSearchCard />
         </div>
 
-        <Divider></Divider>
+        <Divider />
 
         <AboutEcoHiveCard />
-
-        <Divider></Divider>
-
       </div>
 
-      <FooterLinks />
-
+      <Divider />
+      <Footer />
     </main>
   );
 }
