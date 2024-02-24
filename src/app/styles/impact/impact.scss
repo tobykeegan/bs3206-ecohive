@@ -1,0 +1,31 @@
+@use '../global';
+
+// Styling overrides for when the screen is medium or larger
+@media (min-width: 600px) {
+  #Impact-Page {
+    flex-direction: row !important;
+  }
+  #Points-Column {
+    padding: 24px !important;
+    gap: 12px !important;
+    max-width: 600px;
+  }
+  #Points-Card {
+    box-shadow:
+      rgb(0, 0, 0) 0px 0px 0px 0px,
+      rgba(21, 21, 21, 0.08) 0px 2px 8px;
+  }
+  #Leaderboard-Card {
+    box-shadow:
+      rgb(0, 0, 0) 0px 0px 0px 0px,
+      rgba(21, 21, 21, 0.08) 0px 2px 8px;
+  }
+  #Badges-Column {
+    padding: 24px !important;
+  }
+  #Badges-Card {
+    box-shadow:
+      rgb(0, 0, 0) 0px 0px 0px 0px,
+      rgba(21, 21, 21, 0.08) 0px 2px 8px;
+  }
+}
