@@ -22,7 +22,7 @@ export default function Home() {
       <Navbar />
 
       <div
-        id="HomePage"
+        id="Home-Page"
         style={{
           display: 'flex',
           flexDirection: 'column',
