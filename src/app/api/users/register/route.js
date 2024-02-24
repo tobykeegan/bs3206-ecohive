@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import User from '@/models/user';
 import { NextResponse } from 'next/server';
 
-connect();
+await connect();
 
 /**
  * Register a new user

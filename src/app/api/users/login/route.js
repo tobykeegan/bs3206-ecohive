@@ -5,7 +5,7 @@ import User from '@/models/user';
 import { NextResponse } from 'next/server';
 import { createSession } from '@/services/sessions';
 
-connect();
+await connect();
 
 /**
  * Handle a login request
