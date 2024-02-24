@@ -3,12 +3,13 @@ import Link from '@mui/joy/Link';
 import styles from '../styles/home.scss';
 
 /**
- * Links at the bottom of the Home page for user navigation.
+ * Links at the bottom of the site for user navigation.
  * @author Jade Carino
  */
-export default function HomeLinks() {
+export default function FooterLinks() {
   return (
     <div
+      id='Footer-Links'
       style={{
         display: 'flex',
         flexDirection: 'row',
@@ -20,7 +21,7 @@ export default function HomeLinks() {
       }}
     >
       <Link
-        className="home-link"
+        className="footer-link"
         level="body-xs"
         underline="always"
         color="global.$interaction"
@@ -28,7 +29,7 @@ export default function HomeLinks() {
         Privacy Policy
       </Link>
       <Link
-        className="home-link"
+        className="footer-link"
         level="body-xs"
         underline="always"
         color="global.$interaction"
@@ -36,7 +37,7 @@ export default function HomeLinks() {
         Terms of Use
       </Link>
       <Link
-        className="home-link"
+        className="footer-link"
         level="body-xs"
         underline="always"
         href="/settings"
@@ -45,7 +46,7 @@ export default function HomeLinks() {
         Settings
       </Link>
       <Link
-        className="home-link"
+        className="footer-link"
         level="body-xs"
         underline="always"
         color="global.$interaction"
