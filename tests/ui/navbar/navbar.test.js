@@ -172,8 +172,8 @@ test.describe('Navbar Functionality', () => {
 
         // Assert that the submenu is visible
         await expect(
-          page.locator('#NavbarContent :text-is("' + submenu.name + '")')
-        ).toBeVisible()
+          page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
+        ).toBeVisible();
       });
 
       /**
