@@ -1,4 +1,4 @@
-import Navbar from './ui/Navbar';
+import Navbar from '@/components/Navbar';
 import Divider from '@mui/joy/Divider';
 
 import HomeLinks from './home/HomeLinks';

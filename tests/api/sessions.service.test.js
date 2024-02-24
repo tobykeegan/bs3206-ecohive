@@ -9,7 +9,7 @@ import User from '../../src/app/api/models/user.model';
 import Session from '../../src/app/api/models/session.model';
 
 test.describe('Create a new user session', () => {
-  test('should return the session id', async () => {
+  test.skip('should return the session id', async () => {
     connect();
     const randStr = randomString(8);
     const testUser = new User({

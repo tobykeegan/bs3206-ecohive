@@ -1,10 +1,14 @@
 language: node_js
 
+script: 'true'
+
 node_js:
   - 20
 
 env:
-  - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
+  global:
+    - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
+    - WEB_TIMEOUT=360
 
 cache:
   npm: true
@@ -27,26 +31,26 @@ install:
 
 jobs:
   include:
-    - stage: Run Development Tests
+    - stage: Code Linting
+      if: type = pull_request
+      script:
+        - bun run lint
+
+    - stage: Development Tests
       if: branch != main AND type != pull_request
       script:
         - npx playwright install
         - npx playwright install-deps > /dev/null
         - bun run test
 
-    - stage: Run Production Tests
+    - stage: Production Tests
       if: type = pull_request
       script:
         - npx playwright install
         - npx playwright install-deps > /dev/null
         - bun run test:prod
 
-    - stage: Code Linting
-      if: type = pull_request
-      script:
-        - bun run lint
-
-    - stage: Deploy Backend Image
+    - stage: Deploy
       if: type != pull_request
       script:
         - $SCRIPTS/add_ssh_key

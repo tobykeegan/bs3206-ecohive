@@ -1,5 +1,5 @@
-import Session from '../models/session.model';
-import User from '../models/user.model';
+import Session from '@/models/session';
+import User from '@/models/user';
 
 /**
  * Returns a new session expiry date
