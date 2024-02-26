@@ -172,10 +172,7 @@ test.describe('Navbar Functionality', () => {
 
         // Assert that the submenu is visible
         await expect(
-          page.getByRole('link', {
-            name: submenu.name,
-            exact: true,
-          }),
+          page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
         ).toBeVisible();
       });
 
@@ -202,10 +199,7 @@ test.describe('Navbar Functionality', () => {
             .click();
           // check the href
           await expect(
-            page.getByRole(submenu.type, {
-              name: submenu.name,
-              exact: true,
-            }),
+            page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
           ).toHaveAttribute('href', submenu.url);
         });
       }
