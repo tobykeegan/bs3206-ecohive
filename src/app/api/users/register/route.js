@@ -1,10 +1,10 @@
-import logger from '@/app/api/utils/logger';
-import { connect } from '@/app/api/services/mongoose.service';
+import logger from '@/utils/logger';
+import { connect } from '@/services/mongoose';
 import bcrypt from 'bcrypt';
-import User from '@/app/api/models/user.model';
+import User from '@/models/user';
 import { NextResponse } from 'next/server';
 
-connect();
+await connect();
 
 /**
  * Register a new user
