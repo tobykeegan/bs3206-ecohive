@@ -11,7 +11,7 @@ import { useState, useCallback } from 'react';
 import Tooltip from '@mui/joy/Tooltip';
 
 // this is needed to tell the sass compiler where to look
-import styles from '../styles/navbar.scss';
+import styles from '@/styles/navbar';
 
 /**
  * The primary navbar component to be shared across all pages of

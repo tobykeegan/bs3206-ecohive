@@ -6,7 +6,7 @@ import WelcomeCard from './home/WelcomeCard';
 import EventSearchCard from './home/EventSearchCard';
 import AboutEcoHiveCard from './home/AboutEcoHiveCard';
 
-import styles from './styles/home.scss';
+import styles from '@/styles/home';
 
 /**
  * The Home page.

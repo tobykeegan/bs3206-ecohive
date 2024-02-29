@@ -1,5 +1,5 @@
 import ExpiredCard from './ExpiredCard';
-import style from '../styles/login/login.scss';
+import style from '@/styles/login/login';
 
 /**
  * @author Alec Painter

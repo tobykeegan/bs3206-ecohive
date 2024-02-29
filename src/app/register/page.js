@@ -1,5 +1,5 @@
 import { Sheet } from '@mui/joy';
-import style from '../styles/login/login.scss';
+import style from '@/styles/login/login';
 import RegisterCard from './RegisterCard';
 
 /**

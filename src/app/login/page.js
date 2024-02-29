@@ -1,5 +1,5 @@
 import LoginCard from './LoginCard';
-import style from '../styles/login/login.scss';
+import style from '@/styles/login/login';
 
 /**
  * @author Alec Painter
