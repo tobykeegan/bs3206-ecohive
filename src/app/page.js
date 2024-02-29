@@ -53,8 +53,10 @@ export default function Home() {
         <AboutEcoHiveCard />
       </div>
 
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }
