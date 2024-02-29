@@ -12,7 +12,6 @@ import Image from 'next/image';
 import defaultEventImg from '@/static/default_event.jpeg';
 import { Badge, Stack } from 'react-bootstrap';
 import styles from '../styles/events/styles.scss';
-import getRandomColour from '@/utils/colours';
 const getFormattedDate = (convertDate) => {
   let date = new Date(convertDate);
   if (date.toString() === 'Invalid Date') return 'N/A';
