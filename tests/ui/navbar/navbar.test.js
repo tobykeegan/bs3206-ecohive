@@ -24,6 +24,8 @@ test.describe('Navbar Functionality', () => {
   const menus = [
     {
       name: 'Events',
+      desktop: true,
+      mobile: true,
       type: 'button',
       url: null,
       submenus: [
@@ -46,11 +48,15 @@ test.describe('Navbar Functionality', () => {
     },
     {
       name: 'My Impact',
+      desktop: true,
+      mobile: true,
       type: 'link',
       submenus: [],
     },
     {
       name: 'My Account',
+      desktop: false,
+      mobile: true,
       type: 'button',
       submenus: [
         {
@@ -64,6 +70,22 @@ test.describe('Navbar Functionality', () => {
           type: 'link',
         },
       ],
+    },
+    {
+      name: 'Settings',
+      desktop: true,
+      mobile: false,
+      url: '/settings',
+      type: 'link',
+      submenus: [],
+    },
+    {
+      name: 'Sign out',
+      desktop: true,
+      mobile: false,
+      url: null,
+      type: 'button',
+      submenus: [],
     },
   ];
 
@@ -92,7 +114,11 @@ test.describe('Navbar Functionality', () => {
          * If this is a desktop, expect the object to
          * be visible.
          */
-        await expect(navbar).toBeVisible();
+        if (menu.desktop) {
+          await expect(navbar).toBeVisible();
+        } else {
+          await expect(navbar).not.toBeVisible();
+        }
       }
     });
 
@@ -109,12 +135,21 @@ test.describe('Navbar Functionality', () => {
         // First we must click the toggle
         await page.getByLabel('Toggle navigation').click();
         // Now check the contents are visible
-        await expect(
-          page.getByRole(menu.type, {
-            name: menu.name,
-            exact: true,
-          }),
-        ).toBeVisible();
+        if (menu.mobile) {
+          await expect(
+            page.getByRole(menu.type, {
+              name: menu.name,
+              exact: true,
+            }),
+          ).toBeVisible();
+        } else {
+          await expect(
+            page.getByRole(menu.type, {
+              name: menu.name,
+              exact: true,
+            }),
+          ).not.toBeVisible();
+        }
       }
     });
     /**
@@ -137,7 +172,6 @@ test.describe('Navbar Functionality', () => {
             exact: true,
           })
           // Now click the menu to expand its sub-menus
-
           .click();
         await expect(
           page.getByRole(menu.type, {
@@ -163,17 +197,19 @@ test.describe('Navbar Functionality', () => {
           await page.getByLabel('Toggle navigation').click();
         }
         // Now click the menu to expand its sub-menus
-        await page
-          .getByRole(menu.type, {
-            name: menu.name,
-            exact: true,
-          })
-          .click();
+        if ((isMobile && menu.mobile) || (!isMobile && menu.desktop)) {
+          await page
+            .getByRole(menu.type, {
+              name: menu.name,
+              exact: true,
+            })
+            .click();
 
-        // Assert that the submenu is visible
-        await expect(
-          page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
-        ).toBeVisible();
+          // Assert that the submenu is visible
+          await expect(
+            page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
+          ).toBeVisible();
+        }
       });
 
       /**
@@ -191,16 +227,18 @@ test.describe('Navbar Functionality', () => {
             await page.getByLabel('Toggle navigation').click();
           }
           // Now click the menu to expand its sub-menus
-          await page
-            .getByRole(menu.type, {
-              name: menu.name,
-              exact: true,
-            })
-            .click();
-          // check the href
-          await expect(
-            page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
-          ).toHaveAttribute('href', submenu.url);
+          if ((isMobile && menu.mobile) || (!isMobile && menu.desktop)) {
+            await page
+              .getByRole(menu.type, {
+                name: menu.name,
+                exact: true,
+              })
+              .click();
+            // check the href
+            await expect(
+              page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
+            ).toHaveAttribute('href', submenu.url);
+          }
         });
       }
     });

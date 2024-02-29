@@ -11,16 +11,11 @@ import carlos from '../static/carlos.png';
 import style from '../styles/user.profile.card.scss';
 
 // TODO: Implement
-const getUsername = () => {
-  return null;
-};
-
-// TODO: Implement
 const getLocation = () => {
   return null;
 };
 
-export default function UserProfile() {
+export default function UserProfile({ session }) {
   return (
     <Card id="userProfile" variant="soft" size="lg" orientation="horizontal">
       <AspectRatio ratio="1" sx={{ width: 90 }}>
@@ -33,7 +28,7 @@ export default function UserProfile() {
       </AspectRatio>
       <CardContent>
         <Typography level="title-lg" id="card-description">
-          {getUsername() || 'Carlos '}
+          {session.user.name.first || 'Carlos '}
         </Typography>
         <Typography level="body-sm" aria-describedby="card-description" mb={1}>
           <Link

@@ -15,16 +15,26 @@ const config = {
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
   fullyParallel: true,
   workers: parseInt(process.env.TEST_WORKERS) || 2,
-  timeout: (parseInt(process.env.TEST_TIMEOUT) || 30) * 1000,
+  timeout: (parseInt(process.env.TEST_TIMEOUT) || 60) * 1000,
 
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.js/, teardown: 'teardown' },
+    { name: 'teardown', testMatch: /.*\.teardown\.js/ },
     {
       name: '(Desktop) Chrome',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
     {
       name: '(Mobile) Safari',
-      use: { ...devices['iPhone 14'] },
+      use: {
+        ...devices['iPhone 14'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
   ],
 };

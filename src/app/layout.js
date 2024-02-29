@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/global';
 import Navbar from '@/components/Navbar';
 import globals from './global.vars';
+import { getServerSession } from 'next-auth';
+import SessionProvider from './ui/SessionProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -12,14 +14,17 @@ export const metadata = {
   description: globals.metadata.tagline,
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await getServerSession();
   return (
     <html lang="en">
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       <body className={inter.className}>
-        <section>{children}</section>
+        <SessionProvider session={session}>
+          <section>{children}</section>
+        </SessionProvider>
       </body>
     </html>
   );

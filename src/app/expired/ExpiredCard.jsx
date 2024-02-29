@@ -1,8 +1,8 @@
-'use client';
 import * as React from 'react';
-import { Button, Link, Sheet, Typography } from '@mui/joy';
+import { Sheet, Typography } from '@mui/joy';
 import styles from '../styles/login/login.card.scss';
 import { FaClockRotateLeft } from 'react-icons/fa6';
+import ReturnToLoginButton from './ReturnToLoginButton';
 
 export default function ExpiredCard() {
   return (
@@ -46,15 +46,7 @@ export default function ExpiredCard() {
           It appears your session has expired, all you need to do is login again
         </Typography>
         <br />
-        <Button
-          onClick={() => {
-            window.location.replace('/login');
-          }}
-          size="lg"
-          id="loginButton"
-        >
-          Return to Login
-        </Button>
+        <ReturnToLoginButton />
       </div>
     </Sheet>
   );
