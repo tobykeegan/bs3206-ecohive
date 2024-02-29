@@ -7,8 +7,10 @@ export default function History() {
     <main>
       <Navbar />
       <h1> Events history page template </h1>
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

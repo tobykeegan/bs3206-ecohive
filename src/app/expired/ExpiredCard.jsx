@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Button, Link, Sheet, Typography } from '@mui/joy';
-import styles from '../styles/login/login.card.scss';
+import styles from '@/styles/login/login.card';
 import { FaClockRotateLeft } from 'react-icons/fa6';
 
 export default function ExpiredCard() {

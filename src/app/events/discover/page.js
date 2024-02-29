@@ -22,8 +22,11 @@ export default async function Discover() {
       <Navbar />
       <div id="eventsContainer">{eventCards}</div>
 
-      <Divider />
-      <Footer />
+      {/* <EventCard/> */}
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

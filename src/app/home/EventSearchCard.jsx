@@ -12,7 +12,7 @@ import { FaRegCalendarAlt } from 'react-icons/fa';
 import { SlLocationPin } from 'react-icons/sl';
 import { GoTag } from 'react-icons/go';
 
-import styles from '../styles/home.scss';
+import styles from '@/styles/home';
 
 /**
  * The card for the Home page that lets the user search for events.
