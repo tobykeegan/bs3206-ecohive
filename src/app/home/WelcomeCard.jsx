@@ -3,7 +3,7 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import UserProfile from '../ui/UserProfile';
 
-import styles from '../styles/home.scss';
+import styles from '@/styles/home';
 
 // TODO: Implement
 const getPersonalImpactOffset = () => {

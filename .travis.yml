@@ -51,7 +51,7 @@ jobs:
         - bun run test:prod
 
     - stage: Deploy
-      if: type != pull_request
+      if: branch = main AND type != pull_request
       script:
         - $SCRIPTS/add_ssh_key
         - $SCRIPTS/build_image

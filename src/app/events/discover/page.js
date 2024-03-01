@@ -23,8 +23,10 @@ export default async function Discover() {
       <h1> Discover events feed page template </h1>
 
       {/* <EventCard/> */}
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

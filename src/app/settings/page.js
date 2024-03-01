@@ -20,8 +20,10 @@ export default async function Settings() {
     <main>
       <Navbar />
       <h1> Settings page template </h1>
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

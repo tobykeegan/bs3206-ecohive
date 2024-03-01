@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button, Link, Sheet, Typography } from '@mui/joy';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import LoginForm from './LoginForm';
-import styles from '../styles/login/login.card.scss';
+import styles from '@/styles/login/login.card';
 import logo from '../static/ecohivelogo.png';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Image from 'next/image';

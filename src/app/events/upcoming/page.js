@@ -18,8 +18,10 @@ export default async function Feed() {
     <main>
       <Navbar />
       <h1> Upcoming events feed page template </h1>
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

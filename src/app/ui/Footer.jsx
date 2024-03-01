@@ -1,6 +1,6 @@
 import Link from '@mui/joy/Link';
 
-import styles from '../styles/home.scss';
+import styles from '@/styles/home';
 
 /**
  * Footer with link at the bottom of the site for user navigation.

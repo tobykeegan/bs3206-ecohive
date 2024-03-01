@@ -39,6 +39,14 @@
   }
 }
 
+@media (min-width: 650px) {
+  #Footer-Div {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
 #Search-Button {
   background-color: global.$interaction;
   border: global.$interaction;

@@ -1,4 +1,3 @@
-import { signOut, useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import Divider from '@mui/joy/Divider';
 import { redirect } from 'next/navigation';
@@ -8,9 +7,9 @@ import WelcomeCard from './home/WelcomeCard';
 import EventSearchCard from './home/EventSearchCard';
 import AboutEcoHiveCard from './home/AboutEcoHiveCard';
 
-import styles from './styles/home.scss';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route';
+import styles from '@/styles/home';
 
 /**
  * The Home page.
@@ -66,8 +65,10 @@ export default async function Home() {
         <AboutEcoHiveCard />
       </div>
 
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

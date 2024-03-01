@@ -8,7 +8,7 @@ import Typography from '@mui/joy/Typography';
 import { Skeleton } from '@mui/joy';
 import Image from 'next/image';
 import carlos from '../static/carlos.png';
-import style from '../styles/user.profile.card.scss';
+import style from '@/styles/user.profile.card';
 
 // TODO: Implement
 const getLocation = () => {

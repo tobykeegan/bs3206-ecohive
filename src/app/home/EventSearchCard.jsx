@@ -12,7 +12,7 @@ import { FaRegCalendarAlt } from 'react-icons/fa';
 import { SlLocationPin } from 'react-icons/sl';
 import { GoTag } from 'react-icons/go';
 
-import styles from '../styles/home.scss';
+import styles from '@/styles/home';
 
 /**
  * The card for the Home page that lets the user search for events.
@@ -49,23 +49,19 @@ export default function EventSearchCard() {
             gap: 10,
           }}
         >
-          <FormControl
-            sx={{
-              gap: 1,
-            }}
+          <Row
+            className="justify-content-between"
+            xs={1}
+            md={2}
+            style={{ rowGap: '4px' }}
           >
-            <Row
-              className="justify-content-between"
-              xs={1}
-              md={2}
-              style={{ rowGap: '4px' }}
-            >
-              <Col md={4}>
-                <Typography className="search-label" level="body-md">
-                  Location
-                </Typography>
-              </Col>
-              <Col md={8}>
+            <Col md={4}>
+              <Typography className="search-label" level="body-md">
+                Location
+              </Typography>
+            </Col>
+            <Col md={8}>
+              <FormControl>
                 <Input
                   className="search-input"
                   name="location"
@@ -75,20 +71,22 @@ export default function EventSearchCard() {
                   size="sm"
                   startDecorator={<SlLocationPin />}
                 />
-              </Col>
-            </Row>
-            <Row
-              className="justify-content-between"
-              xs={1}
-              md={2}
-              style={{ rowGap: '4px' }}
-            >
-              <Col md={4}>
-                <Typography className="search-label" level="body-md">
-                  Event Type
-                </Typography>
-              </Col>
-              <Col md={8}>
+              </FormControl>
+            </Col>
+          </Row>
+          <Row
+            className="justify-content-between"
+            xs={1}
+            md={2}
+            style={{ rowGap: '4px' }}
+          >
+            <Col md={4}>
+              <Typography className="search-label" level="body-md">
+                Event Type
+              </Typography>
+            </Col>
+            <Col md={8}>
+              <FormControl>
                 <Autocomplete
                   options={[
                     'Demonstration',
@@ -102,20 +100,22 @@ export default function EventSearchCard() {
                   size="sm"
                   startDecorator={<CiSquarePlus />}
                 />
-              </Col>
-            </Row>
-            <Row
-              className="justify-content-between"
-              xs={1}
-              md={2}
-              style={{ rowGap: '4px' }}
-            >
-              <Col md={4}>
-                <Typography className="search-label" level="body-md">
-                  Attendee Limit
-                </Typography>
-              </Col>
-              <Col md={8}>
+              </FormControl>
+            </Col>
+          </Row>
+          <Row
+            className="justify-content-between"
+            xs={1}
+            md={2}
+            style={{ rowGap: '4px' }}
+          >
+            <Col md={4}>
+              <Typography className="search-label" level="body-md">
+                Attendee Limit
+              </Typography>
+            </Col>
+            <Col md={8}>
+              <FormControl>
                 <Input
                   className="search-input"
                   name="attendees"
@@ -125,20 +125,22 @@ export default function EventSearchCard() {
                   size="sm"
                   startDecorator={<CiSquarePlus />}
                 />
-              </Col>
-            </Row>
-            <Row
-              className="justify-content-between"
-              xs={1}
-              md={2}
-              style={{ rowGap: '4px' }}
-            >
-              <Col md={4}>
-                <Typography className="search-label" level="body-md">
-                  Date
-                </Typography>
-              </Col>
-              <Col md={8}>
+              </FormControl>
+            </Col>
+          </Row>
+          <Row
+            className="justify-content-between"
+            xs={1}
+            md={2}
+            style={{ rowGap: '4px' }}
+          >
+            <Col md={4}>
+              <Typography className="search-label" level="body-md">
+                Date
+              </Typography>
+            </Col>
+            <Col md={8}>
+              <FormControl>
                 <Input
                   className="search-input"
                   name="date"
@@ -148,20 +150,22 @@ export default function EventSearchCard() {
                   size="sm"
                   startDecorator={<FaRegCalendarAlt />}
                 />
-              </Col>
-            </Row>
-            <Row
-              className="justify-content-between"
-              xs={1}
-              md={2}
-              style={{ rowGap: '4px' }}
-            >
-              <Col md={4}>
-                <Typography className="search-label" level="body-md">
-                  Tags
-                </Typography>
-              </Col>
-              <Col md={8}>
+              </FormControl>
+            </Col>
+          </Row>
+          <Row
+            className="justify-content-between"
+            xs={1}
+            md={2}
+            style={{ rowGap: '4px' }}
+          >
+            <Col md={4}>
+              <Typography className="search-label" level="body-md">
+                Tags
+              </Typography>
+            </Col>
+            <Col md={8}>
+              <FormControl>
                 <Input
                   className="search-input"
                   name="tags"
@@ -171,9 +175,9 @@ export default function EventSearchCard() {
                   size="sm"
                   startDecorator={<GoTag />}
                 />
-              </Col>
-            </Row>
-          </FormControl>
+              </FormControl>
+            </Col>
+          </Row>
         </form>
 
         <Button
