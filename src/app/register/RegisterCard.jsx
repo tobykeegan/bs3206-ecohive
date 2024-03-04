@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link, Sheet, Typography } from '@mui/joy';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import RegisterForm from './RegisterForm';
-import styles from '../styles/login/login.card.scss';
+import styles from '@/styles/login/login.card';
 import RegisterOAuth from './RegisterOAuth';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';

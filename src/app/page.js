@@ -6,7 +6,7 @@ import WelcomeCard from './home/WelcomeCard';
 import EventSearchCard from './home/EventSearchCard';
 import AboutEcoHiveCard from './home/AboutEcoHiveCard';
 
-import styles from './styles/home.scss';
+import styles from '@/styles/home';
 
 /**
  * The Home page.
@@ -53,8 +53,10 @@ export default function Home() {
         <AboutEcoHiveCard />
       </div>
 
-      <Divider />
-      <Footer />
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
+      </div>
     </main>
   );
 }

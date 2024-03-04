@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from '../styles/login/login.oauth.scss';
+import styles from '@/styles/login/login.oauth';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
 import { IconButton } from '@mui/joy';
