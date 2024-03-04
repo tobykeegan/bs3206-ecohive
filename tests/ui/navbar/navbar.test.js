@@ -72,7 +72,7 @@ test.describe('Navbar Functionality', () => {
       ],
     },
     {
-      name: 'Settings',
+      name: 'Settings icon',
       desktop: true,
       mobile: false,
       url: '/settings',
@@ -80,7 +80,7 @@ test.describe('Navbar Functionality', () => {
       submenus: [],
     },
     {
-      name: 'Sign out',
+      name: 'Sign out icon',
       desktop: true,
       mobile: false,
       url: null,
@@ -106,6 +106,10 @@ test.describe('Navbar Functionality', () => {
         name: menu.name,
         exact: true,
       });
+
+      console.log(
+        `type: ${menu.type}; name: ${menu.name}; navbar: ${navbar}; isMobile: ${isMobile}; desktop: ${menu.desktop}`,
+      );
 
       if (isMobile) {
         await expect(navbar).not.toBeVisible();

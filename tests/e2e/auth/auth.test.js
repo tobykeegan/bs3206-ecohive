@@ -66,8 +66,8 @@ test('Authentication end-to-end', async ({ page }) => {
   expect(response.status()).toBe(200);
 
   // 6. Redirected to home page
-  await page.waitForURL('');
-  await expect(page).toHaveURL('');
+  await page.waitForURL('/');
+  await expect(page).toHaveURL('/');
 
   // 7. Check if session has loaded
   let sessionToken = await getCookie(page, 'next-auth.session-token');

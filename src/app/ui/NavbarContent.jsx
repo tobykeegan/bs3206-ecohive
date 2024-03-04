@@ -75,14 +75,18 @@ export function NavbarContent({ ...props }) {
           ) : (
             <Nav>
               <Nav.Link
-                title="Settings"
+                title="Settings icon"
                 onClick={() => {
                   router.push('/settings');
                 }}
               >
                 <IoMdSettings size={25} />
               </Nav.Link>
-              <Nav.Link title="Sign out" id="sign-out-button" onClick={signOut}>
+              <Nav.Link
+                title="Sign out icon"
+                id="sign-out-button"
+                onClick={signOut}
+              >
                 <PiSignOut size={25} />
               </Nav.Link>
             </Nav>
