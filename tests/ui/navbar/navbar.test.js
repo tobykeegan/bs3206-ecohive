@@ -76,7 +76,7 @@ test.describe('Navbar Functionality', () => {
       desktop: true,
       mobile: false,
       url: '/settings',
-      type: 'button',
+      type: 'link',
       submenus: [],
     },
     {
