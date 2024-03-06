@@ -74,12 +74,7 @@ export function NavbarContent({ ...props }) {
             </NavDropdown>
           ) : (
             <Nav>
-              <Nav.Link
-                title="Settings icon"
-                onClick={() => {
-                  router.push('/settings');
-                }}
-              >
+              <Nav.Link href="/settings" title="Settings icon">
                 <IoMdSettings size={25} />
               </Nav.Link>
               <Nav.Link
