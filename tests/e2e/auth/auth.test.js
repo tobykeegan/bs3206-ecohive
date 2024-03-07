@@ -74,7 +74,7 @@ test('Authentication end-to-end', async ({ page }) => {
   expect(sessionToken).toBeDefined();
 
   // 8. Log out
-  await page.locator('#sign-out-button').click();
+  await page.getByRole('button', { name: 'Sign out icon' }).click();
   await expect(page).toHaveURL(/login.*/);
   sessionToken = await getCookie(page, 'next-auth.session-token');
   expect(sessionToken).toBeNull();
