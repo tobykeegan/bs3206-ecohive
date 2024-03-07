@@ -166,19 +166,21 @@ test.describe('Navbar Functionality', () => {
           // We're on a mobile device, so click the sidebar toggle
           await page.getByLabel('Toggle navigation').click();
         }
-        const submenu = await page
-          .getByRole(menu.type, {
-            name: menu.name,
-            exact: true,
-          })
-          // Now click the menu to expand its sub-menus
-          .click();
-        await expect(
-          page.getByRole(menu.type, {
-            name: menu.name,
-            exact: true,
-          }),
-        ).toHaveAttribute('href', menu.url);
+        if ((isMobile && menu.mobile) || (!isMobile && menu.desktop)) {
+          const submenu = await page
+            .getByRole(menu.type, {
+              name: menu.name,
+              exact: true,
+            })
+            // Now click the menu to expand its sub-menus
+            .click();
+          await expect(
+            page.getByRole(menu.type, {
+              name: menu.name,
+              exact: true,
+            }),
+          ).toHaveAttribute('href', menu.url);
+        }
       });
     }
 

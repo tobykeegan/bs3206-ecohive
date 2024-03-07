@@ -25,7 +25,7 @@ test.afterEach(async () => {
   User.findOneAndDelete({ 'details.email': userInfo.email });
 });
 
-test('Authentication end-to-end', async ({ page }) => {
+test('Authentication end-to-end', async ({ page, isMobile }) => {
   // 2. Attempt to log in (user won't exist)
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
@@ -74,7 +74,16 @@ test('Authentication end-to-end', async ({ page }) => {
   expect(sessionToken).toBeDefined();
 
   // 8. Log out
-  await page.getByRole('button', { name: 'Sign out icon' }).click();
+  if (isMobile) {
+    // click navbar
+    await page.getByLabel('Toggle navigation').click();
+
+    // Open menu to get to sign out option
+    await page.getByRole('button', { name: 'My Account' }).click();
+    await page.getByRole('link', { name: 'Sign out' }).click();
+  } else {
+    await page.getByRole('button', { name: 'Sign out icon' }).click();
+  }
   await expect(page).toHaveURL(/login.*/);
   sessionToken = await getCookie(page, 'next-auth.session-token');
   expect(sessionToken).toBeNull();
