@@ -107,10 +107,6 @@ test.describe('Navbar Functionality', () => {
         exact: true,
       });
 
-      console.log(
-        `type: ${menu.type}; name: ${menu.name}; navbar: ${navbar}; isMobile: ${isMobile}; desktop: ${menu.desktop}`,
-      );
-
       if (isMobile) {
         await expect(navbar).not.toBeVisible();
       } else {
