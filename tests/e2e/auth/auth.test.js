@@ -80,7 +80,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
 
     // Open menu to get to sign out option
     await page.getByRole('button', { name: 'My Account' }).click();
-    await page.getByRole('link', { name: 'Sign out' }).click();
+    await page.getByRole('button', { name: 'Sign out' }).click();
   } else {
     await page.getByRole('button', { name: 'Sign out icon' }).click();
   }

@@ -70,7 +70,7 @@ export function NavbarContent({ ...props }) {
             <NavDropdown title="My Account">
               <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#signout">Sign out</NavDropdown.Item>
+              <NavDropdown.Item onClick={signOut}>Sign out</NavDropdown.Item>
             </NavDropdown>
           ) : (
             <Nav>

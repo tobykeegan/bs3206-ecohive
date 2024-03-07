@@ -67,7 +67,7 @@ test.describe('Navbar Functionality', () => {
         {
           name: 'Sign out',
           url: null,
-          type: 'link',
+          type: 'button',
         },
       ],
     },
