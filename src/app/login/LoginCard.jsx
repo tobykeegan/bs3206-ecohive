@@ -11,22 +11,27 @@ import LoginOAuth from './LoginOAuth';
 import { Ratio } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { signIn } from 'next-auth/react';
 
 export default function LoginCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (formData) => {
-    try {
-      const response = await axios.post(
-        '/api/users/login',
-        JSON.stringify(formData),
-      );
-      setError('');
-      router.push('/');
-    } catch (error) {
-      setError(error.response.data.message);
+    const response = await signIn('credentials', {
+      callbackUrl: '/',
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (!response.ok) {
+      setError(response.error);
+      return;
     }
+
+    setError('');
+    router.push(response.url);
   };
 
   return (

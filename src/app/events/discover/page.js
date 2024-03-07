@@ -8,8 +8,18 @@ import { URL } from '@/utils/globals';
 import style from '../../styles/events/styles.scss';
 import PageHeader from '../PageHeader';
 import CollapsibleEventSearch from '../CollapsibleEventSearch';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export default async function Discover() {
+  /**
+   * Protect server route if unauthenticated & get session
+   * @author Alec Painter
+   */
+  const session = await getServerSession();
+  if (!session || !session.user) {
+    redirect('/api/auth/signin');
+  }
   let eventCards;
   try {
     let res = await axios.get(`${URL}/api/events/discover`);
@@ -19,7 +29,6 @@ export default async function Discover() {
   } catch (err) {
     console.log(err);
   }
-
   return (
     <main>
       <Navbar />
