@@ -3,6 +3,8 @@ import { connect } from '@/services/mongoose';
 import bcrypt from 'bcrypt';
 import User from '@/models/user';
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/api/auth/[...nextauth]/route';
 
 await connect();
 
@@ -47,16 +49,12 @@ export async function POST(req) {
     fullName = toTitleCase(fullName);
     const name = fullName.split(' ');
 
-    const saltRounds = 12;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     if (displayName == null || displayName == '') {
       displayName = fullName;
     }
 
     // Create new user
-    const newUser = new User({
+    await User.create({
       name: {
         first: name[0],
         last: name[1],
@@ -65,19 +63,44 @@ export async function POST(req) {
       details: {
         email: email,
       },
-      score: {
-        level: 0,
-        points: 0,
-      },
-      passwordHash: hashedPassword,
+      password: password,
     });
-    logger.debug(`Saving new user: ${email}`);
-    await newUser.save();
 
     return NextResponse.json({ message: 'User created' }, { status: 201 });
   } catch (err) {
-    return NextResponse.json({ message: err.message }, { status: 500 });
+    logger.error(err);
+    const errors = err.errors;
+    return NextResponse.json(
+      { message: errors[Object.keys(errors)[0]].message },
+      { status: 500 },
+    );
   }
+}
+
+/**
+ * Delete the user's account
+ * @author Alec Painter
+ */
+export async function DELETE(req) {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user) {
+    logger.warn(`Cannot delete user without a session`);
+    return NextResponse.json(
+      { message: 'User not logged in' },
+      { status: 401 },
+    );
+  }
+
+  const deletedUser = await User.findOneAndDelete({ 'details.email': email });
+  if (!deletedUser) {
+    logger.warn(`Cannot delete user`);
+    return NextResponse.json(
+      { message: 'Unable to delete user' },
+      { status: 500 },
+    );
+  }
+
+  return NextResponse.json({ message: 'User deleted' }, { status: 200 });
 }
 
 /**
@@ -89,7 +112,6 @@ function validateFullName(fullname) {
   const validationPattern = /^[A-Za-z]+ [A-Za-z]+$/;
   return validationPattern.test(fullname);
 }
-// module.exports.validateFullName = validateFullName;
 
 /**
  * Convert a string to title case
@@ -102,4 +124,3 @@ function toTitleCase(str) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }
-// module.exports.toTitleCase = toTitleCase;

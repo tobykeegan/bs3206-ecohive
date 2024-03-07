@@ -12,14 +12,13 @@ export const implemented = (implemented) => {
 };
 
 /**
- * Generates a random string of characters [A-Za-z0-9]
+ * Generates a random string of characters [a-z]
  * @author Alec Painter
  * @param {int} length
  * @returns {string}
  */
 export const randomString = (length) => {
-  const chars =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const chars = 'abcdefghijklmnopqrstuvwxyz';
   const charsLen = chars.length;
   let res = '';
   let i = 0;
@@ -28,4 +27,20 @@ export const randomString = (length) => {
     i += 1;
   }
   return res;
+};
+
+/**
+ * Get a cookie from the page by its name
+ * @author Alec Painter
+ * @param {import('@playwright/test').Page} page
+ * @param {String} name
+ * @returns {Object} cookie
+ */
+export const getCookie = async (page, name) => {
+  const cookies = await page.context().cookies();
+  let c = cookies.filter((obj) => {
+    return obj.name === name;
+  });
+
+  return c.length == 0 ? null : c;
 };

@@ -6,11 +6,6 @@ import UserProfile from '../ui/UserProfile';
 import styles from '@/styles/home';
 
 // TODO: Implement
-const getName = () => {
-  return null;
-};
-
-// TODO: Implement
 const getPersonalImpactOffset = () => {
   return null;
 };
@@ -19,7 +14,7 @@ const getPersonalImpactOffset = () => {
  * The card for the Home page that welcomes the user.
  * @author Jade Carino
  */
-export default function WelcomeCard() {
+export default function WelcomeCard({ session }) {
   return (
     <Card
       id="Welcome-Card"
@@ -40,9 +35,9 @@ export default function WelcomeCard() {
         }}
       >
         <Typography level="h3" id="welcome-message">
-          Welcome back, {getName() || 'Carlos'}
+          Welcome back, {session.user.name.first || 'Carlos'}
         </Typography>
-        <UserProfile />
+        <UserProfile session={session} />
         <Typography level="body-lg" id="personal-impact" mb={1}>
           Your personal impact has offset:{' '}
           {getPersonalImpactOffset() ||
