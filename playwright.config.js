@@ -6,7 +6,7 @@ dotenv.config();
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 const config = {
   webServer: {
-    command: `bun run ${process.env.NODE_ENV || 'development'}`,
+    command: `bun run build && bun run start`,
     port: 3000,
     reuseExistingServer: true,
     timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,

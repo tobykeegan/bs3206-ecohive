@@ -11,10 +11,9 @@
     "production": "bun run prod",
     "lint": "next lint && prettier . --check",
     "format": "prettier . --write",
-    "test:dev": "npx playwright test",
     "test:prod": "NODE_ENV=production npx playwright test",
     "test:gen": "npx playwright codegen localhost:3000/ ",
-    "test": "bun test:dev",
+    "test": "bun test:prod",
     "analyze": "cross-env NODE_ENV=production ANALYZE=true next build",
     "analyze:server": "cross-env NODE_ENV=production BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env NODE_ENV=production BUNDLE_ANALYZE=browser next build"
