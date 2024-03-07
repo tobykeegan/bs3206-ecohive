@@ -45,3 +45,4 @@ bun.lockb
 /playwright/.cache/
 
 .env
+playwright/.auth/

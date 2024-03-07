@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
+import validator from 'validator';
+import bcrypt from 'bcrypt';
 const Schema = mongoose.Schema;
+
+/**
+ * Define a user for the MongoDB & perform the password hashing on save
+ * @author Alec Painter
+ */
 
 const UserSchema = new Schema({
   name: {
@@ -20,7 +27,8 @@ const UserSchema = new Schema({
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: [true, 'Account already exists'],
+      validate: [validator.isEmail, 'Please enter a valid email'],
     },
   },
   score: {
@@ -33,9 +41,10 @@ const UserSchema = new Schema({
       default: 0,
     },
   },
-  passwordHash: {
+  password: {
     type: String,
     required: true,
+    select: false,
   },
   settings: {
     highContrast: {
@@ -44,6 +53,18 @@ const UserSchema = new Schema({
     },
   },
 });
+
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
+
+UserSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 

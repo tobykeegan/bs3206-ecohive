@@ -14,10 +14,7 @@ export default function RegisterCard() {
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await axios.post(
-        '/api/users/register',
-        JSON.stringify(formData),
-      );
+      const response = await axios.post('/api/users', JSON.stringify(formData));
       setError('');
       router.push('/login');
     } catch (error) {
