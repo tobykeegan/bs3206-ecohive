@@ -6,6 +6,9 @@ import Footer from '@/app/ui/Footer';
 import axios from 'axios';
 import { URL } from '@/utils/globals';
 import style from '../../styles/events/styles.scss';
+import PageHeader from '../PageHeader';
+import CollapsibleEventSearch from '../CollapsibleEventSearch';
+
 export default async function Discover() {
   let eventCards;
   try {
@@ -20,9 +23,10 @@ export default async function Discover() {
   return (
     <main>
       <Navbar />
+      <PageHeader pageName="discover events near you" />
+      <CollapsibleEventSearch />
+      <Divider />
       <div id="eventsContainer">{eventCards}</div>
-
-      {/* <EventCard/> */}
       <div id="Footer-Div">
         <Divider />
         <Footer />
