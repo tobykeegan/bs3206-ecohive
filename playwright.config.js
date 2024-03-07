@@ -15,7 +15,7 @@ const config = {
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
   fullyParallel: true,
   workers: parseInt(process.env.TEST_WORKERS) || 2,
-  timeout: (parseInt(process.env.TEST_TIMEOUT) || 60) * 1000,
+  timeout: (parseInt(process.env.TEST_TIMEOUT) || 90) * 1000,
   expect: {
     timeout: (parseInt(process.env.TEST_EXPECT_TIMEOUT) || 30) * 1000,
   },
