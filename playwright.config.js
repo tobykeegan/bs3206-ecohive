@@ -1,10 +1,11 @@
 import { devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-/** @type {import('@playwright/test').PlaywrightTestConfig} */
-const config = {
+export default defineConfig({
+  reporter: process.env.CI ? ['dot'] : [['html', { open: 'always' }]],
   webServer: {
     command: `bun run build && bun run start`,
     port: 3000,
@@ -40,6 +41,4 @@ const config = {
       dependencies: ['setup'],
     },
   ],
-};
-
-export default config;
+});

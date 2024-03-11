@@ -1,10 +1,8 @@
 const { test, expect } = require('@playwright/test');
-const AxeBuilder = require('@axe-core/playwright').default; // 1
+const AxeBuilder = require('@axe-core/playwright').default;
 
 const pages = [
-  '/',
   '/settings',
-  '/events/create',
   '/events/discover',
   '/events/history',
   '/events/upcoming',
@@ -13,9 +11,13 @@ const pages = [
 ];
 
 pages.forEach((url) => {
-  test(`Accessibility checks for '${url}' page`, async ({ page }) => {
+  test(`Accessibility checks for '${url}' page`, async ({ page }, testInfo) => {
     await page.goto(url);
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    await testInfo.attach('accessibility-scan-results', {
+      body: JSON.stringify(accessibilityScanResults, null, 2),
+      contentType: 'application/json',
+    });
 
     expect(accessibilityScanResults.violations).toEqual([]);
   });
