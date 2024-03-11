@@ -5,12 +5,14 @@ import { redirect } from 'next/navigation';
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
+import AccountCard from './AccountCard';
+import AccessibilityCard from './AccessibilityCard';
 
+/**
+ * Settings page
+ * @author Alec Painter
+ */
 export default async function Settings() {
-  /**
-   * Protect route if unauthenticated & get session
-   * @author Alec Painter
-   */
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     redirect('/api/auth/signin');
@@ -19,7 +21,15 @@ export default async function Settings() {
   return (
     <main>
       <Navbar />
-      <h1> Settings page template </h1>
+      {/* TODO: Profile picture */}
+      {/* TODO: Account info */}
+      {/* TODO: Change password */}
+      <div id="setting-main">
+        <AccountCard />
+        <AccessibilityCard />
+      </div>
+      {/* TODO: Accessibility */}
+      {/* TODO: Danger section */}
       <div id="Footer-Div">
         <Divider />
         <Footer />
