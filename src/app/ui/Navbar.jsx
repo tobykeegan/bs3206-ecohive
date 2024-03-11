@@ -42,7 +42,7 @@ function MainNavbar() {
             type="search"
             placeholder="Search"
             className="me-2"
-            aria-label="Search"
+            aria-label="Search for events"
           />
           <ButtonGroup>
             <Tooltip
