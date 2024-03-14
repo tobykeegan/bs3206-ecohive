@@ -10,8 +10,15 @@ await connect();
  */
 export async function GET(request) {
   let searchObject = {};
-
-  let eventsList = await Event.apiQuery(request.search).exec();
+  let url = new URL(request.url);
+  // iterate through the search parameters and add them to the search object
+  for (let [key, value] of url.searchParams) {
+    if (key === 'id') {
+      key = '_id';
+      searchObject[key] = value;
+    }
+  }
+  let eventsList = await Event.find(searchObject).exec();
 
   if (eventsList.length === 0) {
     // return status 404 if no events are found
