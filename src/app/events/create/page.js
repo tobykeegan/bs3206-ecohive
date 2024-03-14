@@ -4,7 +4,6 @@ import Footer from '@/app/ui/Footer';
 import ImageUploader from '@/app/ui/ImageUploader';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
 const react = require('react');
 const reactDOM = require('react-dom');
 
