@@ -57,10 +57,16 @@ export default function RegisterCard() {
       </div>
       <RegisterForm error={error} onSubmit={handleSubmit} />
       <RegisterOAuth />
-      <Typography id="signUpHeader" level="h4">
-        Already have an account?
-        <Link id="signUpLink" level="h4" underline="none" href="/login">
-          &nbsp;Sign in
+      <Typography id="signUpHeader" level="body-lg">
+        Already have an account?&nbsp;
+        <Link
+          id="signUpLink"
+          level="body-lg"
+          underline="always"
+          href="/login"
+          aria-label="Sign into existing account"
+        >
+          Sign in
         </Link>
       </Typography>
     </Sheet>

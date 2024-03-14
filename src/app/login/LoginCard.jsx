@@ -67,10 +67,15 @@ export default function LoginCard() {
       </div>
       <LoginForm error={error} onSubmit={handleSubmit} />
       <LoginOAuth />
-      <Typography id="signUpHeader" level="h4">
-        Don&apos;t have an account?
-        <Link id="signUpLink" level="h4" underline="none" href="/register">
-          &nbsp;Sign up
+      <Typography id="signUpHeader" level="body-lg">
+        Don&apos;t have an account?&nbsp;
+        <Link
+          id="signUpLink"
+          level="body-lg"
+          underline="always"
+          href="/register"
+        >
+          Sign up
         </Link>
       </Typography>
     </Sheet>

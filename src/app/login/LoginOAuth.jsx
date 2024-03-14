@@ -13,13 +13,13 @@ export default function LoginOAuth() {
         width: '80%',
       }}
     >
-      <IconButton className="oauthButton">
+      <IconButton className="oauthButton" aria-label="Facebook Login">
         <FaFacebook color="#316FF6" />
       </IconButton>
-      <IconButton className="oauthButton">
+      <IconButton className="oauthButton" aria-label="Google Login">
         <FcGoogle />
       </IconButton>
-      <IconButton className="oauthButton">
+      <IconButton className="oauthButton" aria-label="Apple Login">
         <FaApple />
       </IconButton>
     </div>
