@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import mongooseStringQuery from 'mongoose-string-query';
+
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
@@ -23,7 +25,7 @@ const EventSchema = new Schema({
     },
   ],
 });
-
+EventSchema.plugin(mongooseStringQuery);
 const Event = mongoose.models.Event || mongoose.model('Event', EventSchema);
 
 export default Event;

@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+'use client';
 import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
@@ -12,6 +13,8 @@ import Image from 'next/image';
 import defaultEventImg from '@/static/default_event.jpeg';
 import { Badge, Stack } from 'react-bootstrap';
 import styles from '../styles/events/styles.scss';
+import { useRouter } from 'next/navigation';
+
 const getFormattedDate = (convertDate) => {
   let date = new Date(convertDate);
   if (date.toString() === 'Invalid Date') return 'N/A';
@@ -29,6 +32,9 @@ const getImageSrc = (event) => {
 };
 
 export default function EventCard({ event }) {
+  const openEvent = () => {};
+
+  const router = useRouter();
   return (
     <Card
       variant="outlined"
@@ -45,6 +51,7 @@ export default function EventCard({ event }) {
       <CardOverflow>
         <AspectRatio>
           <Image
+            onClick={() => router.push(`/events/discover/${event._id}`)}
             src={getImageSrc(event.photoUrl)}
             width={500}
             height={500}
