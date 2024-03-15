@@ -5,11 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
-  // reporter: process.env.CI ? ['dot'] : [['html', { open: 'always' }]],
   webServer: {
-    command: `bun run build && bun run start`,
+    command: 'bun run prod',
     port: 3000,
-    reuseExistingServer: true,
     timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
   },
   testDir: 'tests',
