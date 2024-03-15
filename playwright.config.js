@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
-  reporter: process.env.CI ? 'dot' : ['html', { open: 'always' }],
+  reporter: process.env.CI ? ['dot'] : [['html', { open: 'always' }]],
   webServer: {
     command: `bun run build && bun run start`,
     port: 3000,
