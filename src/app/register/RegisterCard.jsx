@@ -46,6 +46,7 @@ export default function RegisterCard() {
         id="signUpLink"
         underline="none"
         href="/login"
+        aria-label="Go Back"
       >
         <IoIosArrowRoundBack size={50} />
       </Link>

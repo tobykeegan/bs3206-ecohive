@@ -44,9 +44,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
   responsePromise = page.waitForResponse('**/api/users');
-  await page
-    .getByRole('button', { name: 'Sign up', exact: true })
-    .click({ force: true });
+  await page.getByLabel('Register').click();
   response = await responsePromise;
   expect(response.status()).toBe(201);
 
