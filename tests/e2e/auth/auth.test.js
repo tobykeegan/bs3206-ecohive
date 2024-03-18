@@ -32,7 +32,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   let responsePromise = page.waitForResponse(
     '**/api/auth/callback/credentials',
   );
-  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
   let response = await responsePromise;
   expect(response.status()).toBe(401);
 
@@ -44,7 +44,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
   responsePromise = page.waitForResponse('**/api/users');
-  await page.getByRole('button', { name: 'Sign up' }).click({ force: true });
+  await page.getByLabel('Register').click();
   response = await responsePromise;
   expect(response.status()).toBe(201);
 
@@ -53,7 +53,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill('incorrectpassword');
   responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
-  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
   expect(response.status()).toBe(401);
 
@@ -61,7 +61,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
   responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
-  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
   expect(response.status()).toBe(200);
 

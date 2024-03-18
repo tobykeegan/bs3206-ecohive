@@ -1,8 +1,7 @@
 @use '../global';
 
 #ecohiveNameTitle {
-  color: global.$primary;
-  -webkit-text-stroke: 2px global.$secondary;
+  color: global.$ecohive-grey;
   font-size: 3em;
 }
 @media only screen and (min-width: 400px) {

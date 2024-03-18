@@ -1,14 +1,13 @@
 import { devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-/** @type {import('@playwright/test').PlaywrightTestConfig} */
-const config = {
+export default defineConfig({
   webServer: {
-    command: `bun run build && bun run start`,
+    command: 'bun run prod',
     port: 3000,
-    reuseExistingServer: true,
     timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
   },
   testDir: 'tests',
@@ -40,6 +39,4 @@ const config = {
       dependencies: ['setup'],
     },
   ],
-};
-
-export default config;
+});

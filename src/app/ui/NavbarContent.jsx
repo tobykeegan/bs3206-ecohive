@@ -38,7 +38,7 @@ export function NavbarContent({ ...props }) {
               <Button
                 className="btn-close"
                 onClick={() => props.setVisible(false)}
-                aria-label="Close"
+                aria-label="Close the sidebar"
               ></Button>
             </div>
           </Offcanvas.Title>
