@@ -13,13 +13,13 @@ export default function RegisterOAuth() {
         width: '80%',
       }}
     >
-      <IconButton className="oauthButton">
+      <IconButton aria-label="Facebook Login" className="oauthButton">
         <FaFacebook color="#316FF6" />
       </IconButton>
-      <IconButton className="oauthButton">
+      <IconButton aria-label="Google Login" className="oauthButton">
         <FcGoogle />
       </IconButton>
-      <IconButton className="oauthButton">
+      <IconButton aria-label="Apple Login" className="oauthButton">
         <FaApple />
       </IconButton>
     </div>
