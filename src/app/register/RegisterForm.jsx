@@ -103,6 +103,7 @@ export default function RegisterForm({ onSubmit, error }) {
         size="lg"
         sx={{ alignSelf: 'end' }}
         type="submit"
+        aria-label="Register"
       >
         Sign up
       </Button>
@@ -147,6 +148,7 @@ function PasswordMeterInput({ ...props }) {
           bgcolor: 'background.level3',
           color: 'hsl(var(--hue) 80% 40%)',
         }}
+        aria-label="Password strength"
       />
       <Typography
         level="body-xs"
