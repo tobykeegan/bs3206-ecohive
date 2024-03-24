@@ -41,6 +41,11 @@ const UserSchema = new Schema({
       default: 0,
     },
   },
+  badges: {
+    type: [Number],
+    required: true,
+    default: [],
+  },
   password: {
     type: String,
     required: true,

@@ -5,21 +5,11 @@ import Slider from '@mui/joy/Slider';
 
 import styles from '../styles/impact/impact.scss';
 
-// TODO: Implement
-const getPoints = () => {
-  return null;
-};
-
-// TODO: Implement
-const getPersonalImpactOffset = () => {
-  return null;
-};
-
 /**
  * The card for user's points and personal impact.
  * @author Jade Carino
  */
-export default function Points() {
+export default function Points({ points }) {
   return (
     <Card
       id="Points-Card"
@@ -40,9 +30,9 @@ export default function Points() {
         }}
       >
         <Typography level="h3" id="points-earned">
-          {getPoints() || 78} Points Earned
+          {points} Points Earned
         </Typography>
-        <Slider color="success" defaultValue={getPoints() || 78} max={100} />
+        <Slider color="success" defaultValue={points} max={100} />
         <Typography level="body-lg" id="personal-impact" mb={1}>
           Your personal impact has offset:{'\n'}
           {getPersonalImpactOffset() ||
@@ -52,3 +42,8 @@ export default function Points() {
     </Card>
   );
 }
+
+// TODO: Implement
+const getPersonalImpactOffset = () => {
+  return null;
+};
