@@ -1,5 +1,5 @@
 import Navbar from '@/app/ui/Navbar';
-import EventCard from '../EventCard';
+import EventWidget from '../EventWidget';
 import Container from 'react-bootstrap/Container';
 import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
@@ -24,7 +24,7 @@ export default async function Discover() {
   try {
     let res = await axios.get(`${URL}/api/events/discover`);
     eventCards = res.data.map((event) => {
-      return <EventCard key={event._id} event={event} />;
+      return <EventWidget key={event._id} event={event} />;
     });
   } catch (err) {
     console.log(err);

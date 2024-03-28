@@ -31,7 +31,7 @@ const getImageSrc = (event) => {
   return defaultEventImg;
 };
 
-export default function EventCard({ event }) {
+export default function EventWidget({ event }) {
   const openEvent = () => {};
 
   const router = useRouter();
