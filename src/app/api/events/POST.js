@@ -1,9 +1,23 @@
-import Event from '@/models/event';
 import { NextResponse } from 'next/server';
-export async function post_handler(request) {
+import Event from '@/models/event';
+
+export default async function POST(request) {
   // parse the body of the request
-  let body = await request.json();
-  console.log(body);
+  let body;
+  try {
+    body = await request.json();
+  } catch (err) {
+    return NextResponse.json(
+      {
+        message: 'Invalid JSON body. Please provide a valid JSON object.',
+        error: err,
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
   // search for the event(s) in the database
   let eventsList = await Event.find(body);
 

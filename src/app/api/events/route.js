@@ -1,8 +1,6 @@
-import { NextResponse } from 'next/server';
-import Event from '@/models/event';
 import { connect } from '@/services/mongoose';
-import { get_handler } from './handlers/GET';
-import { post_handler } from './handlers/POST';
+import getEvent from './GET';
+import postEvent from './POST';
 await connect();
 
 /**
@@ -10,9 +8,9 @@ await connect();
  * @author Toby Keegan
  */
 export async function GET(request) {
-  return get_handler(request);
+  return getEvent(request);
 }
 
 export async function POST(request) {
-  return post_handler(request);
+  return postEvent(request);
 }
