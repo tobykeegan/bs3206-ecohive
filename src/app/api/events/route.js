@@ -18,13 +18,10 @@ export async function GET(request) {
   // create a new URL object from the request URL
   let url = new URL(request.url);
 
-  // iterate through the search parameters and add them to the search object
-  for (let [key, value] of url.searchParams) {
-    if (key === 'id') {
-      // if the key is 'id', set the key to '_id' to match the MongoDB schema
-      key = '_id';
-      searchObject[key] = value;
-    }
+  let id = url.searchParams.get('id');
+
+  if (id) {
+    searchObject._id = id;
   }
   // search for the event(s) in the database
   let eventsList = await Event.find(searchObject);
