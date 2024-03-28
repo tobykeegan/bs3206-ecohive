@@ -1,6 +1,19 @@
 const path = require('node:path');
 require('dotenv').config();
+
+function getUrl() {
+  const protocol = 'http';
+  let url =
+    process.env.NODE_ENV == 'development'
+      ? 'localhost'
+      : 'uniprod1.fyre.ibm.com';
+  let port = process.env.PORT || 3000;
+
+  return `${protocol}://${url}:${port}`;
+}
+
 module.exports = {
+  URL: getUrl(),
   mongo: {
     uri: 'mongodb+srv://ecohive-db.ifnc2nm.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority',
     domain: 'mongodb+srv://ecohive-db.ifnc2nm.mongodb.net',

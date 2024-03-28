@@ -10,6 +10,7 @@
       "@/services/*": ["./src/app/api/services/*.service.js"],
       "@/styles/*": ["./src/app/styles/*.scss"],
       "@/components/*": ["./src/app/ui/*"],
+      "@/static/*": ["./src/app/static/*"],
     },
   },
 }

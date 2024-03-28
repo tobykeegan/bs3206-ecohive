@@ -25,7 +25,6 @@ export default function EventSearchCard() {
       variant="plain"
       size="lg"
       sx={{
-        width: '100vw',
         backgroundColor: 'white',
       }}
     >
