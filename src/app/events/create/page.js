@@ -7,6 +7,13 @@ import { redirect } from 'next/navigation';
 const react = require('react');
 const reactDOM = require('react-dom');
 
+/**
+ * TODO: Implement CreateEvent page
+ * Page template for creating an event. This page is protected
+ * by the server route and requires authentication to access.
+ * @returns {JSX.Element} The create event page.
+ * @author Toby Keegan
+ */
 export default async function CreateEvent() {
   /**
    * Protect server route if unauthenticated & get session
@@ -16,6 +23,7 @@ export default async function CreateEvent() {
   if (!session || !session.user) {
     redirect('/api/auth/signin');
   }
+
   let eventImage;
   return (
     <main>
