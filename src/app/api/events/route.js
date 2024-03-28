@@ -5,8 +5,11 @@ import { connect } from '@/services/mongoose';
 await connect();
 
 /**
+ * GET request to /api/events. Accepts query parameters to search for events.
+ * For example, /api/events?id=12345 will search for an event with the ID of 12345.
+ * If no events are found, a 404 response is returned.
  *
- * @param {*} request
+ * @author Toby Keegan
  */
 export async function GET(request) {
   // create an empty object to store the search parameters
