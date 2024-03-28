@@ -10,7 +10,6 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-require('dotenv').config();
 /**
  * Connect to MongoDB before processing a transaction. Modified
  * to globally cache connections. While it probably wouldn't cause
