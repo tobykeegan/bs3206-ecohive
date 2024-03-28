@@ -30,6 +30,7 @@ export default function LoginForm({ onSubmit, error }) {
 
   let devLogin;
 
+  // ! TODO: Remove this in production
   if (process.env.NODE_ENV === 'development') {
     devLogin = (
       <Button
@@ -99,6 +100,7 @@ export default function LoginForm({ onSubmit, error }) {
         <></>
       )}
       <ButtonGroup spacing="0.5rem" sx={{ alignSelf: 'end' }}>
+        {/* TODO: Remove in production */}
         {devLogin}
 
         <Button
