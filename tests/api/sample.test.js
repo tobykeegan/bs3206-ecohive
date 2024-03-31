@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { mongo } from '@/utils/globals';
-import { HTTP } from 'tests/utils';
+import { mongo, HTTP } from '@/utils/globals';
+
 require('dotenv').config();
 
 test.describe('GET /api/ping', () => {

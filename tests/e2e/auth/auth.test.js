@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { getCookie, randomString } from '../../utils';
 import User from '@/app/api/models/user.model';
-import { HTTP } from '../../utils';
+import { HTTP } from '@/utils/globals';
 let userInfo = {};
 
 // Reset storage state for this file to avoid being authenticated
