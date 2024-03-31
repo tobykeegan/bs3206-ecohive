@@ -3,10 +3,7 @@ require('dotenv').config();
 
 function getUrl() {
   const protocol = 'http';
-  let url =
-    process.env.NODE_ENV == 'development'
-      ? 'localhost'
-      : 'uniprod1.fyre.ibm.com';
+  let url = process.env.ON_PROD ? 'localhost' : 'uniprod1.fyre.ibm.com';
   let port = process.env.PORT || 3000;
 
   return `${protocol}://${url}:${port}`;

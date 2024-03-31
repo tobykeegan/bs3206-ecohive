@@ -14,6 +14,8 @@ ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
+ENV ON_PROD "true"
+
 WORKDIR /app/.next/standalone
 
 CMD [ "bun", "server.js" ]
