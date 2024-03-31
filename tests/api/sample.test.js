@@ -1,9 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { mongo } from '@/utils/globals';
-
+import { HTTP } from 'tests/utils';
 require('dotenv').config();
-
-const IM_A_TEAPOT = 418;
 
 test.describe('GET /api/ping', () => {
   test('should return pong', async ({ request }) => {
@@ -11,7 +9,7 @@ test.describe('GET /api/ping', () => {
 
     const body = await response.json();
 
-    expect(response.status()).toBe(IM_A_TEAPOT);
+    expect(response.status()).toBe(HTTP.IM_A_TEAPOT);
 
     expect(body).toEqual(
       expect.objectContaining({
