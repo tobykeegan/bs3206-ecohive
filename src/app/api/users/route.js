@@ -5,6 +5,7 @@ import User from '@/models/user';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
+import { HTTP } from '@/utils/globals';
 
 await connect();
 
