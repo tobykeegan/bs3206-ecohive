@@ -1,6 +1,6 @@
 import Event from '@/models/event';
 import { NextResponse } from 'next/server';
-
+import { HTTP } from '@/utils/globals';
 /**
  * Handles the GET request for retrieving an event by ID.
  * @param {Object} request - The request object.
@@ -10,12 +10,11 @@ import { NextResponse } from 'next/server';
  * @author Toby Keegan
  */
 
-export default async function get_by_id(request, { params }) {
-  const eventId = params.id;
-  console.log('Event ID:', eventId);
+export default async function getById(id) {
+  console.log('Event ID:', id);
   let event;
   try {
-    event = await Event.findOne({ _id: eventId });
+    event = await Event.findById(id);
   } catch (err) {
     return NextResponse.json(
       {
@@ -23,7 +22,7 @@ export default async function get_by_id(request, { params }) {
         error: err,
       },
       {
-        status: 500,
+        status: HTTP.BAD_REQUEST,
       },
     );
   }
@@ -32,12 +31,13 @@ export default async function get_by_id(request, { params }) {
     return NextResponse.json(
       {
         message: 'No event found matching:',
-        search: { _id: eventId },
+        search: { _id: id },
       },
       {
-        status: 404,
+        status: HTTP.NOT_FOUND,
       },
     );
   }
+  // Return the event if found
   return NextResponse.json(event);
 }
