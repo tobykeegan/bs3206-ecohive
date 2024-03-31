@@ -1,7 +1,7 @@
 import Event from '@/models/event';
 import { NextResponse } from 'next/server';
 import logger from '@/utils/logger';
-
+import { HTTP } from '@/utils/globals';
 export default async function deleteEvent(id) {
   logger.info('Delete Event: ', id);
   let res = await Event.findByIdAndDelete(id);
@@ -12,7 +12,7 @@ export default async function deleteEvent(id) {
         message: 'No event found with ID: ' + id,
       },
       {
-        status: 404,
+        status: HTTP.NOT_FOUND,
       },
     );
   }
@@ -22,7 +22,7 @@ export default async function deleteEvent(id) {
       message: 'Event deleted successfully',
     },
     {
-      status: 200,
+      status: HTTP.OK,
     },
   );
 }
