@@ -55,7 +55,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
-  expect(response.status()).toBe(HTTP.CREATED);
+  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
 
   // 5. Attempt to log in correctly (user will exist)
   await page.getByPlaceholder('Email').fill(userInfo.email);
