@@ -9,26 +9,11 @@ import PlaceIcon from '@mui/icons-material/Place';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Typography from '@mui/joy/Typography';
 import Image from 'next/image';
-import defaultEventImg from '@/static/default_event.jpeg';
 import { Badge, Stack } from 'react-bootstrap';
 import styles from '../styles/events/styles.scss';
 import { useRouter } from 'next/navigation';
 
-const getFormattedDate = (convertDate) => {
-  let date = new Date(convertDate);
-  if (date.toString() === 'Invalid Date') return 'N/A';
-
-  let dateString = date.toLocaleDateString('en-FB', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-  return dateString;
-};
-
-const getImageSrc = (event) => {
-  return defaultEventImg;
-};
+import { getFormattedDate, getImageSrc } from '@/app/ui/utils';
 
 export default function EventWidget({ event }) {
   const openEvent = () => {};

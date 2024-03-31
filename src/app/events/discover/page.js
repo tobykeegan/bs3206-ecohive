@@ -22,7 +22,7 @@ export default async function Discover() {
   }
   let eventCards;
   try {
-    let res = await axios.get(`${URL}/api/events/discover`);
+    let res = await axios.get(`${URL}/api/events`);
     eventCards = res.data.map((event) => {
       return <EventWidget key={event._id} event={event} />;
     });
