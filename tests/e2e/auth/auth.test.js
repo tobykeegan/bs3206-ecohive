@@ -1,6 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { getCookie, randomString } from '../../utils';
 import User from '@/app/api/models/user.model';
+import { connect } from '@/app/api/services/mongoose.service';
+
+/**
+ * Test the user registration and authentication end-to-end process
+ * @author Alec Painter
+ */
 
 let userInfo = {};
 
@@ -17,12 +23,18 @@ test.beforeEach(async ({ page }) => {
     displayName: 'Authe2e' + rs,
     email: 'auth-e2e@test.com' + rs,
     password: 'authtest',
+    secQuestion: 'What is your mothers maiden name',
+    secAnswer: 'test',
   };
 });
 
 test.afterEach(async () => {
   console.log(`Deleting test user ${userInfo.email}`);
-  User.findOneAndDelete({ 'details.email': userInfo.email });
+  await connect();
+  const deletedUser = await User.findOneAndDelete({
+    'details.email': userInfo.email,
+  });
+  expect(deletedUser).toBeDefined();
 });
 
 test('Authentication end-to-end', async ({ page, isMobile }) => {
@@ -30,7 +42,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
   let responsePromise = page.waitForResponse(
-    '**/api/auth/callback/credentials',
+    '**/api/auth/callback/password-login',
   );
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   let response = await responsePromise;
@@ -43,6 +55,9 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
+  await page.getByText('Choose a security question').click();
+  await page.getByRole('option', { name: userInfo.secQuestion }).click();
+  await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
   responsePromise = page.waitForResponse('**/api/users');
   await page.getByLabel('Register').click();
   response = await responsePromise;
@@ -52,7 +67,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.waitForURL('**/login');
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill('incorrectpassword');
-  responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
+  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
   expect(response.status()).toBe(401);
@@ -60,7 +75,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   // 5. Attempt to log in correctly (user will exist)
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
-  responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
+  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
   expect(response.status()).toBe(200);

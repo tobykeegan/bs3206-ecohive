@@ -23,7 +23,7 @@ export default async function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <SessionProvider session={session}>
-          <section>{children}</section>
+          <section className="min-100vh">{children}</section>
         </SessionProvider>
       </body>
     </html>

@@ -16,8 +16,10 @@ export const authOptions = {
        * @author Alec Painter
        * @param {any} credentials
        */
+      id: 'password-login',
+      name: 'Password Auth',
       async authorize(credentials) {
-        logger.debug('Authorising user with credentials provider');
+        logger.debug('Authorising user with credentials password provider');
         connect();
 
         const user = await User.findOne({
@@ -32,6 +34,32 @@ export const authOptions = {
         if (!passValid) {
           logger.warn(`Incorrect password`);
           throw new Error('Invalid username or password');
+        }
+
+        return user;
+      },
+    }),
+    CredentialsProvider({
+      id: 'security-question-login',
+      name: 'Security Question Auth',
+      async authorize(credentials) {
+        logger.debug(
+          'Authorising user with credentials security question provider',
+        );
+        connect();
+
+        const user = await User.findOne({
+          'details.email': credentials.email,
+        }).select('+security.answer');
+        if (!user) {
+          logger.warn(`Could not find user: ${credentials.email}`);
+          throw new Error('Invalid credentials');
+        }
+
+        const answerValid = await user.compareSecAnswers(credentials.secAnswer);
+        if (!answerValid) {
+          logger.warn(`Incorrect security answer`);
+          throw new Error('Invalid credentials');
         }
 
         return user;
@@ -58,9 +86,6 @@ export const authOptions = {
           score: {
             level: user.score.level,
             points: user.score.points,
-          },
-          settings: {
-            highContrast: user.settings.highContrast,
           },
         };
       }

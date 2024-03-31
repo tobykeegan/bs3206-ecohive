@@ -82,8 +82,7 @@ export default function LoginForm({ onSubmit, error }) {
           variant="outlined"
           startDecorator={<IoIosLock />}
           endDecorator={
-            // TODO: Add forgot password
-            <Link href={''} id="forgotPasswordLink">
+            <Link href="/forgot" id="forgotPasswordLink">
               Forgot?
             </Link>
           }

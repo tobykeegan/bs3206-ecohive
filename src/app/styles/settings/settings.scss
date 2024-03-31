@@ -1,0 +1,68 @@
+@use '../global.scss';
+
+.grey-text {
+  color: global.$ecohive-grey;
+}
+
+.centre-column-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 2% 0;
+}
+
+#setting-main {
+  min-height: 100vh;
+  margin: 0;
+}
+
+#setting-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.interactable-button {
+  background-color: global.$interaction;
+}
+
+.interactable-button:hover {
+  background-color: global.$interaction;
+  filter: brightness(80%)
+}
+
+.modal-button {
+  min-width: 190px;
+  max-width: 300px;
+  margin: 2%;
+  padding: 5px;
+}
+
+#change-profile-pic-link {
+  color: global.$interaction;
+  text-decoration-color: global.$interaction;
+}
+
+.modal-div {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 460px) {
+  .modal-div {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}
+
+#edit-profile-pic {
+  cursor: pointer;
+}
+
+#edit-profile-pic:hover {
+  filter: brightness(80%)
+}

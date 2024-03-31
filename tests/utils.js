@@ -1,4 +1,5 @@
 import { test } from '@playwright/test';
+import { signIn } from 'next-auth/react';
 
 /**
  * Skips the test if the functionality is not implemented.

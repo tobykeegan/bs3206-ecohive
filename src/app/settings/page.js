@@ -2,11 +2,11 @@ import Navbar from '../ui/Navbar';
 import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
 import { redirect } from 'next/navigation';
-import axios from 'axios';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
 import AccountCard from './AccountCard';
-import AccessibilityCard from './AccessibilityCard';
+import DangerCard from './DangerCard';
+import styles from '@/styles/settings/settings';
 
 /**
  * Settings page
@@ -19,17 +19,13 @@ export default async function Settings() {
   }
 
   return (
-    <main>
+    <main id="setting-main">
       <Navbar />
-      {/* TODO: Profile picture */}
-      {/* TODO: Account info */}
-      {/* TODO: Change password */}
-      <div id="setting-main">
+      <div id="setting-content">
         <AccountCard />
-        <AccessibilityCard />
+        <div />
+        <DangerCard />
       </div>
-      {/* TODO: Accessibility */}
-      {/* TODO: Danger section */}
       <div id="Footer-Div">
         <Divider />
         <Footer />
