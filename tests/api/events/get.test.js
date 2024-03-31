@@ -2,12 +2,24 @@ import { expect, test } from '@playwright/test';
 import { mongo } from '@/utils/globals';
 import { connect } from '@/services/mongoose';
 import Event from '@/models/event';
+import { randomString, generateEvent } from '../../utils';
 import { before } from 'node:test';
 
 require('dotenv').config();
 const HTTP_OK = 200;
 
 test.describe('GET /events', () => {
+  // Before each test, connect to the database
+  test.beforeAll(async () => {
+    await connect();
+
+    // Generate a random number of events
+    const numEvents = Math.floor(Math.random() * 10) + 1;
+    for (let i = 0; i < numEvents; i++) {
+      const event = generateEvent();
+      await event.save();
+    }
+  });
   test('should return a list of event type objects', async ({ request }) => {
     const response = await request.get('/api/events');
 
@@ -29,8 +41,6 @@ test.describe('GET /events', () => {
   });
 
   test('allows a single event specifying an ID', async ({ request }) => {
-    await connect();
-
     // Get a single event from the database
     const event = await Event.findOne();
     const response = await request.get(`/api/events/${event._id}`);

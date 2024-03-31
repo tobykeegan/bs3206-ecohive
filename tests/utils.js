@@ -45,6 +45,13 @@ export const getCookie = async (page, name) => {
   return c.length == 0 ? null : c;
 };
 
+// function to generate a random date in the future
+export function generateRandomDate() {
+  let date = new Date();
+  date.setDate(date.getDate() + Math.floor(Math.random() * 100));
+  return date;
+}
+
 export function generateEvent(ownerId) {
   let capacity = Math.floor(Math.random() * 10000) + 1000;
   let signups = Math.floor(Math.random() * capacity);
@@ -54,6 +61,7 @@ export function generateEvent(ownerId) {
     type: 'Test Type',
     location: 'Playwright Park',
     description: 'Test Description',
+    date: generateRandomDate(),
     creator: ownerId,
     attendance: {
       // random number between 1000 and 10000
