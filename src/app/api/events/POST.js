@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
 import Event from '@/models/event';
 
+/**
+ * POST request to /api/events. Retrieves all events from the database
+ * that match the search criteria provided in the request body.
+ *
+ * @param {Object} request - The request object.
+ * @returns {Event[]} - The list of all events.
+ * @throws {NextResponse} - If no events are found, returns a 404 error.
+ *
+ *
+ * @author Toby Keegan
+ */
 export default async function POST(request) {
   // parse the body of the request
   let body;

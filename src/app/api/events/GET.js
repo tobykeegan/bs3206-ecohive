@@ -2,9 +2,14 @@ import Event from '@/models/event';
 import { NextResponse } from 'next/server';
 
 /**
- * GET request to /api/events. Accepts query parameters to search for events.
- * For example, /api/events?id=12345 will search for an event with the ID of 12345.
- * If no events are found, a 404 response is returned.
+ * GET request to /api/events. Retrieves all events from the database.
+ * If you want to filter events, you must instead issue a POST request with
+ * a JSON body containing the filter criteria.
+ *
+ * @param {Object} request - The request object.
+ * @returns {Event[]} - The list of all events.
+ * @throws {NextResponse} - If no events are found, returns a 404 error.
+ *
  *
  * @author Toby Keegan
  */
