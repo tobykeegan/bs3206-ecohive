@@ -5,6 +5,7 @@ import User from '@/models/user';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
+import { HTTP } from '@/utils/globals';
 
 await connect();
 
@@ -23,7 +24,7 @@ export async function POST(req) {
       logger.warn(`User '${email}' already exists`);
       return NextResponse.json(
         { message: 'User email already exists' },
-        { status: 400 },
+        { status: HTTP.BAD_REQUEST },
       );
     }
     user = await User.findOne({ 'name.display': displayName });
@@ -31,7 +32,7 @@ export async function POST(req) {
       logger.warn(`User '${displayName}' already exists`);
       return NextResponse.json(
         { message: 'Display name already exists' },
-        { status: 400 },
+        { status: HTTP.BAD_REQUEST },
       );
     }
 
@@ -42,7 +43,7 @@ export async function POST(req) {
           message:
             'Fullname must only contains letters and a space between names',
         },
-        { status: 400 },
+        { status: HTTP.BAD_REQUEST },
       );
     }
 
@@ -66,13 +67,16 @@ export async function POST(req) {
       password: password,
     });
 
-    return NextResponse.json({ message: 'User created' }, { status: 201 });
+    return NextResponse.json(
+      { message: 'User created' },
+      { status: HTTP.CREATED },
+    );
   } catch (err) {
     logger.error(err);
     const errors = err.errors;
     return NextResponse.json(
       { message: errors[Object.keys(errors)[0]].message },
-      { status: 500 },
+      { status: HTTP.INTERNAL_SERVER_ERROR },
     );
   }
 }
@@ -87,7 +91,7 @@ export async function DELETE(req) {
     logger.warn(`Cannot delete user without a session`);
     return NextResponse.json(
       { message: 'User not logged in' },
-      { status: 401 },
+      { status: HTTP.UNAUTHORIZED },
     );
   }
 
@@ -96,11 +100,11 @@ export async function DELETE(req) {
     logger.warn(`Cannot delete user`);
     return NextResponse.json(
       { message: 'Unable to delete user' },
-      { status: 500 },
+      { status: HTTP.INTERNAL_SERVER_ERROR },
     );
   }
 
-  return NextResponse.json({ message: 'User deleted' }, { status: 200 });
+  return NextResponse.json({ message: 'User deleted' }, { status: HTTP.OK });
 }
 
 /**

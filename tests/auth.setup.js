@@ -1,6 +1,6 @@
 import { test as setup, expect } from '@playwright/test';
 import { randomString } from './utils';
-
+import { HTTP } from '@/app/api/utils/globals';
 const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
@@ -23,7 +23,7 @@ setup('authenticate', async ({ page }) => {
   let responsePromise = page.waitForResponse('**/api/users');
   await page.getByLabel('Register').click({ force: true });
   let response = await responsePromise;
-  expect(response.status()).toBe(201);
+  expect(response.status()).toBe(HTTP.CREATED);
 
   // Attempt to log in
   await page.waitForURL('**/login');
@@ -32,7 +32,7 @@ setup('authenticate', async ({ page }) => {
   responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
-  expect(response.status()).toBe(200);
+  expect(response.status()).toBe(HTTP.OK);
 
   await page.context().storageState({ path: authFile });
 });
