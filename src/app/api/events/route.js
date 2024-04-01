@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import Event from '@/models/event';
 import { connect } from '@/services/mongoose';
-
+import { HTTP } from '@/utils/globals';
 await connect();
 
 /**
@@ -35,7 +35,7 @@ export async function GET(request) {
           search: searchObject,
         },
         {
-          status: 404,
+          status: HTTP.NOT_FOUND,
         },
       );
 
@@ -53,7 +53,7 @@ export async function GET(request) {
             search: searchObject,
           },
           {
-            status: 500,
+            status: HTTP.INTERNAL_SERVER_ERROR,
           },
         );
       } else {

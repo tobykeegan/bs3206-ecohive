@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { getCookie, randomString } from '../../utils';
 import User from '@/app/api/models/user.model';
-
+import { HTTP } from '@/utils/globals';
 let userInfo = {};
 
 // Reset storage state for this file to avoid being authenticated
@@ -34,7 +34,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   );
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   let response = await responsePromise;
-  expect(response.status()).toBe(401);
+  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
 
   // 3. Register user with info
   await page.getByRole('link', { name: 'Sign up' }).click();
@@ -55,7 +55,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
-  expect(response.status()).toBe(401);
+  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
 
   // 5. Attempt to log in correctly (user will exist)
   await page.getByPlaceholder('Email').fill(userInfo.email);
@@ -63,7 +63,7 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
-  expect(response.status()).toBe(200);
+  expect(response.status()).toBe(HTTP.OK);
 
   // 6. Redirected to home page
   await page.waitForURL('/');
