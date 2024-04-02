@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import Event from '@/models/event';
 
 /**
  * POST request to /api/events. Retrieves all events from the database
  * that match the search criteria provided in the request body.
  *
- * @param {Object} request - The request object.
+ * @param {NextRequest} request - The request object.
  * @returns {Event[]} - The list of all events.
  * @throws {NextResponse} - If no events are found, returns a 404 error.
  *
@@ -20,7 +21,8 @@ export default async function POST(request) {
   } catch (err) {
     return NextResponse.json(
       {
-        message: 'Invalid JSON body. Please provide a valid JSON object.',
+        message:
+          'Invalid JSON body. If you want to search for all events, send an empty object: {}',
         error: err,
       },
       {
