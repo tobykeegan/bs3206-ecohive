@@ -17,7 +17,7 @@ require('dotenv').config();
  * @author Toby Keegan
  */
 
-test.describe('Events API can retrieve', () => {
+test.describe('Events API operations', () => {
   /**
    * Before each test, connect to the database and generate some events.
    * A mix of events owned by the user ID of this test run, and events
@@ -60,7 +60,9 @@ test.describe('Events API can retrieve', () => {
     await Event.deleteMany({ description: TRACKED });
   });
 
-  test('(GET) a list of event type objects', async ({ request }) => {
+  test('GET /events returns a list of event type objects', async ({
+    request,
+  }) => {
     const response = await request.get('/api/events');
     const body = await response.json();
     expect(response.status()).toBe(HTTP.OK);
@@ -77,7 +79,9 @@ test.describe('Events API can retrieve', () => {
       expect(event).toHaveProperty('description');
     });
   });
-  test('(POST) all events if a blank body is provided', async ({ request }) => {
+  test('POST /events returns all events if a blank body is provided', async ({
+    request,
+  }) => {
     const eventCount = await Event.countDocuments();
     // add an empty json object to the request body
     const response = await request.post('/api/events', {
@@ -91,7 +95,7 @@ test.describe('Events API can retrieve', () => {
     expect(body.length).toBe(eventCount);
     // expect the length of the array to be the same as the number of events
   });
-  test('(GET) single event by specifying an ID', async ({ request }) => {
+  test('GET /events/:id returns a single event', async ({ request }) => {
     // Grab any event from the database - we don't care which one
     const event = await Event.findOne();
 
@@ -108,7 +112,9 @@ test.describe('Events API can retrieve', () => {
     expect(JSON.stringify(body)).toEqual(JSON.stringify(event));
   });
 
-  test('(GET) a 404 if no event is found', async ({ request }) => {
+  test('GET /events/:id returns 404 if no event is found', async ({
+    request,
+  }) => {
     // Make a request to the API to get an event that we know doesn't exist
     const response = await request.get('/api/events/12a9db7cc7de36df18301234');
     const body = await response.json();
@@ -117,7 +123,7 @@ test.describe('Events API can retrieve', () => {
     expect(body.message).toBe('No event found matching:');
   });
 
-  test('(POST) a single event by specifying a search criteria', async ({
+  test('POST /events returns a single event by specifying a search criteria', async ({
     request,
   }) => {
     // Get a single event from the database
@@ -134,7 +140,7 @@ test.describe('Events API can retrieve', () => {
     expect(JSON.stringify(body)).toEqual(JSON.stringify(event));
   });
   // Test that all the events matching this description are returned
-  test('(POST) multiple events by specifying a search criteria', async ({
+  test('POST /events returns multiple events by specifying a search criteria', async ({
     request,
   }) => {
     // Count the number of tracked events in the database
@@ -153,5 +159,22 @@ test.describe('Events API can retrieve', () => {
       expect(event).toHaveProperty('description');
       expect(event.description).toEqual(TRACKED);
     });
+  });
+  // Test that an event can be updated
+  test('PUT /events/:id updates an event', async ({ request }) => {
+    // Get a single event from the database
+    const event = await Event.findOne();
+
+    // check event is not null
+    expect(event).not.toBeNull();
+
+    // update the event
+    const response = await request.put(`/api/events/${event._id}`, {
+      data: { name: 'Updated Event Name' },
+    });
+    const body = await response.json();
+    expect(response.status()).toBe(HTTP.OK);
+    expect(body).toHaveProperty('name');
+    expect(body.name).toBe('Updated Event Name');
   });
 });
