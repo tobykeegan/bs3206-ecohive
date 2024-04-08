@@ -12,7 +12,7 @@ export async function GET(request, { params }) {
 
 // Handles the PUT request for retrieving an event by ID.
 export async function PUT(request, { params }) {
-  return handleGet(params.id);
+  return handlePut(params.id, request);
 }
 
 // Handles the DELETE request for deleting an event by ID.

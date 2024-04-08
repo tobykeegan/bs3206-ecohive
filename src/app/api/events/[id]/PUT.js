@@ -10,7 +10,7 @@ import { HTTP } from '@/utils/globals';
  * @author Toby Keegan
  */
 
-export default async function putById(id) {
+export default async function putById(id, request) {
   let fields;
   let event;
 
@@ -41,7 +41,7 @@ export default async function putById(id) {
       );
     }
     // Return the event if found
-    return NextResponse.json(event);
+    return NextResponse.json(event, { status: HTTP.CREATED });
   } catch (err) {
     return NextResponse.json(
       {

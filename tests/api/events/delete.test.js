@@ -1,8 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { mongo } from '@/utils/globals';
 import { connect } from '@/services/mongoose';
 import Event from '@/models/event';
-import { before } from 'node:test';
 import { randomString, generateEvent } from '../../utils';
 import { HTTP } from '@/utils/globals';
 require('dotenv').config();

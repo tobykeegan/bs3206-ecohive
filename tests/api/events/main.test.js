@@ -24,7 +24,7 @@ test.describe('Events API operations', () => {
    * owned by nobody are created. The IDs of the events are stored in
    * trackedEventIds so they can be deleted after the tests.
    */
-  test.describe.configure({ retries: 10, mode: 'serial' });
+  test.describe.configure({ retries: 3, mode: 'serial' });
   const TRACKED = randomString(16);
   test.beforeAll(async ({ request }) => {
     await connect();
@@ -170,11 +170,11 @@ test.describe('Events API operations', () => {
 
     // update the event
     const response = await request.put(`/api/events/${event._id}`, {
-      data: { name: 'Updated Event Name' },
+      data: { name: `Updated Event Name for ${TRACKED}` },
     });
     const body = await response.json();
-    expect(response.status()).toBe(HTTP.OK);
+    expect(response.status()).toBe(HTTP.CREATED);
     expect(body).toHaveProperty('name');
-    expect(body.name).toBe('Updated Event Name');
+    expect(body.name).toBe(`Updated Event Name for ${TRACKED}`);
   });
 });
