@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connect } from '../../services/mongoose.service';
 import User from '../../models/user.model';
-import logger from '../../utils/logger';
+import logger from '@/api/utils/logger';
 
 export const authOptions = {
   session: {
