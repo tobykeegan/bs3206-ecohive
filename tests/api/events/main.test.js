@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { mongo, HTTP, URL } from '@/utils/globals';
 import { connect } from '@/services/mongoose';
 import Event from '@/models/event';
-import { generateEvent, randomString } from '../../utils';
+import { generateEvent, randomString } from '@/test/utils';
 require('dotenv').config();
 
 /**

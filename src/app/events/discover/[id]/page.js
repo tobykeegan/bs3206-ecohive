@@ -24,7 +24,7 @@ export default async function Page({ params }) {
     redirect('/api/auth/signin');
   }
 
-  const apiURL = `${URL}/api/events?id=${params.id}`;
+  const apiURL = `${URL}/api/events/${params.id}`;
   console.log('API URL', apiURL);
   let res = await axios.get(apiURL);
 
@@ -50,30 +50,6 @@ export default async function Page({ params }) {
               layout="fill"
             />
           </AspectRatio>
-        </CardOverflow>
-        <CardContent>
-          <Typography level="title-md">Yosemite National Park</Typography>
-          <Typography level="body-sm">California</Typography>
-        </CardContent>
-        <CardOverflow variant="soft" sx={{ bgcolor: 'background.level1' }}>
-          <Divider inset="context" />
-          <CardContent orientation="horizontal">
-            <Typography
-              level="body-xs"
-              fontWeight="md"
-              textColor="text.secondary"
-            >
-              6.3k views
-            </Typography>
-            <Divider orientation="vertical" />
-            <Typography
-              level="body-xs"
-              fontWeight="md"
-              textColor="text.secondary"
-            >
-              1 hour ago
-            </Typography>
-          </CardContent>
         </CardOverflow>
       </Card>
 
