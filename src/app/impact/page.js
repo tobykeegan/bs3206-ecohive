@@ -25,10 +25,12 @@ export default async function Impact() {
   }
 
   let badgeCards = [];
-  (session.user.badges).map((badgeId => {
+  session.user.badges.map((badgeId) => {
     let badge = allBadges[badgeId];
-    badgeCards.push(<Badge key={badge.id} badgeName={badge.name} badgeDesc={badge.desc} />);
-  }));
+    badgeCards.push(
+      <Badge key={badge.id} badgeName={badge.name} badgeDesc={badge.desc} />,
+    );
+  });
 
   return (
     <main
@@ -84,7 +86,7 @@ export default async function Impact() {
 // const allBadges = getAllBadges();
 
 // function getAllBadges() {
-  // api call here...
+// api call here...
 // }
 const allBadges = [
   {
@@ -148,7 +150,6 @@ const allBadges = [
     photo: '../static/badge.png',
   },
 ];
-
 
 // To manually create a badge in the DB
 // const handleSubmit = async () => {

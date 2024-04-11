@@ -33,7 +33,7 @@ export default function Badges({ badges }) {
           flexWrap: 'wrap',
         }}
       >
-      {badges}
+        {badges}
       </div>
     </Card>
   );
