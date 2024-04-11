@@ -4,8 +4,10 @@ import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
 import styles from '@/styles/login/login.form';
 import { IoIosArrowRoundForward, IoIosLock, IoMdMail } from 'react-icons/io';
+import { FaWandMagicSparkles } from 'react-icons/fa6';
+
 import Link from 'next/link';
-import { Typography, Button } from '@mui/joy';
+import { Typography, Button, ButtonGroup } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 
 export default function LoginForm({ onSubmit, error }) {
@@ -26,6 +28,27 @@ export default function LoginForm({ onSubmit, error }) {
     onSubmit(formData);
   };
 
+  let devLogin;
+
+  // ! TODO: Remove this in production
+  if (process.env.NODE_ENV === 'development') {
+    devLogin = (
+      <Button
+        id="devLoginButton"
+        endDecorator={<FaWandMagicSparkles size={30} />}
+        size="lg"
+        sx={{ alignSelf: 'end' }}
+        onClick={() => {
+          setFormData({
+            email: process.env.DEV_USERNAME || 'dev@example.com',
+            password: process.env.DEV_PASSWORD || 'pass',
+          });
+        }}
+      >
+        Dev Magic
+      </Button>
+    );
+  }
   return (
     <form
       style={{
@@ -59,8 +82,7 @@ export default function LoginForm({ onSubmit, error }) {
           variant="outlined"
           startDecorator={<IoIosLock />}
           endDecorator={
-            // TODO: Add forgot password
-            <Link href={''} id="forgotPasswordLink">
+            <Link href="/forgot" id="forgotPasswordLink">
               Forgot?
             </Link>
           }
@@ -76,15 +98,20 @@ export default function LoginForm({ onSubmit, error }) {
       ) : (
         <></>
       )}
-      <Button
-        id="loginButton"
-        endDecorator={<IoIosArrowRoundForward size={30} />}
-        size="lg"
-        sx={{ alignSelf: 'end' }}
-        type="submit"
-      >
-        Login
-      </Button>
+      <ButtonGroup spacing="0.5rem" sx={{ alignSelf: 'end' }}>
+        {/* TODO: Remove in production */}
+        {devLogin}
+
+        <Button
+          id="loginButton"
+          endDecorator={<IoIosArrowRoundForward size={30} />}
+          size="lg"
+          sx={{ alignSelf: 'end' }}
+          type="submit"
+        >
+          Login
+        </Button>
+      </ButtonGroup>
     </form>
   );
 }

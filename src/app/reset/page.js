@@ -1,10 +1,10 @@
-import ExpiredCard from './ExpiredCard';
+import ResetCard from './ResetCard';
 import style from '@/styles/login/login';
 
 /**
  * @author Alec Painter
  */
-export default function Expired() {
+export default function Reset() {
   return (
     <main
       style={{
@@ -19,7 +19,7 @@ export default function Expired() {
             width: '100%',
           }}
         >
-          <ExpiredCard />
+          <ResetCard />
         </div>
       </div>
     </main>

@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
 import Ping from '@/models/ping';
 import { connect } from '@/services/mongoose';
-import { mongo } from '@/utils/globals';
-
+import { mongo, HTTP } from '@/utils/globals';
 await connect();
-
-const IM_A_TEAPOT = 418;
 
 export async function GET(request) {
   let thisPing = new Ping({ timestamp: new Date(), ip: request.ip });
@@ -30,5 +27,5 @@ export async function GET(request) {
     res.error = err;
   }
 
-  return NextResponse.json(res, { status: IM_A_TEAPOT });
+  return NextResponse.json(res, { status: HTTP.IM_A_TEAPOT });
 }

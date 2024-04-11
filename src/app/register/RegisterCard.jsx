@@ -4,7 +4,6 @@ import { Link, Sheet, Typography } from '@mui/joy';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import RegisterForm from './RegisterForm';
 import styles from '@/styles/login/login.card';
-import RegisterOAuth from './RegisterOAuth';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -57,7 +56,6 @@ export default function RegisterCard() {
         </Typography>
       </div>
       <RegisterForm error={error} onSubmit={handleSubmit} />
-      <RegisterOAuth />
       <Typography id="signUpHeader" level="body-lg">
         Already have an account?&nbsp;
         <Link

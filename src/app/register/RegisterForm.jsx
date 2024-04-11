@@ -3,10 +3,23 @@ import * as React from 'react';
 import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
 import styles from '@/styles/login/login.form';
-import { IoIosArrowRoundForward, IoIosLock, IoMdMail } from 'react-icons/io';
+import {
+  IoIosArrowRoundForward,
+  IoIosLock,
+  IoMdKey,
+  IoMdMail,
+} from 'react-icons/io';
 import { GoPersonFill } from 'react-icons/go';
-import { LinearProgress, Stack, Typography, Button } from '@mui/joy';
+import {
+  LinearProgress,
+  Stack,
+  Typography,
+  Button,
+  Select,
+  Option,
+} from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
+import { AiFillSecurityScan } from 'react-icons/ai';
 
 export default function RegisterForm({ onSubmit, error }) {
   const [formData, setFormData] = React.useState({
@@ -14,6 +27,8 @@ export default function RegisterForm({ onSubmit, error }) {
     displayName: '',
     email: '',
     password: '',
+    secQuestion: '',
+    secAnswer: '',
   });
 
   const handleChange = (e) => {
@@ -21,6 +36,14 @@ export default function RegisterForm({ onSubmit, error }) {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleChangeSecQuestion = (event, newValue) => {
+    setFormData({
+      ...formData,
+      ['secQuestion']: newValue,
+    });
+    console.log(newValue);
   };
 
   const handleSubmit = (e) => {
@@ -42,7 +65,6 @@ export default function RegisterForm({ onSubmit, error }) {
       <FormControl>
         <Input
           className="inputBox"
-          // html input attribute
           name="fullName"
           type="text"
           placeholder="Full Name"
@@ -56,7 +78,6 @@ export default function RegisterForm({ onSubmit, error }) {
       <FormControl>
         <Input
           className="inputBox"
-          // html input attribute
           name="displayName"
           type="text"
           placeholder="Display Name"
@@ -87,6 +108,35 @@ export default function RegisterForm({ onSubmit, error }) {
           placeholder="Password"
           variant="outlined"
           value={formData.password}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <Select
+          className="inputBox"
+          name="secQuestion"
+          variant="outlined"
+          required
+          startDecorator={<AiFillSecurityScan />}
+          placeholder="Choose a security question"
+          aria-label="Security Question"
+          value={formData.secQuestion ?? ''}
+          onChange={handleChangeSecQuestion}
+        >
+          {GetSecQuestionOptions()}
+        </Select>
+      </FormControl>
+      <FormControl>
+        <Input
+          className="inputBox"
+          name="secAnswer"
+          type="text"
+          required
+          placeholder="Answer"
+          variant="outlined"
+          startDecorator={<IoMdKey />}
+          value={formData.secAnswer}
           onChange={handleChange}
         />
       </FormControl>
@@ -161,4 +211,31 @@ function PasswordMeterInput({ ...props }) {
       </Typography>
     </Stack>
   );
+}
+
+function GetSecQuestionOptions() {
+  const questions = [
+    'What is your mothers maiden name',
+    'What was the name of your first pet',
+    'What city were you born in',
+    'What is your favorite book',
+    'What is the name of your childhood best friend',
+    'What is your favorite movie',
+    'What is the name of the street you grew up on',
+    'What is your favorite food',
+    'What is the make and model of your first car',
+    'What was the name of your elementary school',
+  ];
+
+  let id = 0;
+  const options = questions.map((question) => {
+    id += 1;
+    return (
+      <Option key={id} value={question}>
+        {question}
+      </Option>
+    );
+  });
+
+  return options;
 }
