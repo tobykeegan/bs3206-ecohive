@@ -15,7 +15,8 @@ await connect();
  */
 export async function POST(req) {
   const reqBody = await req.json();
-  let { fullName, displayName, email, password } = reqBody;
+  let { fullName, displayName, email, password, secQuestion, secAnswer } =
+    reqBody;
   logger.debug(`Attempting to register new user: ${email}`);
   try {
     // Check if user exists
@@ -65,6 +66,10 @@ export async function POST(req) {
         email: email,
       },
       password: password,
+      security: {
+        question: secQuestion,
+        answer: secAnswer,
+      },
     });
 
     return NextResponse.json(
@@ -95,7 +100,9 @@ export async function DELETE(req) {
     );
   }
 
-  const deletedUser = await User.findOneAndDelete({ 'details.email': email });
+  const deletedUser = await User.findOneAndDelete({
+    'details.email': session.user.email,
+  });
   if (!deletedUser) {
     logger.warn(`Cannot delete user`);
     return NextResponse.json(

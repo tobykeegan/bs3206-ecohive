@@ -3,53 +3,43 @@ import { getCookie, randomString } from '../../utils';
 import User from '@/app/api/models/user.model';
 import { connect } from '@/app/api/services/mongoose.service';
 import { HTTP } from '@/utils/globals';
+
 /**
- * Test the user registration and authentication end-to-end process
+ * Test the user password reset end-to-end system
  * @author Alec Painter
  */
+
 let userInfo = {};
 
 // Reset storage state for this file to avoid being authenticated
 test.use({ storageState: { cookies: [], origins: [] } });
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/login');
+  await page.goto('/register');
 
-  // 1. Generate user information
+  // Generate user information
   const rs = randomString(12);
   userInfo = {
-    fullName: 'auth test',
-    displayName: 'Authe2e' + rs,
-    email: 'auth-e2e@test.com' + rs,
-    password: 'authtest',
+    fullName: 'reset test',
+    displayName: 'resettest' + rs,
+    email: 'reset-e2e@test.com' + rs,
+    password: 'resettest',
+    newPassword: 'newpass',
     secQuestion: 'What is your mothers maiden name',
     secAnswer: 'test',
   };
 });
 
 test.afterEach(async () => {
-  console.log(`Deleting test user ${userInfo.email}`);
   await connect();
-  const deletedUser = await User.findOneAndDelete({
+  const deletedUser = await User.deleteOne({
     'details.email': userInfo.email,
   });
   expect(deletedUser).toBeDefined();
 });
 
-test('Authentication end-to-end', async ({ page, isMobile }) => {
-  // 2. Attempt to log in (user won't exist)
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  await page.getByPlaceholder('Password').fill(userInfo.password);
-  let responsePromise = page.waitForResponse(
-    '**/api/auth/callback/password-login',
-  );
-  await page.getByRole('button', { name: 'Login', exact: true }).click();
-  let response = await responsePromise;
-  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
-
-  // 3. Register user with info
-  await page.getByRole('link', { name: 'Sign up' }).click();
-  await page.waitForURL('**/register');
+test('Reset end-to-end', async ({ page }) => {
+  // Register user with info
   await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
   await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
   await page.getByPlaceholder('Email').fill(userInfo.email);
@@ -57,21 +47,13 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   await page.getByText('Choose a security question').click();
   await page.getByRole('option', { name: userInfo.secQuestion }).click();
   await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
-  responsePromise = page.waitForResponse('**/api/users');
+  let responsePromise = page.waitForResponse('**/api/users');
   await page.getByLabel('Register').click();
-  response = await responsePromise;
+  let response = await responsePromise;
   expect(response.status()).toBe(HTTP.CREATED);
 
-  // 4. Attempt to login with incorrect password
-  await page.waitForURL('**/login');
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  await page.getByPlaceholder('Password').fill('incorrectpassword');
-  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
-  await page.getByRole('button', { name: 'Login', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
-
-  // 5. Attempt to log in correctly (user will exist)
+  // Log in as user
+  await page.waitForURL('/login');
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
   responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
@@ -79,26 +61,52 @@ test('Authentication end-to-end', async ({ page, isMobile }) => {
   response = await responsePromise;
   expect(response.status()).toBe(HTTP.OK);
 
-  // 6. Redirected to home page
+  // Redirected to home page
   await page.waitForURL('/');
   await expect(page).toHaveURL('/');
 
-  // 7. Check if session has loaded
-  let sessionToken = await getCookie(page, 'next-auth.session-token');
-  expect(sessionToken).toBeDefined();
+  await page.goto('/settings');
+  await page.getByRole('button', { name: 'Change Password' }).click();
+  await page.waitForURL('/reset');
+  await expect(page).toHaveURL('/reset');
 
-  // 8. Log out
-  if (isMobile) {
-    // click navbar
-    await page.getByLabel('Toggle navigation').click();
+  await page
+    .getByPlaceholder('Password', { exact: true })
+    .fill(userInfo.newPassword);
+  await page
+    .getByPlaceholder('Confirm Password', { exact: true })
+    .fill(userInfo.newPassword);
 
-    // Open menu to get to sign out option
-    await page.getByRole('button', { name: 'My Account' }).click();
-    await page.getByRole('button', { name: 'Sign out' }).click();
-  } else {
-    await page.getByRole('button', { name: 'Sign out icon' }).click();
-  }
+  responsePromise = page.waitForResponse('**/api/users/password');
+  await page.getByRole('button', { name: 'Reset' }).click();
+  response = await responsePromise;
+  expect(response.status()).toBe(HTTP.OK);
+
   await expect(page).toHaveURL(/login.*/);
-  sessionToken = await getCookie(page, 'next-auth.session-token');
+  let sessionToken = await getCookie(page, 'next-auth.session-token');
   expect(sessionToken).toBeNull();
+
+  // Attempt to login with old password
+  await page.getByPlaceholder('Email').fill(userInfo.email);
+  await page.getByPlaceholder('Password').fill(userInfo.password);
+  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
+  response = await responsePromise;
+  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
+
+  // Attempt to log in correctly
+  await page.getByPlaceholder('Email').fill(userInfo.email);
+  await page.getByPlaceholder('Password').fill(userInfo.newPassword);
+  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
+  response = await responsePromise;
+  expect(response.status()).toBe(HTTP.OK);
+
+  // Redirected to home page
+  await page.waitForURL('/');
+  await expect(page).toHaveURL('/');
+
+  // Check if session has loaded
+  sessionToken = await getCookie(page, 'next-auth.session-token');
+  expect(sessionToken).toBeDefined();
 });

@@ -4,6 +4,10 @@
   border: 2px solid global.$primary;
 }
 
+.inputBox::placeholder {
+  color: global.$ecohive-grey;
+}
+
 #forgotPasswordLink {
   color: global.$interaction;
   text-decoration: underline;
