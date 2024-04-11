@@ -87,6 +87,7 @@ export const authOptions = {
             level: user.score.level,
             points: user.score.points,
           },
+          badges: user.badges,
         };
       }
       return token;
