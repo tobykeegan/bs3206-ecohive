@@ -36,8 +36,9 @@ jobs:
     - stage: Development Tests
       if: branch != main AND type != pull_request
       script:
+        - docker build -t ecohive-test .
+        - docker run -d ecohive-test -p 3000:3000
         - bunx playwright install --with-deps > /dev/null
-        - bun run build
         - bun run test
 
     - stage: Production Tests
