@@ -36,7 +36,7 @@ jobs:
     - stage: Development Tests
       if: branch != main AND type != pull_request
       script:
-        - mv ./.travis/dev_cert.pem ./cert.pem
+        - mv ./.travis/dev_cert.pem ./.travis/cert.pem
         - $SCRIPTS/build_image
         - docker run -d ecohive-ui:$TRAVIS_BRANCH -p 3000:3000
         - bunx playwright install --with-deps > /dev/null
@@ -45,7 +45,7 @@ jobs:
     - stage: Production Tests
       if: type = pull_request
       script:
-        - mv ./.travis/production_cert.pem ./cert.pem
+        - mv ./.travis/production_cert.pem ./.travis/cert.pem
         - $SCRIPTS/build_image
         - docker run -d ecohive-ui:$TRAVIS_BRANCH -p 3000:3000
         - bunx playwright install --with-deps > /dev/null
