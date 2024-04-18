@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { HTTP } from '@/utils/globals';
+import Image from '@/models/image';
 
 await connect();
 
@@ -14,7 +15,8 @@ await connect();
  */
 export async function POST(req) {
   const reqBody = await req.json();
-  let { fullName, displayName, email, password } = reqBody;
+  let { fullName, displayName, email, password, secQuestion, secAnswer } =
+    reqBody;
   logger.debug(`Attempting to register new user: ${email}`);
   try {
     // Check if user exists
@@ -64,6 +66,10 @@ export async function POST(req) {
         email: email,
       },
       password: password,
+      security: {
+        question: secQuestion,
+        answer: secAnswer,
+      },
     });
 
     return NextResponse.json(
@@ -94,7 +100,16 @@ export async function DELETE(req) {
     );
   }
 
-  const deletedUser = await User.findOneAndDelete({ 'details.email': email });
+  const user = await User.findOne({
+    'details.email': session.user.email,
+  });
+  if (user.profilePicture) {
+    await Image.findByIdAndDelete(user.profilePicture);
+  }
+
+  const deletedUser = await User.findOneAndDelete({
+    'details.email': session.user.email,
+  });
   if (!deletedUser) {
     logger.warn(`Cannot delete user`);
     return NextResponse.json(

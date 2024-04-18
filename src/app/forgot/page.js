@@ -1,10 +1,10 @@
+import ForgotCard from './ForgotCard';
 import style from '@/styles/login/login';
-import RegisterCard from './RegisterCard';
 
 /**
  * @author Alec Painter
  */
-export default function Register() {
+export default function Forgot() {
   return (
     <main
       style={{
@@ -19,7 +19,7 @@ export default function Register() {
             width: '100%',
           }}
         >
-          <RegisterCard />
+          <ForgotCard />
         </div>
       </div>
     </main>

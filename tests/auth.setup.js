@@ -3,6 +3,10 @@ import { randomString } from './utils';
 import { HTTP } from '@/app/api/utils/globals';
 const authFile = 'playwright/.auth/user.json';
 
+/**
+ * Create the test user
+ * @author Alec Painter
+ */
 setup('authenticate', async ({ page }) => {
   // 1. Generate user information
   const rs = randomString(12);
@@ -12,6 +16,8 @@ setup('authenticate', async ({ page }) => {
     displayName: 'testuser' + rs,
     email: 'testuser@test.com' + rs,
     password: ps,
+    secQuestion: 'What is your mothers maiden name',
+    secAnswer: 'test',
   };
 
   // Register test user
@@ -20,6 +26,9 @@ setup('authenticate', async ({ page }) => {
   await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
+  await page.getByText('Choose a security question').click();
+  await page.getByRole('option', { name: userInfo.secQuestion }).click();
+  await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
   let responsePromise = page.waitForResponse('**/api/users');
   await page.getByLabel('Register').click({ force: true });
   let response = await responsePromise;
@@ -29,7 +38,7 @@ setup('authenticate', async ({ page }) => {
   await page.waitForURL('**/login');
   await page.getByPlaceholder('Email').fill(userInfo.email);
   await page.getByPlaceholder('Password').fill(userInfo.password);
-  responsePromise = page.waitForResponse('**/api/auth/callback/credentials');
+  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   response = await responsePromise;
   expect(response.status()).toBe(HTTP.OK);

@@ -35,7 +35,7 @@ export default function WelcomeCard({ session }) {
         }}
       >
         <Typography level="h3" id="welcome-message">
-          Welcome back, {session.user.name.first || 'Carlos'}
+          Welcome back, {session.user.name.first}
         </Typography>
         <UserProfile session={session} />
         <Typography level="body-lg" id="personal-impact" mb={1}>

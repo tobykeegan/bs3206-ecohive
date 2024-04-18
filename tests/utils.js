@@ -1,5 +1,7 @@
 import Event from '@/app/api/models/event.model';
 import { test } from '@playwright/test';
+import { signIn } from 'next-auth/react';
+
 /**
  * Skips the test if the functionality is not implemented.
  * Prevents you from skipping the test on a production build!

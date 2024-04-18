@@ -1,16 +1,12 @@
 'use client';
 import * as React from 'react';
-import { Button, Link, Sheet, Typography } from '@mui/joy';
-import { IoIosArrowRoundForward } from 'react-icons/io';
+import { Link, Sheet, Typography } from '@mui/joy';
 import LoginForm from './LoginForm';
 import styles from '@/styles/login/login.card';
 import logo from '../static/ecohivelogo.png';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Image from 'next/image';
-import LoginOAuth from './LoginOAuth';
 import { Ratio } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { signIn } from 'next-auth/react';
 
 export default function LoginCard() {
@@ -18,7 +14,7 @@ export default function LoginCard() {
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (formData) => {
-    const response = await signIn('credentials', {
+    const response = await signIn('password-login', {
       callbackUrl: '/',
       redirect: false,
       email: formData.email,
@@ -66,7 +62,6 @@ export default function LoginCard() {
         </Typography>
       </div>
       <LoginForm error={error} onSubmit={handleSubmit} />
-      <LoginOAuth />
       <Typography id="signUpHeader" level="body-lg">
         Don&apos;t have an account?&nbsp;
         <Link

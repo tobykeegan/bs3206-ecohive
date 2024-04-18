@@ -46,24 +46,40 @@ const UserSchema = new Schema({
     required: true,
     select: false,
   },
-  settings: {
-    highContrast: {
-      type: Boolean,
-      default: false,
+  security: {
+    question: {
+      type: String,
+      required: true,
+      select: false,
     },
+    answer: {
+      type: String,
+      required: true,
+      select: false,
+    },
+  },
+  profilePicture: {
+    type: Schema.Types.ObjectId,
+    ref: 'Image',
   },
 });
 
 UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next();
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 12);
   }
-  this.password = await bcrypt.hash(this.password, 12);
+  if (this.isModified('security.answer')) {
+    this.security.answer = await bcrypt.hash(this.security.answer, 12);
+  }
   next();
 });
 
 UserSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+UserSchema.methods.compareSecAnswers = async function (enteredAnswer) {
+  return await bcrypt.compare(enteredAnswer, this.security.answer);
 };
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
