@@ -34,9 +34,9 @@ export default async function Discover() {
     <main>
       <Navbar />
       <PageHeader pageName="discover events near you" />
-      <CollapsibleEventSearch />
+      {/* <CollapsibleEventSearch /> TODO: fix in new branch */}
       <Divider />
-      <div id="eventsContainer">{eventCards}</div>
+      {/* <div id="eventsContainer">{eventCards}</div> */}
       <div id="Footer-Div">
         <Divider />
         <Footer />
