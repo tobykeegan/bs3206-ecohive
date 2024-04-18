@@ -1,6 +1,5 @@
 import logger from '@/utils/logger';
 import { connect } from '@/services/mongoose';
-import bcrypt from 'bcrypt';
 import User from '@/models/user';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
