@@ -23,7 +23,6 @@ export default async function CreateEvent() {
     redirect('/api/auth/signin');
   }
 
-  let eventImage;
   return (
     <main>
       <Navbar />
