@@ -1,4 +1,7 @@
-language: minimal
+language: node
+
+node_js:
+  - 20
 
 script: 'true'
 

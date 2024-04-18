@@ -1,6 +1,8 @@
 import Navbar from '@/app/ui/Navbar';
 import EventWidget from '../EventWidget';
-import Container from 'react-bootstrap/Container';
+import { Stack } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
 import axios from 'axios';
@@ -30,13 +32,20 @@ export default async function Discover() {
   } catch (err) {
     console.log(err);
   }
+
+  // now generate the grid of event cards
+  const grid = (
+    <Row xs={1} md={2} className="g-4">
+      {eventCards}
+    </Row>
+  );
   return (
     <main>
       <Navbar />
       <PageHeader pageName="discover events near you" />
-      {/* <CollapsibleEventSearch /> TODO: fix in new branch */}
+      <CollapsibleEventSearch />
       <Divider />
-      {/* <div id="eventsContainer">{eventCards}</div> */}
+      {grid}
       <div id="Footer-Div">
         <Divider />
         <Footer />
