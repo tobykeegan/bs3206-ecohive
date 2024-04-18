@@ -39,6 +39,7 @@ jobs:
         - mv ./.travis/dev_cert.pem ./.travis/cert.pem
         - $SCRIPTS/build_image
         - docker run -d ecohive-ui:$TRAVIS_BRANCH -p 3000:3000
+        - docker ps
         - bunx playwright install --with-deps > /dev/null
         - bun run test
 
@@ -48,6 +49,7 @@ jobs:
         - mv ./.travis/production_cert.pem ./.travis/cert.pem
         - $SCRIPTS/build_image
         - docker run -d ecohive-ui:$TRAVIS_BRANCH -p 3000:3000
+        - docker ps
         - bunx playwright install --with-deps > /dev/null
         - bun run test
 
