@@ -1,11 +1,11 @@
 import logger from '@/utils/logger';
 import { connect } from '@/services/mongoose';
-import bcrypt from 'bcrypt';
 import User from '@/models/user';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { HTTP } from '@/utils/globals';
+import Image from '@/models/image';
 
 await connect();
 
@@ -98,6 +98,13 @@ export async function DELETE(req) {
       { message: 'User not logged in' },
       { status: HTTP.UNAUTHORIZED },
     );
+  }
+
+  const user = await User.findOne({
+    'details.email': session.user.email,
+  });
+  if (user.profilePicture) {
+    await Image.findByIdAndDelete(user.profilePicture);
   }
 
   const deletedUser = await User.findOneAndDelete({

@@ -3,12 +3,11 @@ import * as React from 'react';
 import { Sheet, Typography } from '@mui/joy';
 import ResetForm from './ResetForm';
 import styles from '@/styles/login/login.card';
-import Image from 'next/image';
 import { Ratio } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
-import carlos from '../static/carlos.png';
 import axios from 'axios';
+import UserProfilePicture from '@/components/UserProfilePicture';
 
 export default function ResetCard() {
   const router = useRouter();
@@ -53,8 +52,7 @@ export default function ResetCard() {
     >
       <div>
         <Ratio aspectRatio={'1x1'} style={{ width: 190 }}>
-          <Image
-            src={carlos}
+          <UserProfilePicture
             width={500}
             height={500}
             alt="User profile picture"

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import React from 'react';
 import { FaBackspace } from 'react-icons/fa';
-import { IoIosArrowRoundBack, IoIosArrowRoundForward } from 'react-icons/io';
+import { IoIosArrowRoundForward } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 
 /**

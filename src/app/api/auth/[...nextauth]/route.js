@@ -87,6 +87,7 @@ export const authOptions = {
             level: user.score.level,
             points: user.score.points,
           },
+          profilePicture: user.profilePicture,
         };
       }
       return token;
