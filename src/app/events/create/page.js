@@ -1,7 +1,6 @@
 import Navbar from '@/app/ui/Navbar';
 import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
-import ImageUploader from '@/app/ui/ImageUploader';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 const react = require('react');
@@ -28,21 +27,8 @@ export default async function CreateEvent() {
   return (
     <main>
       <Navbar />
-      {eventImage && (
-        <section>
-          File details:
-          <ul>
-            <li>Name: {eventImage.name}</li>
-            <li>Type: {eventImage.type}</li>
-            <li>Size: {eventImage.size} bytes</li>
-          </ul>
-        </section>
-      )}
-      <ImageUploader fileData={eventImage} />
-      <div id="Footer-Div">
-        <Divider />
-        <Footer />
-      </div>
+      <Divider />
+      <Footer />
     </main>
   );
 }
