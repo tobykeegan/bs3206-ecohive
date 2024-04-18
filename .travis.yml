@@ -1,9 +1,6 @@
-language: node_js
+language: minimal
 
 script: 'true'
-
-node_js:
-  - 20
 
 env:
   global:
