@@ -14,7 +14,17 @@ RUN bun install
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .      
+COPY . .
+
+# Make sure we've got a certificate for this container to use
+RUN \
+    if [ -f ".travis/cert.pem" ]; then \
+    cp ".travis/cert.pem" "./cert.pem" \
+    && echo "Certificate was discovered in Travis folder"; \
+    elif [ -f "./cert.pem" ]; then \
+    echo "Certificate file was discovered locally."; \
+    else echo "No certificate was found!" && exit 1; \
+    fi
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
