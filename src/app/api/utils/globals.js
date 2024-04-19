@@ -3,7 +3,7 @@ require('dotenv').config();
 
 function getUrl() {
   const protocol = 'http';
-  let url = '0.0.0.0';
+  let url = 'localhost';
   let port = process.env.PORT || 3000;
 
   return `${protocol}://${url}:${port}`;
