@@ -7,10 +7,9 @@ dotenv.config();
 export default defineConfig({
   webServer: {
     command: 'bun run start',
-    port: 3000,
-    timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
     url: 'http://0.0.0.0:3000',
     reuseExistingServer: Boolean(process.env.CI),
+    timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
   },
   testDir: 'tests',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
