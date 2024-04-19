@@ -1,6 +1,6 @@
 import Navbar from '@/app/ui/Navbar';
 import EventWidget from '../EventWidget';
-import { Stack } from 'react-bootstrap';
+import { Container, Stack } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Divider from '@mui/joy/Divider';
@@ -27,15 +27,18 @@ export default async function Discover() {
   try {
     let res = await axios.get(`${URL}/api/events`);
     eventCards = res.data.map((event) => {
-      return <EventWidget key={event._id} event={event} />;
+      return (
+        <Col className="m-1" key={event._id}>
+          <EventWidget key={event._id} event={event} />
+        </Col>
+      );
     });
   } catch (err) {
     console.log(err);
   }
 
-  // now generate the grid of event cards
-  const grid = (
-    <Row xs={1} md={2} className="g-4">
+  let grid = (
+    <Row xs={1} md={2} lg={3} className={style.eventGrid}>
       {eventCards}
     </Row>
   );
@@ -45,7 +48,7 @@ export default async function Discover() {
       <PageHeader pageName="discover events near you" />
       <CollapsibleEventSearch />
       <Divider />
-      {grid}
+      <Container fluid>{grid}</Container>
       <div id="Footer-Div">
         <Divider />
         <Footer />
