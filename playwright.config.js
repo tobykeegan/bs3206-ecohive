@@ -8,7 +8,7 @@ export default defineConfig({
   webServer: {
     command: 'bun run start',
     url: 'http://0.0.0.0:3000',
-    reuseExistingServer: Boolean(process.env.CI),
+    reuseExistingServer: true,
     timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
   },
   testDir: 'tests',
