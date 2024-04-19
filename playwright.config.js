@@ -10,7 +10,7 @@ export default defineConfig({
     port: 3000,
     timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
 
-    reuseExistingServer: process.env.CI,
+    reuseExistingServer: true,
   },
   testDir: 'tests',
   testMatch: /(.+\.)?(test|spec)\.[jt]s/,
