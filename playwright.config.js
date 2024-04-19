@@ -7,7 +7,7 @@ dotenv.config();
 export default defineConfig({
   webServer: {
     command: 'bun run start',
-    url: 'http://0.0.0.0:3000',
+    url: 'http://localhost:3000',
     reuseExistingServer: true,
     timeout: (parseInt(process.env.WEB_TIMEOUT) || 360) * 1000,
   },
