@@ -1,6 +1,6 @@
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
-import Badge from './Badge';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import styles from '../styles/impact/impact.scss';
 
@@ -8,7 +8,7 @@ import styles from '../styles/impact/impact.scss';
  * The card to display the users badges.
  * @author Jade Carino
  */
-export default function Badges({ badges }) {
+export default function BadgesCard({ badgeCards }) {
   return (
     <Card
       id="Badges-Card"
@@ -20,7 +20,11 @@ export default function Badges({ badges }) {
         alignItems: 'center',
       }}
     >
-      <Typography level="h3" id="badges-heading">
+      <Typography
+        startDecorator={<EmojiEventsIcon></EmojiEventsIcon>}
+        level="h3"
+        id="badges-heading"
+      >
         Badges
       </Typography>
 
@@ -33,7 +37,7 @@ export default function Badges({ badges }) {
           flexWrap: 'wrap',
         }}
       >
-        {badges}
+        {badgeCards}
       </div>
     </Card>
   );

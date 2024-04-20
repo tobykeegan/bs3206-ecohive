@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import Card from '@mui/joy/Card';
 import Tooltip from '@mui/joy/Tooltip';
 import Typography from '@mui/joy/Typography';
-import Image from 'next/image';
 import badgePhoto from '../static/badge.png';
 
 import styles from '../styles/impact/impact.scss';
@@ -10,7 +10,7 @@ import styles from '../styles/impact/impact.scss';
  * The card to display a single badge.
  * @author Jade Carino
  */
-export default function Badge({ badgeName, badgeDesc }) {
+export default function Badge({ name, desc }) {
   return (
     <Card
       id="Badge-Card"
@@ -29,9 +29,9 @@ export default function Badge({ badgeName, badgeDesc }) {
         height={100}
         alt="Picture of the badge"
       />
-      <Tooltip title={badgeDesc} variant="outlined">
+      <Tooltip title={desc} variant="outlined">
         <Typography level="body-md" id="badges-heading" textAlign="center">
-          {badgeName}
+          {name}
         </Typography>
       </Tooltip>
     </Card>

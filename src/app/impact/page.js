@@ -1,12 +1,14 @@
 import Navbar from '@/components/Navbar';
 import Points from './Points';
-import Leaderboard from './Leaderboard';
-import Badges from './Badges';
+import LeaderboardCard from './LeaderboardCard';
 import Badge from './Badge';
+import BadgesCard from './BadgesCard';
 import BadgeEvaluator from './BadgeEvaluator';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
+import { URL } from '@/utils/globals';
+import axios from 'axios';
 
 import styles from '../styles/impact/impact.scss';
 
@@ -24,13 +26,87 @@ export default async function Impact() {
     redirect('/api/auth/signin');
   }
 
-  let badgeCards = [];
-  session.user.badges.map((badgeId) => {
-    let badge = allBadges[badgeId];
-    badgeCards.push(
-      <Badge key={badge.id} badgeName={badge.name} badgeDesc={badge.desc} />,
+  let allBadges;
+  try {
+    let res = await axios.get(`${URL}/api/badges`);
+    allBadges = res.data.badges;
+  } catch (err) {
+    console.log(err);
+  }
+
+  let points;
+  try {
+    let res = await axios.get(
+      `${URL}/api/users/score/points?email=${session.user.email}`,
     );
-  });
+    points = res.data.points;
+  } catch (err) {
+    console.log(err);
+  }
+
+  let level;
+  try {
+    let res = await axios.get(
+      `${URL}/api/users/score/level?email=${session.user.email}`,
+    );
+    level = res.data.level;
+  } catch (err) {
+    console.log(err);
+  }
+
+  let badgeCards;
+  try {
+    let res = await axios.get(
+      `${URL}/api/users/badges?email=${session.user.email}`,
+    );
+
+    badgeCards = res.data.badges?.map((badgeId) => {
+      return allBadges?.map((badge) => {
+        if (badge.id == badgeId) {
+          return (
+            <Badge
+              key={badge?.id}
+              name={badge?.name}
+              desc={badge?.description}
+            />
+          );
+        }
+      });
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  // Badge evaluator logic
+  // const newBadgesToGrant = allBadges?.map((badge) => {
+
+  //   console.log('Assessing user against badge criteria for badge ID ' + badge.id);
+
+  //   //  If the user already has badge, then continue to next function...
+  //   if (!(session.user.badges).includes(badge.id)) {
+  //     // Call the deserialized function stored with the badge to see if user meets criteria...
+  //     let func = new Function("user", `return (${badge.criteria.serializedFunction})`);
+  //     let userMeetsCriteria = func(session.user);
+
+  //     if (userMeetsCriteria) {
+  //       console.log("This user has now achieved badge " + badge.id)
+  //       grantUserBadge(badge.id)
+  //       session.user.badges.push(badge.id)
+  //       let badgeInfo = {id: badge.id, name: badge.name, desc: badge.description};
+  //       return badgeInfo;
+  //   } else {
+  //     console.log("This user does not meet the criteria for the badge " + badge.id)
+  //   }
+  //   } else {
+  //     console.log("This user already has badge " + badge.id)
+  //   }
+  // });
+
+  // const filteredNewBadgesToGrant = newBadgesToGrant.filter((badge) => badge);
+
+  // const newBadgeCards = filteredNewBadgesToGrant.map((badgeInfo) => {
+  //   return <Badge key={badgeInfo?.id} name={badgeInfo?.name} desc={badgeInfo?.desc}></Badge>;
+  // })
 
   return (
     <main
@@ -59,8 +135,8 @@ export default async function Impact() {
             padding: 0,
           }}
         >
-          <Points points={session.user.score.points} />
-          <Leaderboard />
+          <Points points={points} level={level} />
+          <LeaderboardCard />
         </div>
 
         <div
@@ -74,89 +150,22 @@ export default async function Impact() {
             padding: 0,
           }}
         >
-          <Badges badges={badgeCards} />
+          <BadgesCard badgeCards={badgeCards} />
+          {/* <BadgesCard badgeCards={newBadgeCards} /> */}
+          {/* <BadgeEvaluator badges={allBadges} user={session.user} /> */}
         </div>
       </div>
     </main>
   );
 }
 
-// TODO - Get all badges from the API from /api/badges instead of using static.
-
-// const allBadges = getAllBadges();
-
-// function getAllBadges() {
-// api call here...
-// }
-const allBadges = [
-  {
-    id: 0,
-    name: 'Green Initiator',
-    desc: 'For attending your first EcoHive event',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 1,
-    name: 'Sustainability Star',
-    desc: 'For attending three EcoHive events',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 2,
-    name: 'Climate Crusader',
-    desc: 'For attending five EcoHive events',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 3,
-    name: 'Eco Pioneer',
-    desc: 'For organising your first event for EcoHive',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 4,
-    name: 'Eco Trailblazer',
-    desc: 'For organising your first three events for EcoHive',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 5,
-    name: 'Eco Ambassador',
-    desc: 'For organising your first five events for EcoHive',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 6,
-    name: 'Sustainability Activist',
-    desc: 'For your attendance at a demonstration or activism event',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 7,
-    name: 'Education Enthusiast',
-    desc: 'For your attendance at an educational event',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 8,
-    name: 'Clean Up Advocate',
-    desc: 'For your attendance at a clean-up event',
-    photo: '../static/badge.png',
-  },
-  {
-    id: 9,
-    name: 'Community Champion',
-    desc: 'For your attendance at an EcoHive meet-up',
-    photo: '../static/badge.png',
-  },
-];
-
-// To manually create a badge in the DB
-// const handleSubmit = async () => {
-//   try {
-//     const response = await axios.post('/api/badges', JSON.stringify(formData));
-//     setError('');
-//   } catch (error) {
-//     setError(error.response.data.message);
-//   }
-// };
+async function grantUserBadge(badgeId) {
+  try {
+    const res = await axios.patch(
+      '/api/users/badges',
+      JSON.stringify({ badgeId: badgeId }),
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}

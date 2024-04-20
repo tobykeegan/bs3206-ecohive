@@ -1,7 +1,9 @@
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
+import Chip from '@mui/joy/Chip';
 import Slider from '@mui/joy/Slider';
+import Typography from '@mui/joy/Typography';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 import styles from '../styles/impact/impact.scss';
 
@@ -9,7 +11,7 @@ import styles from '../styles/impact/impact.scss';
  * The card for user's points and personal impact.
  * @author Jade Carino
  */
-export default function Points({ points }) {
+export default function Points({ points, level }) {
   return (
     <Card
       id="Points-Card"
@@ -29,14 +31,28 @@ export default function Points({ points }) {
           gap: 12,
         }}
       >
+        <Chip
+          variant="outlined"
+          color="success"
+          size="lg"
+          startDecorator={<WorkspacePremiumIcon />}
+        >
+          Level {level}
+        </Chip>
         <Typography level="h3" id="points-earned">
           {points} Points Earned
         </Typography>
-        <Slider color="success" defaultValue={points} max={100} />
+        <Slider
+          color="success"
+          defaultValue={points}
+          max={1000}
+          disabled={true}
+        />
+        <Typography level="body-sm" id="points-needed">
+          {1000 - points} Points Until Level Up!
+        </Typography>
         <Typography level="body-lg" id="personal-impact" mb={1}>
-          Your personal impact has offset:{'\n'}
-          {getPersonalImpactOffset() ||
-            'the carbon emissions from one day of driving!'}
+          Your personal impact has offset: {getPersonalImpactOffset()}
         </Typography>
       </CardContent>
     </Card>
@@ -45,5 +61,5 @@ export default function Points({ points }) {
 
 // TODO: Implement
 const getPersonalImpactOffset = () => {
-  return null;
+  return 'the carbon emissions from one day of driving!';
 };

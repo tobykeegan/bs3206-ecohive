@@ -88,6 +88,10 @@ export const authOptions = {
             points: user.score.points,
           },
           badges: user.badges,
+          stats: {
+            attendance: user.stats.attendance,
+            creation: user.stats.creation,
+          },
         };
       }
       return token;
