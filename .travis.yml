@@ -45,6 +45,7 @@ jobs:
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - curl http://localhost:3000/api/ping
+        - docker logs --details ecohive-test
         - bun run test
 
     - stage: Production Tests
