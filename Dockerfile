@@ -70,6 +70,7 @@ ENV CERT_PATH="./cert.pem"
 
 
 # final checks
-RUN [ -f "./cert.pem" ] && echo "Certificate found" || echo "Certificate not found"
+RUN ls -la
+
 
 CMD HOSTNAME="0.0.0.0" bun server.js

@@ -43,11 +43,10 @@ jobs:
         - mv ./.travis/dev_cert.pem ./.travis/cert.pem
         - $SCRIPTS/build_image
         - docker run --name ecohive-test -it -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
-        # - docker ps
-        # - curl http://localhost:3000/api/ping
-        # - docker logs --details ecohive-test
-        # - docker exec -d ecohive-test ls -la
-        # - curl http://localhost:3000/api/ping
+        - docker ps
+        - curl http://localhost:3000/api/ping
+        - docker logs --details ecohive-test
+        - docker exec -d ecohive-test ls -la
         # - bun run test
 
     - stage: Production Tests
