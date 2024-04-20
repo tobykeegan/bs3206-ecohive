@@ -73,6 +73,10 @@ const UserSchema = new Schema({
       select: false,
     },
   },
+  profilePicture: {
+    type: Schema.Types.ObjectId,
+    ref: 'Image',
+  },
 });
 
 UserSchema.pre('save', async function (next) {

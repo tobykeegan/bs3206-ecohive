@@ -92,6 +92,7 @@ export const authOptions = {
             attendance: user.stats.attendance,
             creation: user.stats.creation,
           },
+          profilePicture: user.profilePicture,
         };
       }
       return token;

@@ -1,6 +1,5 @@
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
-
 import styles from '@/styles/home';
 
 /**
