@@ -46,6 +46,7 @@ jobs:
         - docker ps
         - curl http://localhost:3000/api/ping
         - docker logs --details ecohive-test
+        - docker exec -d ecohive-test ls -la
         - curl http://localhost:3000/api/ping || exit 1;
         - bun run test
 
