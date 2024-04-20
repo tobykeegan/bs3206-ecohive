@@ -58,7 +58,7 @@ RUN chown nextjs:nodejs logs
 # Automatically leverage output traces to reduce image size
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/cert.pem ./
+COPY --from=builder --chown=nextjs:nodejs /app/cert.pem ./cert.pem
 
 
 USER nextjs
