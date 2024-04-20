@@ -108,6 +108,16 @@ export default async function Impact() {
   //   return <Badge key={badgeInfo?.id} name={badgeInfo?.name} desc={badgeInfo?.desc}></Badge>;
   // })
 
+  let topUsers;
+  try {
+    let res = await axios.get(
+      `${URL}/api/users?limit=5`,
+    );
+    topUsers = res.data.topUsers;
+  } catch (err) {
+    console.log(err);
+  }
+
   return (
     <main
       style={{
@@ -136,7 +146,7 @@ export default async function Impact() {
           }}
         >
           <Points points={points} level={level} />
-          <LeaderboardCard />
+          <LeaderboardCard topUsers={topUsers}/>
         </div>
 
         <div

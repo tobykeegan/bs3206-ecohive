@@ -10,7 +10,7 @@ import styles from '../styles/impact/impact.scss';
  * The card for the leaderboard.
  * @author Jade Carino
  */
-export default function LeaderboardCard() {
+export default function LeaderboardCard({ topUsers }) {
   return (
     <Card
       id="Leaderboard-Card"
@@ -37,7 +37,7 @@ export default function LeaderboardCard() {
         >
           Leaderboard
         </Typography>
-        <Leaderboard />
+        <Leaderboard topUsers={topUsers}/>
       </CardContent>
     </Card>
   );
