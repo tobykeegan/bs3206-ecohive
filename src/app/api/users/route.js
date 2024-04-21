@@ -153,7 +153,9 @@ export async function GET(req) {
 
   logger.debug(`Fetching users sorting by level and score`);
 
-  let users = await User.find().sort({'score.level': -1, 'score.points': -1}).limit(limit);
+  let users = await User.find()
+    .sort({ 'score.level': -1, 'score.points': -1 })
+    .limit(limit);
 
   return NextResponse.json({ topUsers: users, status: HTTP.OK });
 }

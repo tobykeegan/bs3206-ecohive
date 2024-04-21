@@ -4,6 +4,7 @@ import LeaderboardCard from './LeaderboardCard';
 import Badge from './Badge';
 import BadgesCard from './BadgesCard';
 import BadgeEvaluator from './BadgeEvaluator';
+import NewBadges from './NewBadges';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
@@ -54,13 +55,15 @@ export default async function Impact() {
     console.log(err);
   }
 
+  let usersBadges;
   let badgeCards;
   try {
     let res = await axios.get(
       `${URL}/api/users/badges?email=${session.user.email}`,
     );
+    usersBadges = res.data.badges;
 
-    badgeCards = res.data.badges?.map((badgeId) => {
+    badgeCards = usersBadges?.map((badgeId) => {
       return allBadges?.map((badge) => {
         if (badge.id == badgeId) {
           return (
@@ -77,45 +80,42 @@ export default async function Impact() {
     console.log(err);
   }
 
-  // Badge evaluator logic
-  // const newBadgesToGrant = allBadges?.map((badge) => {
-
-  //   console.log('Assessing user against badge criteria for badge ID ' + badge.id);
-
-  //   //  If the user already has badge, then continue to next function...
-  //   if (!(session.user.badges).includes(badge.id)) {
-  //     // Call the deserialized function stored with the badge to see if user meets criteria...
-  //     let func = new Function("user", `return (${badge.criteria.serializedFunction})`);
-  //     let userMeetsCriteria = func(session.user);
-
-  //     if (userMeetsCriteria) {
-  //       console.log("This user has now achieved badge " + badge.id)
-  //       grantUserBadge(badge.id)
-  //       session.user.badges.push(badge.id)
-  //       let badgeInfo = {id: badge.id, name: badge.name, desc: badge.description};
-  //       return badgeInfo;
-  //   } else {
-  //     console.log("This user does not meet the criteria for the badge " + badge.id)
-  //   }
-  //   } else {
-  //     console.log("This user already has badge " + badge.id)
-  //   }
-  // });
-
-  // const filteredNewBadgesToGrant = newBadgesToGrant.filter((badge) => badge);
-
-  // const newBadgeCards = filteredNewBadgesToGrant.map((badgeInfo) => {
-  //   return <Badge key={badgeInfo?.id} name={badgeInfo?.name} desc={badgeInfo?.desc}></Badge>;
-  // })
-
   let topUsers;
   try {
-    let res = await axios.get(
-      `${URL}/api/users?limit=5`,
-    );
+    let res = await axios.get(`${URL}/api/users?limit=5`);
     topUsers = res.data.topUsers;
   } catch (err) {
     console.log(err);
+  }
+
+  /**
+   * Call the Badge Evaluator to see if the user has
+   * earned any new badges for their recent activity.
+   * @author Jade Carino
+   */
+  const badgeEvaluator = new BadgeEvaluator(
+    allBadges,
+    usersBadges,
+    session.user,
+  );
+  const newBadgesEarned = badgeEvaluator.evaluateNewBadges();
+
+  for (let index in newBadgesEarned) {
+    let newBadge = newBadgesEarned[index];
+    // Add to the user in the database
+    try {
+      const res = await axios.patch(
+        `${URL}/api/users/badges`,
+        JSON.stringify({ email: session.user.email, badgeId: newBadge.id }),
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  let newBadges;
+  if (newBadgesEarned != undefined && newBadgesEarned.length > 0) {
+    newBadges = badgeEvaluator.renderNewBadgeComponents(newBadgesEarned);
   }
 
   return (
@@ -146,7 +146,7 @@ export default async function Impact() {
           }}
         >
           <Points points={points} level={level} />
-          <LeaderboardCard topUsers={topUsers}/>
+          <LeaderboardCard topUsers={topUsers} />
         </div>
 
         <div
@@ -161,21 +161,11 @@ export default async function Impact() {
           }}
         >
           <BadgesCard badgeCards={badgeCards} />
-          {/* <BadgesCard badgeCards={newBadgeCards} /> */}
-          {/* <BadgeEvaluator badges={allBadges} user={session.user} /> */}
+
+          {/* If the user has been granted new badges, a modal will pop up displaying them */}
+          <NewBadges newBadges={newBadges} />
         </div>
       </div>
     </main>
   );
-}
-
-async function grantUserBadge(badgeId) {
-  try {
-    const res = await axios.patch(
-      '/api/users/badges',
-      JSON.stringify({ badgeId: badgeId }),
-    );
-  } catch (err) {
-    console.log(err);
-  }
 }

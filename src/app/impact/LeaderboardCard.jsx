@@ -37,7 +37,7 @@ export default function LeaderboardCard({ topUsers }) {
         >
           Leaderboard
         </Typography>
-        <Leaderboard topUsers={topUsers}/>
+        <Leaderboard topUsers={topUsers} />
       </CardContent>
     </Card>
   );

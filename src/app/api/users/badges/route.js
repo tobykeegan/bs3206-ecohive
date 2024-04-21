@@ -38,24 +38,15 @@ export async function GET(req) {
  */
 export async function PATCH(req) {
   const reqBody = await req.json();
-  let { badgeId } = reqBody;
+  let { email, badgeId } = reqBody;
 
   logger.debug(`Adding badge ${badgeId} to user's badges`);
 
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user) {
-    logger.warn(`Cannot edit user without a session`);
-    return NextResponse.json(
-      { message: 'User not logged in' },
-      { status: HTTP.UNAUTHORIZED },
-    );
-  }
-
   const user = await User.findOne({
-    'details.email': session.user.email,
+    'details.email': email,
   }).select('+badges');
   if (!user) {
-    logger.warn(`Could not find user: ${session.user.email}`);
+    logger.warn(`Could not find user: ${email}`);
     return NextResponse.json(
       { message: 'Unable to find user in database' },
       { status: HTTP.NOT_FOUND },
@@ -66,8 +57,8 @@ export async function PATCH(req) {
     let currentBadges = user.badges;
     if (currentBadges.includes(badgeId)) {
       return NextResponse.json(
-        { message: 'User already has this badge'},
-        { status: HTTP.BAD_REQUEST},
+        { message: 'User already has this badge' },
+        { status: HTTP.BAD_REQUEST },
       );
     }
     currentBadges.push(badgeId);
