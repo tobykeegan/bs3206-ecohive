@@ -4,13 +4,9 @@ import CardContent from '@mui/joy/CardContent';
 import Chip from '@mui/joy/Chip';
 import Typography from '@mui/joy/Typography';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import PersonalImpactOffsets from '../impact/PersonalImpactOffsets';
 
 import styles from '@/styles/home';
-
-// TODO: Implement
-const getPersonalImpactOffset = () => {
-  return null;
-};
 
 /**
  * The card for the Home page that welcomes the user.
@@ -56,10 +52,18 @@ export default function WelcomeCard({ session }) {
         </Typography>
         <Typography level="body-lg" id="personal-impact" mb={1}>
           Your personal impact has offset:{' '}
-          {getPersonalImpactOffset() ||
-            'the carbon emissions from one day of driving!'}
+          {getPersonalImpactOffset(
+            session.user.score.level,
+            session.user.score.points,
+          )}
         </Typography>
       </CardContent>
     </Card>
   );
 }
+
+const getPersonalImpactOffset = (level, points) => {
+  let totalPoints = level * 1000 + points;
+  const personalImpactOffset = new PersonalImpactOffsets(totalPoints);
+  return personalImpactOffset.get();
+};

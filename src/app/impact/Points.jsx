@@ -4,6 +4,7 @@ import Chip from '@mui/joy/Chip';
 import Slider from '@mui/joy/Slider';
 import Typography from '@mui/joy/Typography';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import PersonalImpactOffsets from './PersonalImpactOffsets';
 
 import styles from '../styles/impact/impact.scss';
 
@@ -52,14 +53,16 @@ export default function Points({ points, level }) {
           {1000 - points} Points Until Level Up!
         </Typography>
         <Typography level="body-lg" id="personal-impact" mb={1}>
-          Your personal impact has offset: {getPersonalImpactOffset()}
+          Your personal impact has offset:{' '}
+          {getPersonalImpactOffset(level, points)}
         </Typography>
       </CardContent>
     </Card>
   );
 }
 
-// TODO: Implement
-const getPersonalImpactOffset = () => {
-  return 'the carbon emissions from one day of driving!';
+const getPersonalImpactOffset = (level, points) => {
+  let totalPoints = level * 1000 + points;
+  const personalImpactOffset = new PersonalImpactOffsets(totalPoints);
+  return personalImpactOffset.get();
 };
