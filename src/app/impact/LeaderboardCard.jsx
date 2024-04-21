@@ -19,6 +19,7 @@ export default function LeaderboardCard({ topUsers }) {
       sx={{
         maxWidth: '100vw',
         backgroundColor: 'white',
+        marginTop: '0px'
       }}
     >
       <CardContent

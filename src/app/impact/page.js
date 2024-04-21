@@ -4,7 +4,9 @@ import LeaderboardCard from './LeaderboardCard';
 import Badge from './Badge';
 import BadgesCard from './BadgesCard';
 import BadgeEvaluator from './BadgeEvaluator';
+import Divider from '@mui/joy/Divider';
 import NewBadges from './NewBadges';
+import Footer from '@/components/Footer';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
@@ -146,8 +148,13 @@ export default async function Impact() {
           }}
         >
           <Points points={points} level={level} />
+
+          <Divider id="Divider" />
+
           <LeaderboardCard topUsers={topUsers} />
         </div>
+
+        <Divider id="Divider" />
 
         <div
           id="Badges-Column"
@@ -165,6 +172,10 @@ export default async function Impact() {
           {/* If the user has been granted new badges, a modal will pop up displaying them */}
           <NewBadges newBadges={newBadges} />
         </div>
+      </div>
+      <div id="Footer-Div">
+        <Divider />
+        <Footer />
       </div>
     </main>
   );
