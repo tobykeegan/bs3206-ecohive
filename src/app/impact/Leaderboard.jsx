@@ -1,7 +1,7 @@
 import { Table } from '@mui/joy';
 
 /**
- * The card leaderboard of nearby users.
+ * The card for the leaderboard of all EcoHive users based on points achieved.
  * @author Jade Carino
  */
 export default function Leaderboard({ topUsers }) {

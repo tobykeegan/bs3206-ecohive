@@ -3,6 +3,11 @@ import * as React from 'react';
 import { Modal, ModalDialog, ModalClose } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 
+/**
+ * A modal to be displayed if the BadgeEvaluator has determined
+ * the user has achieved new badges based on their activity on EcoHive.
+ * @author Jade Carino
+ */
 export default function NewBadges({ newBadges }) {
   const [open, setOpen] = React.useState(
     newBadges != undefined && newBadges.length > 0,

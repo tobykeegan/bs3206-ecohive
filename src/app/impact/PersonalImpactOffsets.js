@@ -1,3 +1,9 @@
+/**
+ * Personal Impact Offsets to show the EcoHive users the impact they are making on the environment.
+ * 10 EcoHive points achieved = 1kg of Carbon emissions.
+ * This will show users how much Carbon emissions their eco-friendly activites have helped to offset.
+ * @author Jade Carino
+ */
 class PersonalImpactOffsets {
   constructor(points) {
     this.points = points;

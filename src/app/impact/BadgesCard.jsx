@@ -5,7 +5,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import styles from '../styles/impact/impact.scss';
 
 /**
- * The card to display the users badges.
+ * The card to display the users current badges.
  * @author Jade Carino
  */
 export default function BadgesCard({ badgeCards }) {

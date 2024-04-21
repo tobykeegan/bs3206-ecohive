@@ -16,7 +16,8 @@ import axios from 'axios';
 import styles from '../styles/impact/impact.scss';
 
 /**
- * The Impact page.
+ * The Impact page, to provide gamification and
+ * reward EcoHive users for their their eco-friendly activities.
  * @author Jade Carino
  */
 export default async function Impact() {

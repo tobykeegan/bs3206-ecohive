@@ -9,7 +9,8 @@ import PersonalImpactOffsets from '../impact/PersonalImpactOffsets';
 import styles from '@/styles/home';
 
 /**
- * The card for the Home page that welcomes the user.
+ * The card for the Home page that welcomes the user and
+ * has a quick view of their points, level and personal impact.
  * @author Jade Carino
  */
 export default function WelcomeCard({ session }) {
