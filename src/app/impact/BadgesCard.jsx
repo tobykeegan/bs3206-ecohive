@@ -12,6 +12,7 @@ export default function BadgesCard({ badgeCards }) {
   return (
     <Card
       id="Badges-Card"
+      data-testid="Badges-Card"
       variant="plain"
       size="lg"
       sx={{
@@ -24,6 +25,7 @@ export default function BadgesCard({ badgeCards }) {
         startDecorator={<EmojiEventsIcon></EmojiEventsIcon>}
         level="h3"
         id="badges-heading"
+        data-testid="badges-heading"
       >
         Badges
       </Typography>

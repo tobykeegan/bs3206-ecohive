@@ -6,7 +6,7 @@ import { Table } from '@mui/joy';
  */
 export default function Leaderboard({ topUsers }) {
   let index = 0;
-  const tRows = topUsers.map((topUser) => {
+  const tRows = topUsers?.map((topUser) => {
     index++;
     return (
       <tr key={topUser._id}>
@@ -22,7 +22,11 @@ export default function Leaderboard({ topUsers }) {
 
   return (
     <div>
-      <Table sx={{ '& tr > *:not(:first-of-type)': { textAlign: 'right' } }}>
+      <Table
+        id="Leaderboard"
+        data-testid="Leaderboard"
+        sx={{ '& tr > *:not(:first-of-type)': { textAlign: 'right' } }}
+      >
         <thead>
           <tr>
             <th>Position</th>

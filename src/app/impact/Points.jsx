@@ -16,6 +16,7 @@ export default function Points({ points, level }) {
   return (
     <Card
       id="Points-Card"
+      data-testid="Points-Card"
       variant="plain"
       size="lg"
       sx={{
@@ -33,6 +34,8 @@ export default function Points({ points, level }) {
         }}
       >
         <Chip
+          id="Level-Chip"
+          data-testid="Level-Chip"
           variant="outlined"
           color="success"
           size="lg"
@@ -40,7 +43,7 @@ export default function Points({ points, level }) {
         >
           Level {level}
         </Chip>
-        <Typography level="h3" id="points-earned">
+        <Typography level="h3" id="points-earned" data-testid="points-earned">
           {points} Points Earned
         </Typography>
         <Slider
@@ -49,10 +52,19 @@ export default function Points({ points, level }) {
           max={1000}
           disabled={true}
         />
-        <Typography level="body-sm" id="points-needed">
+        <Typography
+          level="body-sm"
+          id="points-needed"
+          data-testid="points-needed"
+        >
           {1000 - points} Points Until Level Up!
         </Typography>
-        <Typography level="body-lg" id="personal-impact" mb={1}>
+        <Typography
+          level="body-lg"
+          id="personal-impact"
+          data-testid="personal-impact"
+          mb={1}
+        >
           Your personal impact has offset:{' '}
           {getPersonalImpactOffset(level, points)}
         </Typography>

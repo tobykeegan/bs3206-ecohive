@@ -14,6 +14,7 @@ export default function LeaderboardCard({ topUsers }) {
   return (
     <Card
       id="Leaderboard-Card"
+      data-testid="Leaderboard-Card"
       variant="plain"
       size="lg"
       sx={{
@@ -35,6 +36,7 @@ export default function LeaderboardCard({ topUsers }) {
           startDecorator={<LeaderboardIcon></LeaderboardIcon>}
           level="h3"
           id="leaderboard-heading"
+          data-testid="leaderboard-heading"
         >
           Leaderboard
         </Typography>

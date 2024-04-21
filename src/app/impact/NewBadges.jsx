@@ -16,6 +16,8 @@ export default function NewBadges({ newBadges }) {
   return (
     <div>
       <Modal
+        id="New-Badges-Modal"
+        data-testid="New-Badges-Modal"
         open={open}
         onClose={() => {
           setOpen(false);
@@ -30,7 +32,10 @@ export default function NewBadges({ newBadges }) {
         }}
       >
         <ModalDialog>
-          <ModalClose />
+          <ModalClose
+            id="New-Badges-Modal-Close"
+            data-testid="New-Badges-Modal-Close"
+          />
           <Typography level="title-md">Congratulations!</Typography>
           <Typography level="body-md">You have earned new badges!</Typography>
           <div
