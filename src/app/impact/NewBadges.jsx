@@ -32,7 +32,7 @@ export default function NewBadges({ newBadges }) {
         <ModalDialog>
           <ModalClose />
           <Typography level="title-md">Congratulations!</Typography>
-          <Typography level="body-md">You've earned new badges!</Typography>
+          <Typography level="body-md">You have earned new badges!</Typography>
           <div
             style={{
               display: 'flex',

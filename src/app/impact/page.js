@@ -104,7 +104,7 @@ export default async function Impact() {
   const newBadgesEarned = badgeEvaluator.evaluateNewBadges();
 
   for (let index in newBadgesEarned) {
-    let newBadge = newBadgesEarned[index];
+    let newBadge = newBadgesEarned[parseInt(index)];
     // Add to the user in the database
     try {
       const res = await axios.patch(

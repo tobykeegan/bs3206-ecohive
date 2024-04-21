@@ -12,13 +12,13 @@ class PersonalImpactOffsets {
   get() {
     for (let i = 0; i < offsets.length; i++) {
       if (i == offsets.length - 1) {
-        return offsets[i].offset;
+        return offsets[parseInt(i)].offset;
       }
       if (
-        offsets[i].points <= this.points &&
-        this.points < offsets[i + 1].points
+        offsets[parseInt(i)].points <= this.points &&
+        this.points < offsets[parseInt(i + 1)].points
       ) {
-        return offsets[i].offset;
+        return offsets[parseInt(i)].offset;
       }
     }
   }
