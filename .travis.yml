@@ -44,23 +44,7 @@ jobs:
         - $SCRIPTS/build_image
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
-        - curl http://localhost:3000/api/ping
-        - docker logs --details ecohive-test
-        - docker exec -d ecohive-test ls -la
-        - docker ps
-        - curl http://localhost:3000/api/ping
-        - docker logs --details ecohive-test
-        - docker exec -d ecohive-test ls -la
-        - docker ps
-        - curl http://localhost:3000/api/ping
-        - docker logs --details ecohive-test
-        - docker exec -d ecohive-test ls -la
-        - docker ps
-        - curl http://localhost:3000/api/ping
-        - docker logs --details ecohive-test
-        - docker exec -d ecohive-test ls -la
-        - docker ps
-        - curl http://localhost:3000/api/ping
+        - $SCRIPTS/wait.sh
         - docker logs --details ecohive-test
         - docker exec -d ecohive-test ls -la
         # - bun run test
