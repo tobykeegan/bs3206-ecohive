@@ -28,6 +28,8 @@ install:
   - bun install
   - bunx playwright install chromium webkit
 
+after_failure: 
+  - docker logs --details ecohive-test
 
 jobs:
   include:
@@ -40,7 +42,6 @@ jobs:
         - docker ps
         - $SCRIPTS/wait.sh
         - docker logs --details ecohive-test
-        - docker exec -d ecohive-test ls -la
         - bun run test
 
     - stage: Production Tests
