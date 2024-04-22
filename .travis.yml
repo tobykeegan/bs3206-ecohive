@@ -1,5 +1,6 @@
-language: node
+dist: jammy
 
+language: node
 node_js:
   - 20
 

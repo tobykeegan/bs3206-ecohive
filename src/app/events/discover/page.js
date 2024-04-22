@@ -7,7 +7,7 @@ import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
 import axios from 'axios';
 import { URL } from '@/utils/globals';
-import style from '../../styles/events/styles.scss';
+// import style from '../../styles/events/styles.scss';
 import PageHeader from '../PageHeader';
 import CollapsibleEventSearch from '../CollapsibleEventSearch';
 import { getServerSession } from 'next-auth';
@@ -38,7 +38,7 @@ export default async function Discover() {
   }
 
   let grid = (
-    <Row xs={1} md={2} lg={3} className={style.eventGrid}>
+    <Row xs={1} md={2} lg={3}>
       {eventCards}
     </Row>
   );
