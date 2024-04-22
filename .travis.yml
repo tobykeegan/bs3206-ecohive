@@ -26,7 +26,7 @@ before_install:
   
 
 install:
-  - bun install
+  - bun ci
   - bun x playwright install
   - bun x playwright install-deps > /dev/null
 
