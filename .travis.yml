@@ -27,7 +27,7 @@ before_install:
 install:
   - bun install
   - bun x playwright install
-  - bun x playwright install-deps
+  - bun x playwright install-deps > /dev/null
 
 after_failure: 
   - docker logs --details ecohive-test
