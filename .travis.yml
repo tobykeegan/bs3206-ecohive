@@ -26,7 +26,7 @@ before_install:
   
 
 install:
-  - bun ci
+  - bun install --frozen-lockfile
   - bun x playwright install
   - bun x playwright install-deps > /dev/null
 
