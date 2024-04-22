@@ -40,7 +40,7 @@ jobs:
     - stage: Development Tests
       if: branch != main AND type != pull_request
       script:
-        - bunx playwright install --with-deps chromium webkit
+        - bunx playwright install --no-bin-links --with-deps chromium webkit
         - mv ./.travis/dev_cert.pem ./.travis/cert.pem
         - $SCRIPTS/build_image
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
