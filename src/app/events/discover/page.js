@@ -12,6 +12,7 @@ import PageHeader from '../PageHeader';
 import CollapsibleEventSearch from '../CollapsibleEventSearch';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import IS_FINISHED from '@/app/events/toby';
 
 export default async function Discover() {
   /**
@@ -42,13 +43,20 @@ export default async function Discover() {
       {eventCards}
     </Row>
   );
+  let rendered;
+  if (IS_FINISHED) {
+    rendered = <Container fluid>{grid}</Container>;
+  } else {
+    rendered = <h1>Page content is not yet available</h1>;
+  }
+
   return (
     <main>
       <Navbar />
       <PageHeader pageName="discover events near you" />
       <CollapsibleEventSearch />
       <Divider />
-      <Container fluid>{grid}</Container>
+      {rendered}
       <div id="Footer-Div">
         <Divider />
         <Footer />

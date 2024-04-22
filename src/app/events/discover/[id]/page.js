@@ -14,6 +14,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Image from 'next/image';
 import { getImageSrc } from '@/app/ui/utils';
 import { getFormattedDate } from '@/app/ui/utils';
+import IS_FINISHED from '@/app/events/toby';
 export default async function Page({ params }) {
   /**
    * Protect server route if unauthenticated & get session
@@ -29,34 +30,40 @@ export default async function Page({ params }) {
   let res = await axios.get(apiURL);
 
   let event = res.data;
-  return (
-    <main>
-      <Navbar />
-      <h1> Go back </h1>
-      <Card variant="outlined" sx={{ maxWidth: 400 }}>
-        <Typography level="h1">{event.name}</Typography>
-        <Typography level="h2" fontSize="xl" sx={{ mb: 0.5 }}>
-          {event.location} | {getFormattedDate(event.date)}
-        </Typography>
-        <Typography>{event.description}</Typography>
-      </Card>
+  let rendered;
 
-      <Card variant="outlined" sx={{ width: 320 }}>
-        <CardOverflow>
-          <AspectRatio ratio="2">
-            <Image
-              src={getImageSrc(event.photoUrl)}
-              alt="Event Image"
-              layout="fill"
-            />
-          </AspectRatio>
-        </CardOverflow>
-      </Card>
+  if (IS_FINISHED) {
+    rendered = (
+      <main>
+        <Navbar />
+        <h1> Go back </h1>
+        <Card variant="outlined" sx={{ maxWidth: 400 }}>
+          <Typography level="h1">{event.name}</Typography>
+          <Typography level="h2" fontSize="xl" sx={{ mb: 0.5 }}>
+            {event.location} | {getFormattedDate(event.date)}
+          </Typography>
+          <Typography>{event.description}</Typography>
+        </Card>
 
-      <div id="Footer-Div">
-        <Divider />
-        <Footer />
-      </div>
-    </main>
-  );
+        <Card variant="outlined" sx={{ width: 320 }}>
+          <CardOverflow>
+            <AspectRatio ratio="2">
+              <Image
+                src={getImageSrc(event.photoUrl)}
+                alt="Event Image"
+                layout="fill"
+              />
+            </AspectRatio>
+          </CardOverflow>
+        </Card>
+
+        <div id="Footer-Div">
+          <Divider />
+          <Footer />
+        </div>
+      </main>
+    );
+  } else {
+    rendered = <h1>Event page template</h1>;
+  }
 }
