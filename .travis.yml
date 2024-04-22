@@ -47,7 +47,7 @@ jobs:
         - $SCRIPTS/wait.sh
         - docker logs --details ecohive-test
         - docker exec -d ecohive-test ls -la
-        # - bun run test
+        - bun run test
 
     - stage: Production Tests
       if: type = pull_request

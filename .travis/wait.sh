@@ -8,10 +8,10 @@ check_message() {
     message=$(echo "$response" | jq -r '.message')  # Extract the value of the "message" attribute using jq
 
     if [ "$message" = "pong" ]; then
-        echo "Message is pong. Exiting loop."
+        echo "Ping did pong - the server is up!"
         exit 0
     else
-        echo "Message is $message. Waiting..."
+        echo "Ping did not pong, waiting..."
     fi
 }
 
