@@ -26,8 +26,6 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_1d0be07602a8_key -iv $encrypted_1d0be07602a8_iv -in ./.travis/travis-cert.pem.enc -out ./.travis/dev_cert.pem -d
   - openssl aes-256-cbc -K $encrypted_cd0b29a82eff_key -iv $encrypted_cd0b29a82eff_iv -in ./.travis/production_cert.pem.enc -out ./.travis/production_cert.pem -d
 
-install:
-  - bun install
 
 jobs:
   include:
