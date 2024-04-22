@@ -68,6 +68,7 @@ EXPOSE 3000
 ENV PORT 3000
 ENV CERT_PATH="./cert.pem"
 
-RUN export NEXTAUTH_SECRET=$(openssl rand -base64 32)
+ARG next_secret
+ENV NEXTAUTH_SECRET ${next_secret}
 
 CMD HOSTNAME="0.0.0.0" bun server.js
