@@ -39,22 +39,13 @@ export async function GET(req) {
  */
 export async function PATCH(req) {
   const reqBody = await req.json();
-  let { pointsToAdd } = reqBody;
-
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user) {
-    logger.warn(`Cannot edit user without a session`);
-    return NextResponse.json(
-      { message: 'User not logged in' },
-      { status: HTTP.UNAUTHORIZED },
-    );
-  }
+  let { email, pointsToAdd } = reqBody;
 
   const user = await User.findOne({
-    'details.email': session.user.email,
+    'details.email': email,
   }).select('+score.points');
   if (!user) {
-    logger.warn(`Could not find user: ${session.user.email}`);
+    logger.warn(`Could not find user: ${email}`);
     return NextResponse.json(
       { message: 'Unable to find user in database' },
       { status: HTTP.NOT_FOUND },
@@ -78,8 +69,10 @@ export async function PATCH(req) {
       );
     }
   } else {
-    // Upgrade their level
-    await axios.patch('/api/users/score/level');
+
+    // To do:
+    // Their level also needs to be upgraded!
+    // That API call should happen in the component/page...
 
     // Upgrade their points at the start of a new level
     try {

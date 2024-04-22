@@ -36,21 +36,15 @@ export async function GET(req) {
  * Update a user's level.
  * @author Jade Carino
  */
-export async function PATCH() {
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user) {
-    logger.warn(`Cannot edit user without a session`);
-    return NextResponse.json(
-      { message: 'User not logged in' },
-      { status: HTTP.UNAUTHORIZED },
-    );
-  }
+export async function PATCH(req) {
+  const reqBody = await req.json();
+  let { email } = reqBody;
 
   const user = await User.findOne({
-    'details.email': session.user.email,
+    'details.email': email,
   }).select('+score.level');
   if (!user) {
-    logger.warn(`Could not find user: ${session.user.email}`);
+    logger.warn(`Could not find user: ${email}`);
     return NextResponse.json(
       { message: 'Unable to find user in database' },
       { status: HTTP.NOT_FOUND },
