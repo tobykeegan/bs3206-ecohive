@@ -27,6 +27,7 @@ install:
   - openssl aes-256-cbc -K $encrypted_cd0b29a82eff_key -iv $encrypted_cd0b29a82eff_iv -in ./.travis/production_cert.pem.enc -out ./.travis/production_cert.pem -d
   - bun install
   - bunx playwright install chromium webkit
+  - sudo apt-get install libopus0 libflite1 libevdev2 libgles2 gstreamer1.0-libav
 
 after_failure: 
   - docker logs --details ecohive-test
@@ -37,7 +38,7 @@ jobs:
       if: branch != main AND type != pull_request
       script:
         - mv ./.travis/dev_cert.pem ./.travis/cert.pem
-        - $SCRIPTS/build_image
+        - docker build --secret -t "ecohive-ui:$TRAVIS_BRANCH" .
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - $SCRIPTS/wait.sh
