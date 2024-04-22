@@ -39,7 +39,7 @@ jobs:
       if: branch != main AND type != pull_request
       script:
         - mv ./.travis/dev_cert.pem ./.travis/cert.pem
-        - docker build --secret -t "ecohive-ui:$TRAVIS_BRANCH" .
+        - $SCRIPTS/build_image
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - $SCRIPTS/wait.sh
