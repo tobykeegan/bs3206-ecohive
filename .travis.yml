@@ -1,6 +1,3 @@
-arch: amd64
-os: linux
-dist: jammy
 language: node
 node_js:
   - 20
@@ -28,8 +25,7 @@ before_install:
 
 install:
   - bun install
-  - bun x playwright install
-  - bun x playwright install-deps > /dev/null
+  - bun x playwright install --with-deps chromium webkit
 
 after_failure: 
   - docker logs --details ecohive-test
