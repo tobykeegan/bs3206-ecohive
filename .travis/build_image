@@ -1,3 +1,24 @@
 #!/bin/bash
 
-docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg next_secret=$NEXTAUTH_SECRET .
+echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
+echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
+
+
+if [ -z "$TRAVIS_BRANCH" ]; then
+  TRAVIS_BRANCH="latest"
+fi
+
+# Check if TRAVIS_BRANCH is not main
+if [ "$TRAVIS_PULL_REQUEST" ]; then
+  echo "Development database will be used"
+  DB_VERSION="development"
+ 
+elif [ "$TRAVIS_BRANCH" != "main" ]; then
+   echo "Development database will be used"
+  DB_VERSION="development"
+else
+   echo "Production database will be used"
+   DB_VERSION="production"
+fi
+
+docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=$DB_VERSION .

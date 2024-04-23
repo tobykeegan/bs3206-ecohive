@@ -71,4 +71,7 @@ ENV CERT_PATH="./cert.pem"
 ARG next_secret
 ENV NEXTAUTH_SECRET ${next_secret}
 
+ARG db_conn
+ENV DB_VERSION ${db_conn}
+
 CMD HOSTNAME="0.0.0.0" bun server.js
