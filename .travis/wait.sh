@@ -8,7 +8,7 @@ check_message() {
     message=$(echo "$response" | jq -r '.message')  # Extract the value of the "message" attribute using jq
 
     if [ "$message" = "pong" ]; then
-        echo "Ping did pong - the server is up!"
+        echo $response | jq .
         exit 0
     else
         echo "Ping did not pong, waiting..."
