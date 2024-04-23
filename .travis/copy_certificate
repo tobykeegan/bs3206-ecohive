@@ -13,12 +13,12 @@ if [ -z "$TRAVIS_BRANCH" ]; then
 fi
 
 # Check if TRAVIS_BRANCH is not main
-if [ "$TRAVIS_BRANCH" != "main" ]; then
-  # Copy dev_cert.pem to cert.pem
-  cp "$dev_cert" "$destination"
-  echo "Copied $dev_cert to $destination"
-else
+if [ "$TRAVIS_BRANCH" == "main" ] || [ "$TRAVIS_PULL_REQUEST" ]; then
   # Copy prod_cert.pem to cert.pem
   cp "$prod_cert" "$destination"
   echo "Copied $prod_cert to $destination"
+else
+ # Copy dev_cert.pem to cert.pem
+  cp "$dev_cert" "$destination"
+  echo "Copied $dev_cert to $destination"
 fi
