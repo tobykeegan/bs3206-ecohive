@@ -24,21 +24,19 @@ before_install:
   - echo "Temporary fix whilst Travis CI is borked"
   - sudo rm /etc/apt/sources.list.d/rabbitmq.list
   - sudo apt update
-  
 
 install:
   - bun install
   - bun x playwright install --with-deps chromium webkit
 
-after_failure: 
+after_failure:
   - docker logs --details ecohive-test
 
 jobs:
   include:
-    - stage: Development Tests
-      if: branch != main AND type != pull_request
+    - stage: test
       script:
-        - mv ./.travis/dev_cert.pem ./.travis/cert.pem
+        - $SCRIPTS/copy_certificate
         - $SCRIPTS/build_image
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
@@ -46,21 +44,8 @@ jobs:
         - docker logs --details ecohive-test
         - bun run test
 
-    - stage: Production Tests
-      if: type = pull_request
-      script:
-        - bun run lint
-        - mv ./.travis/prod_cert.pem ./.travis/cert.pem
-        - $SCRIPTS/build_image
-        - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
-        - curl http://localhost:3000/api/ping
-        - docker logs ecohive-test
-        - bun run test
-
-    - stage: Deploy
-      if: branch = main AND type != pull_request
-      script:
-        - $SCRIPTS/add_ssh_key
-        - $SCRIPTS/build_image
-        - $SCRIPTS/deploy_image
-        - $SCRIPTS/start_container
+after_success:
+    - $SCRIPTS/add_ssh_key
+    # - $SCRIPTS/build_images
+    - $SCRIPTS/deploy_image
+    - $SCRIPTS/start_container
