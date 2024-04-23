@@ -19,7 +19,7 @@ module.exports = {
     db: process.env.DB_VERSION || 'development',
     clientOptions: {
       tlsCertificateKeyFile: path.resolve(
-        process.env.CERT_PATH || './.travis/cert.pem',
+        process.env.CERT_PATH || './cert.pem',
       ),
       serverApi: { version: '1', strict: true, deprecationErrors: true },
       name: process.env.NODE_ENV || 'development',
