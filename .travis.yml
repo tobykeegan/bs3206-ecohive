@@ -45,7 +45,7 @@ jobs:
         - bun run test
 
 after_success:
-    - $SCRIPTS/add_ssh_key
-    # - $SCRIPTS/build_images
-    - $SCRIPTS/deploy_image
-    - $SCRIPTS/start_container
+  - $SCRIPTS/add_ssh_key
+  # - $SCRIPTS/build_images
+  - $SCRIPTS/deploy_image
+  - $SCRIPTS/start_container
