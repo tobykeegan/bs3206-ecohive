@@ -30,6 +30,7 @@ install:
   - bun x playwright install --with-deps chromium webkit
 
 after_failure:
+  - docker exec -d ecohive-test env
   - docker logs --details ecohive-test
 
 jobs:
