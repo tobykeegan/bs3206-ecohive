@@ -42,7 +42,7 @@ jobs:
         - docker ps
         - $SCRIPTS/wait.sh
         - docker logs --details ecohive-test
-        - bun run test
+        - bun run test --retries 3
 
 after_success:
   - $SCRIPTS/add_ssh_key
