@@ -73,6 +73,7 @@ ENV NEXTAUTH_SECRET ${next_secret}
 
 ARG db_conn
 ENV DB_VERSION ${db_conn}
+ENV CONTAINER="true"
 
 RUN echo "DB_VERSION is $DB_VERSION"
 
