@@ -74,4 +74,10 @@ ENV NEXTAUTH_SECRET ${next_secret}
 ARG db_conn
 ENV DB_VERSION ${db_conn}
 
+RUN echo "DB_VERSION is $DB_VERSION"
+
+RUN env
+
+RUN echo "Container: $CONTAINER"
+
 CMD HOSTNAME="0.0.0.0" bun server.js
