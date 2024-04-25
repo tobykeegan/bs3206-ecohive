@@ -30,4 +30,13 @@ test.describe('GET request to /api/users/badges', () => {
     expect(badges).toBeInstanceOf(Array);
     expect(badges.length).toBe(0);
   });
+
+  test('Should get a not found response from /api/users/badges', async ({ request }) => {
+
+    const response = await request.get(`/api/users/badges?email=nonsense@noexist.com`);
+    const body = await response.json();
+    expect(response.status()).toBe(HTTP.NOT_FOUND);
+    expect(body).toHaveProperty('message', 'Unable to find user');
+  });
+
 });
