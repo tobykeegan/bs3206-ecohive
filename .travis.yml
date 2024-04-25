@@ -21,9 +21,9 @@ before_install:
   - curl -fsSL https://bun.sh/install | bash
   - source ~/.bashrc
   - bun --version
-  - echo "Temporary fix whilst Travis CI is borked"
-  - sudo rm /etc/apt/sources.list.d/rabbitmq.list
-  - sudo apt update
+  # - echo "Temporary fix whilst Travis CI is borked"
+  # - sudo rm /etc/apt/sources.list.d/rabbitmq.list
+  # - sudo apt update
 
 install:
   - bun install
