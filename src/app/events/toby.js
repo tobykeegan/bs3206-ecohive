@@ -1,1 +1,3 @@
-export default { IS_FINISHED: true };
+const IS_FINISHED = true;
+
+export default IS_FINISHED;
