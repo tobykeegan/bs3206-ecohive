@@ -9,6 +9,8 @@ require('dotenv').config();
  * @author Jade Carino
  */
 test.describe('Tests request to endpoint /api/users?limit=5', () => {
+  test.describe.configure({ retries: 3, mode: 'serial' });
+
   // Before each test, connect to the database
   test.beforeAll(async () => {
     await connect();

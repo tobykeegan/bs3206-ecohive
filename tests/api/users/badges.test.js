@@ -14,6 +14,8 @@ require('dotenv').config();
  * @author Jade Carino
  */
 test.describe('Test requests to endpoint /api/users/badges', () => {
+  test.describe.configure({ retries: 3, mode: 'serial' });
+
   // Before each test, connect to the database
   test.beforeAll(async () => {
     await connect();

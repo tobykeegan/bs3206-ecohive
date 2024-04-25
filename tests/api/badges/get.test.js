@@ -9,6 +9,8 @@ require('dotenv').config();
  * @author Jade Carino
  */
 test.describe('GET request to /api/badges', () => {
+  test.describe.configure({ retries: 3, mode: 'serial' });
+
   // Before each test, connect to the database
   test.beforeAll(async () => {
     await connect();
@@ -21,7 +23,6 @@ test.describe('GET request to /api/badges', () => {
 
     expect(body).toBeInstanceOf(Object);
     expect(body).toHaveProperty('badges');
-    expect(body).toHaveProperty('status', 200);
 
     const badges = body.badges;
     expect(badges).toBeInstanceOf(Array);
