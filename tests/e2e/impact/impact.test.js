@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { randomString } from '../utils';
+import { randomString } from '../../utils';
 import { HTTP } from '@/utils/globals';
 import User from '@/app/api/models/user.model';
 import { connect } from '@/app/api/services/mongoose.service';

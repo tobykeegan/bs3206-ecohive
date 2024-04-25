@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { connect } from '@/services/mongoose';
 import { HTTP } from '@/utils/globals';
 
 require('dotenv').config();
@@ -8,6 +9,13 @@ require('dotenv').config();
  * @author Jade Carino
  */
 test.describe('GET request to /api/badges', () => {
+
+  // Before each test, connect to the database
+  test.beforeAll(async () => {
+    await connect();
+  });
+
+
   test('Badge objects are returned', async ({ request }) => {
     const response = await request.get('/api/badges');
     const body = await response.json();
