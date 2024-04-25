@@ -9,12 +9,10 @@ require('dotenv').config();
  * @author Jade Carino
  */
 test.describe('GET request to /api/badges', () => {
-
   // Before each test, connect to the database
   test.beforeAll(async () => {
     await connect();
   });
-
 
   test('Badge objects are returned', async ({ request }) => {
     const response = await request.get('/api/badges');
