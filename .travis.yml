@@ -30,8 +30,12 @@ install:
   - bun x playwright install --with-deps chromium webkit
 
 after_failure:
-  - docker exec -d ecohive-test env
+  - echo "Container tests failed, let's try native tests:"
+  - docker exec ecohive-test env
   - docker logs --details ecohive-test
+  - docker kill ecohive-test
+  - bun run build
+  - bun run test
 
 jobs:
   include:
