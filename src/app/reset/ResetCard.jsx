@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import axios from 'axios';
 import UserProfilePicture from '@/components/UserProfilePicture';
-
+import { URL } from '@/utils/globals';
 export default function ResetCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');

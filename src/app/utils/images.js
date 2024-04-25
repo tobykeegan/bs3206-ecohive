@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { URL } from '@/utils/globals';
 /**
  * Uploads an image to the database
  * @author Alec Painter
@@ -29,7 +29,7 @@ export async function UploadImage(file) {
 async function uploadImageReq(image, type) {
   try {
     const response = await axios.post(
-      '/api/images',
+      `${URL}/api/images`,
       {
         image: {
           type: type,

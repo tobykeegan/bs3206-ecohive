@@ -81,4 +81,4 @@ RUN env
 
 RUN echo "Container: $CONTAINER"
 
-CMD HOSTNAME="0.0.0.0" bun server.js
+CMD HOSTNAME="localhost" bun server.js

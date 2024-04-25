@@ -13,7 +13,7 @@ import { UploadImage } from '../utils/images';
 import axios from 'axios';
 import UserProfilePicture from '@/components/UserProfilePicture';
 import { MdErrorOutline } from 'react-icons/md';
-
+import { URL } from '@/utils/globals';
 /**
  * Account setting card
  * @author Alec Painter
@@ -43,7 +43,7 @@ export default function AccountCard() {
 
     UploadImage(e.target.files?.[0])
       .then(async (imageID) => {
-        await axios.patch('/api/users/image', {
+        await axios.patch(`${URL}/api/users/image`, {
           imageID: imageID,
         });
         window.location.reload();
