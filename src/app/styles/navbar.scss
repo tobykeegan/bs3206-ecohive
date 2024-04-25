@@ -1,0 +1,9 @@
+@use 'global';
+
+#NavbarContent {
+  background-color: global.$primary;
+}
+
+.btnTooltip {
+  color: global.$interaction;
+}

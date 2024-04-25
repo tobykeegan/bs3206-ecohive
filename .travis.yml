@@ -1,53 +1,62 @@
-language: node_js
-
+language: node
 node_js:
-    - 20
+  - 20
+
+script: 'true'
 
 env:
+  global:
     - SCRIPTS=$TRAVIS_BUILD_DIR/.travis
-
-cache:
-    npm: true
+    - WEB_TIMEOUT=360
 
 services:
-    - docker
-
-before_script:
-    - echo -e "Host $PRODUCTION_SERVER_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - docker
 
 before_install:
-    - curl -fsSL https://bun.sh/install | bash
-    - source ~/.bashrc
-    - bun --version
+  - curl -fsSL https://bun.sh/install | bash
+  - source ~/.bashrc
+  - bun --version
 
 install:
-    - bun install
+  - bun install
+  - bun x playwright install --with-deps chromium webkit
+
+before_script:
+  - echo -e "Host $PRODUCTION_SERVER_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - openssl aes-256-cbc -K $encrypted_1d0be07602a8_key -iv $encrypted_1d0be07602a8_iv -in ./.travis/travis-cert.pem.enc -out ./.travis/dev_cert.pem -d
+  - openssl aes-256-cbc -K $encrypted_cd0b29a82eff_key -iv $encrypted_cd0b29a82eff_iv -in ./.travis/production_cert.pem.enc -out ./.travis/production_cert.pem -d
+  - bun run lint
+
+after_failure:
+  - echo "Container tests failed, let's try native tests:"
+  - docker exec ecohive-test env
+  - docker logs --details ecohive-test
 
 jobs:
-    include:
-        - stage: Run Development Tests
-          if: branch != main AND type != pull_request
-          script:
-              - npx playwright install
-              - npx playwright install-deps > /dev/null
-              - bun run test
+  include:
+    - stage: Development Tests
+      if: branch != main AND type != pull_request
+      script:
+        - $SCRIPTS/copy_certificate
+        - bun run build
+        - bun run test
 
-        - stage: Run Production Tests
-          if: branch = main AND type = pull_request
-          script:
-              - npx playwright install
-              - npx playwright install-deps > /dev/null
-              - bun run test:prod
+    - stage: Production Tests
+      if: type = pull_request
+      script:
+        - $SCRIPTS/copy_certificate
+        - $SCRIPTS/build_image
+        - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
+        - docker ps
+        - $SCRIPTS/wait.sh
+        - docker exec ecohive-test env
+        - docker logs --details ecohive-test
+        - bun run test
 
-        - stage: Code Linting
-          if: type = pull_request
-          script:
-              - bun run lint
-
-        - stage: Deploy Backend Image
-          if: type != pull_request
-          script:
-              - $SCRIPTS/add_ssh_key
-              - $SCRIPTS/build_image
-              - $SCRIPTS/deploy_image
-              - $SCRIPTS/start_container
+    - stage: Deploy
+      if: branch = main AND type != pull_request
+      script:
+        - $SCRIPTS/add_ssh_key
+        - $SCRIPTS/build_image
+        - $SCRIPTS/deploy_image
+        - $SCRIPTS/start_container

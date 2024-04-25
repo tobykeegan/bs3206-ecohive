@@ -1,0 +1,29 @@
+@use '../global.scss';
+
+#eventsContainer {
+  display: 'flex';
+  flex-direction: 'column';
+  justify-content: 'space-between';
+  width: '100%';
+}
+
+// Styling overrides when the screen is wider than desktop
+@media (min-width: 800px) {
+  #eventsContainer {
+    flex-direction: row !important;
+    padding: 24px !important;
+    gap: 12px !important;
+  }
+}
+
+#location-chip {
+  background-color: global.$secondary !important;
+}
+
+#date-chip {
+  background-color: global.$additional !important;
+}
+
+.eventChip {
+  text-align: center;
+}

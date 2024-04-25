@@ -1,0 +1,22 @@
+@use '../global';
+
+.inputBox {
+  border: 2px solid global.$primary;
+}
+
+.inputBox::placeholder {
+  color: global.$ecohive-grey;
+}
+
+#forgotPasswordLink {
+  color: global.$interaction;
+  text-decoration: underline;
+}
+
+#loginButton {
+  background-color: global.$interaction;
+}
+
+#loginButton:disabled {
+  background-color: global.$interaction-disabled;
+}

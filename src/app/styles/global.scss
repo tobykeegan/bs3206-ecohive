@@ -1,0 +1,14 @@
+// these are the default EcoHive Colours
+$primary: #ebbf41;
+$secondary: #f2a359;
+$interaction: #268424;
+$interaction-disabled: #618460;
+$additional: #579e6c;
+$additional-dark: #065143;
+$ecohive-grey: #4f4f4f;
+
+@import '~bootstrap/scss/bootstrap';
+
+.min-100vh {
+  min-height: 100vh;
+}
