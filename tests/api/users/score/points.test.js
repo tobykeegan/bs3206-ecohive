@@ -27,7 +27,7 @@ test.describe('Test requests to endpoint /api/users/score/points', () => {
     let user = await req.json();
 
     const response = await request.get(
-      `/api/users/score/points?email=${user.message.email}`,
+      `/api/users/score/points?email=${user.email}`,
     );
     const body = await response.json();
     expect(response.status()).toBe(HTTP.OK);
@@ -54,7 +54,7 @@ test.describe('Test requests to endpoint /api/users/score/points', () => {
     let user = await req.json();
 
     const response = await request.patch(`/api/users/score/points`, {
-      data: JSON.stringify({ email: user.message.email, pointsToAdd: 500 }),
+      data: JSON.stringify({ email: user.email, pointsToAdd: 500 }),
     });
     const body = await response.json();
     expect(response.status()).toBe(HTTP.OK);

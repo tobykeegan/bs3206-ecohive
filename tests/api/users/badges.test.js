@@ -27,9 +27,7 @@ test.describe('Test requests to endpoint /api/users/badges', () => {
     let req = await request.get('/api/whoami');
     let user = await req.json();
 
-    const response = await request.get(
-      `/api/users/badges?email=${user.message.email}`,
-    );
+    const response = await request.get(`/api/users/badges?email=${user.email}`);
     const body = await response.json();
     expect(response.status()).toBe(HTTP.OK);
 
@@ -63,7 +61,7 @@ test.describe('Test requests to endpoint /api/users/badges', () => {
 
     const response = await request.patch(`/api/users/badges`, {
       data: JSON.stringify({
-        email: user.message.email,
+        email: user.email,
         badgeId: randomBadgeId,
       }),
     });
