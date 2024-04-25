@@ -1,5 +1,7 @@
-import { NextResponse } from 'next/server';
-import Event from '@/models/event';
+/**
+ * Main entry point for events management API
+ * @author Toby Keegan
+ */
 
 import handleGet from './GET';
 import handlePut from './PUT';
