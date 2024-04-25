@@ -11,6 +11,7 @@
       "@/styles/*": ["./src/app/styles/*.scss"],
       "@/components/*": ["./src/app/ui/*"],
       "@/static/*": ["./src/app/static/*"],
+      "@/test/*": ["./tests/*"],
     },
   },
 }

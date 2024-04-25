@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connect } from '../../services/mongoose.service';
 import User from '../../models/user.model';
-import logger from '../../utils/logger';
+import logger from '@/api/utils/logger';
 
 export const authOptions = {
   session: {
@@ -77,6 +77,7 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.user = {
+          id: user._id,
           email: user.details.email,
           name: {
             first: user.name.first,

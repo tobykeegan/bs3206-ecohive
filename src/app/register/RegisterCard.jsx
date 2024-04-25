@@ -6,14 +6,13 @@ import RegisterForm from './RegisterForm';
 import styles from '@/styles/login/login.card';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-
 export default function RegisterCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await axios.post('/api/users', JSON.stringify(formData));
+      const response = await axios.post(`/api/users`, JSON.stringify(formData));
       setError('');
       router.push('/login');
     } catch (error) {

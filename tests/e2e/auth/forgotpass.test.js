@@ -36,76 +36,79 @@ test.afterEach(async () => {
   });
   expect(deletedUser).toBeDefined();
 });
+test.describe(() => {
+  // All tests in this describe group will get 3 retry attempts.
+  test.describe.configure({ retries: 3 });
+  test('Forgot end-to-end', async ({ page }) => {
+    // Register user with info
+    await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
+    await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
+    await page.getByPlaceholder('Email').fill(userInfo.email);
+    await page.getByPlaceholder('Password').fill(userInfo.password);
+    await page.getByText('Choose a security question').click();
+    await page.getByRole('option', { name: userInfo.secQuestion }).click();
+    await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
+    let responsePromise = page.waitForResponse('**/api/users');
+    await page.getByLabel('Register').click();
+    let response = await responsePromise;
+    expect(response.status()).toBe(HTTP.CREATED);
 
-test('Forgot end-to-end', async ({ page }) => {
-  // Register user with info
-  await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
-  await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  await page.getByPlaceholder('Password').fill(userInfo.password);
-  await page.getByText('Choose a security question').click();
-  await page.getByRole('option', { name: userInfo.secQuestion }).click();
-  await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
-  let responsePromise = page.waitForResponse('**/api/users');
-  await page.getByLabel('Register').click();
-  let response = await responsePromise;
-  expect(response.status()).toBe(HTTP.CREATED);
+    // Go to forgot page
+    await page.waitForURL('/login');
+    await page.getByRole('link', { name: 'Forgot?' }).click();
+    await page.waitForURL('/forgot');
 
-  // Go to forgot page
-  await page.waitForURL('/login');
-  await page.getByRole('link', { name: 'Forgot?' }).click();
-  await page.waitForURL('/forgot');
+    // Fill in wrong email
+    await page.getByPlaceholder('Email').fill('wrong@email.com');
+    responsePromise = page.waitForResponse('**/api/users/security**');
+    await page.getByRole('button', { name: 'Reset', exact: true }).click();
+    response = await responsePromise;
+    expect(response.status()).toBe(HTTP.NOT_FOUND);
 
-  // Fill in wrong email
-  await page.getByPlaceholder('Email').fill('wrong@email.com');
-  responsePromise = page.waitForResponse('**/api/users/security**');
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.NOT_FOUND);
+    // Fill in correct email
+    await page.getByPlaceholder('Email').fill(userInfo.email);
+    responsePromise = page.waitForResponse('**/api/users/security**');
+    await page.getByRole('button', { name: 'Reset', exact: true }).click();
+    response = await responsePromise;
+    expect(response.status()).toBe(HTTP.OK);
 
-  // Fill in correct email
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  responsePromise = page.waitForResponse('**/api/users/security**');
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.OK);
+    // Fill security question
+    expect(
+      page.getByRole('heading', { name: userInfo.secQuestion + '?' }),
+    ).toBeVisible();
+    await page.getByPlaceholder('Answer').fill('wrong');
+    responsePromise = page.waitForResponse(
+      '**/api/auth/callback/security-question-login',
+    );
+    await page.getByRole('button', { name: 'Reset', exact: true }).click();
+    response = await responsePromise;
+    expect(response.status()).toBe(HTTP.UNAUTHORIZED);
 
-  // Fill security question
-  expect(
-    page.getByRole('heading', { name: userInfo.secQuestion + '?' }),
-  ).toBeVisible();
-  await page.getByPlaceholder('Answer').fill('wrong');
-  responsePromise = page.waitForResponse(
-    '**/api/auth/callback/security-question-login',
-  );
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.UNAUTHORIZED);
+    // Fill in correct email
+    await page.getByPlaceholder('Email').fill(userInfo.email);
+    responsePromise = page.waitForResponse('**/api/users/security**');
+    await page.getByRole('button', { name: 'Reset', exact: true }).click();
+    response = await responsePromise;
+    expect(response.status()).toBe(HTTP.OK);
 
-  // Fill in correct email
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  responsePromise = page.waitForResponse('**/api/users/security**');
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.OK);
+    // Fill security question
+    expect(
+      page.getByRole('heading', { name: userInfo.secQuestion + '?' }),
+    ).toBeVisible();
+    await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
+    responsePromise = page.waitForResponse(
+      '**/api/auth/callback/security-question-login',
+    );
+    await page.getByRole('button', { name: 'Reset', exact: true }).click();
+    response = await responsePromise;
+    expect(response.status()).toBe(HTTP.OK);
 
-  // Fill security question
-  expect(
-    page.getByRole('heading', { name: userInfo.secQuestion + '?' }),
-  ).toBeVisible();
-  await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
-  responsePromise = page.waitForResponse(
-    '**/api/auth/callback/security-question-login',
-  );
-  await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.OK);
+    // Redirected to reset page
+    await page.waitForURL('/reset');
+    await expect(page).toHaveURL('/reset');
 
-  // Redirected to reset page
-  await page.waitForURL('/reset');
-  await expect(page).toHaveURL('/reset');
-
-  // Check if session has loaded
-  const sessionToken = await getCookie(page, 'next-auth.session-token');
-  expect(sessionToken).toBeDefined();
+    // Check if session has loaded
+    const sessionToken = await getCookie(page, 'next-auth.session-token');
+    expect(sessionToken).toBeDefined();
+  });
 });

@@ -7,7 +7,6 @@ import { IoIosArrowRoundForward, IoMdKey, IoMdMail } from 'react-icons/io';
 import { Typography, Button, Modal, ModalDialog } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 import axios from 'axios';
-
 export default function ForgotForm({ onSubmit, error, setError }) {
   const [open, setOpen] = React.useState(false);
   const [secQuestion, setSecQuestion] = React.useState('');

@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 function CollapsibleEventSearch() {
   return (
     <Container fluid>
-      <Accordion defaultActiveKey="0" flush>
+      <Accordion flush>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Advanced Search</Accordion.Header>
           <Accordion.Body>

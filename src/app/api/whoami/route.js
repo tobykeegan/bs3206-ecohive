@@ -5,7 +5,5 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   const session = await getServerSession(authOptions);
 
-  return NextResponse.json({
-    message: session?.user ?? 'Not session available / Not logged in',
-  });
+  return NextResponse.json(session?.user ?? { error: 'Not logged in' });
 }
