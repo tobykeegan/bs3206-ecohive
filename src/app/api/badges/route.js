@@ -15,5 +15,5 @@ export async function GET() {
 
   let badges = await Badge.find();
 
-  return NextResponse.json({ badges: badges, status: HTTP.OK });
+  return NextResponse.json({ badges: badges }, { status: HTTP.OK });
 }
