@@ -157,5 +157,5 @@ export async function GET(req) {
     .sort({ 'score.level': -1, 'score.points': -1 })
     .limit(limit);
 
-  return NextResponse.json({ topUsers: users, status: HTTP.OK });
+  return NextResponse.json({ topUsers: users }, { status: HTTP.OK });
 }
