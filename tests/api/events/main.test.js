@@ -123,22 +123,6 @@ test.describe('Events API operations', () => {
     expect(body.message).toBe('No event found matching:');
   });
 
-  test('POST /events returns a single event by specifying a search criteria', async ({
-    request,
-  }) => {
-    // Get a single event from the database
-    const event = await Event.findOne();
-
-    // check event is not null
-    expect(event).not.toBeNull();
-
-    const response = await request.post('/api/events', {
-      data: { _id: event._id },
-    });
-    const body = await response.json();
-    expect(response.status()).toBe(HTTP.OK);
-    expect(JSON.stringify(body)).toEqual(JSON.stringify(event));
-  });
   // Test that all the events matching this description are returned
   test('POST /events returns multiple events by specifying a search criteria', async ({
     request,

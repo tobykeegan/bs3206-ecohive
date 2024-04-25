@@ -34,25 +34,17 @@ export default async function POST(request) {
   // search for the event(s) in the database
   let eventsList = await Event.find(body);
 
-  switch (eventsList.length) {
-    // No events were found, so return 404
-    case 0:
-      return NextResponse.json(
-        {
-          message: 'No events found matching:',
-          search: body,
-        },
-        {
-          status: 404,
-        },
-      );
-
-    // A single event matched, so return it
-    case 1:
-      return NextResponse.json(eventsList[0]);
-
-    // More than one event matched, so return them all
-    default:
-      return NextResponse.json(eventsList);
+  if (eventsList.length > 0) {
+    return NextResponse.json(eventsList);
+  } else {
+    return NextResponse.json(
+      {
+        message: 'No events found matching:',
+        search: body,
+      },
+      {
+        status: 404,
+      },
+    );
   }
 }
