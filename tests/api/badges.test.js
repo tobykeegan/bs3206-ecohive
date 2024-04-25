@@ -8,9 +8,7 @@ require('dotenv').config();
  * @author Jade Carino
  */
 test.describe('GET request to /api/badges', () => {
-
   test('Badge objects are returned', async ({ request }) => {
-
     const response = await request.get('/api/badges');
     const body = await response.json();
     const bodyString = JSON.stringify(body);
@@ -26,6 +24,5 @@ test.describe('GET request to /api/badges', () => {
     expect(bodyString).toContain('type');
     expect(bodyString).toContain('criteria');
     expect(bodyString).toContain('serializedFunction');
-
   });
 });

@@ -69,7 +69,6 @@ export async function PATCH(req) {
       );
     }
   } else {
-
     // To do:
     // Their level also needs to be upgraded!
     // That API call should happen in the component/page...

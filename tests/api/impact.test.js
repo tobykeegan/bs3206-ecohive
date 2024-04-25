@@ -46,11 +46,7 @@ test.afterEach(async () => {
 });
 
 test.describe('Impact at registration', () => {
-
-  test('Users points are 0 at registration', async ({
-    page,
-    request,
-  }) => {
+  test('Users points are 0 at registration', async ({ page, request }) => {
     // First register a new user
     await page.goto('/register');
     await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
@@ -75,13 +71,9 @@ test.describe('Impact at registration', () => {
         points: 0,
       }),
     );
-
   });
 
-  test('Users level is 1 at registration', async ({
-    page,
-    request,
-  }) => {
+  test('Users level is 1 at registration', async ({ page, request }) => {
     // First register a new user
     await page.goto('/register');
     await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
@@ -106,13 +98,9 @@ test.describe('Impact at registration', () => {
         level: 1,
       }),
     );
-
   });
 
-  test('Users badges are empty at registration', async ({
-    page,
-    request,
-  }) => {
+  test('Users badges are empty at registration', async ({ page, request }) => {
     // First register a new user
     await page.goto('/register');
     await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
@@ -141,5 +129,4 @@ test.describe('Impact at registration', () => {
       }),
     );
   });
-
 });
