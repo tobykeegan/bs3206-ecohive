@@ -34,16 +34,6 @@ after_failure:
 
 jobs:
   include:
-    - stage: test
-      script:
-        - $SCRIPTS/copy_certificate
-        - $SCRIPTS/build_image
-        - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
-        - docker ps
-        - $SCRIPTS/wait.sh
-        - docker logs --details ecohive-test
-        - bun run test
-  
 
     - stage: Development Tests
       if: branch != main AND type != pull_request
@@ -64,7 +54,6 @@ jobs:
         - docker logs --details ecohive-test
         - bun run test
   
-
     - stage: Deploy
       if: branch = main AND type != pull_request
       script:
