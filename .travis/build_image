@@ -8,16 +8,19 @@ if [ -z "$TRAVIS_BRANCH" ]; then
   TRAVIS_BRANCH="latest"
 fi
 
+echo "Building image for branch:$TRAVIS_BRANCH, PR:$TRAVIS_PULL_REQUEST"
+
+
 # Check if TRAVIS_BRANCH is not main
 if [ "$TRAVIS_PULL_REQUEST" ]; then
-  echo "Development database will be used"
+  echo "Development database will be used as this is a PR"
   PROD_DB="development"
  
 elif [ "$TRAVIS_BRANCH" != "main" ]; then
-   echo "Development database will be used"
+   echo "Development database will be used as this is a branch build"
   PROD_DB="development"
 else
-   echo "Production database will be used"
+   echo "Production database will be used as this is the main branch"
    PROD_DB="production"
 fi
 
