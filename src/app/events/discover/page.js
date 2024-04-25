@@ -12,7 +12,7 @@ import PageHeader from '../PageHeader';
 import CollapsibleEventSearch from '../CollapsibleEventSearch';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { IS_FINISHED } from '@/app/events/toby';
+import IS_FINISHED from '@/app/events/toby';
 
 export default async function Discover() {
   /**
@@ -24,6 +24,7 @@ export default async function Discover() {
   if (!session || !session.user) {
     redirect('/api/auth/signin');
   }
+
   let eventCards;
   try {
     let res = await axios.get(`${URL}/api/events`);

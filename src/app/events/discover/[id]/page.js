@@ -14,7 +14,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Image from 'next/image';
 import { getImageSrc } from '@/app/ui/utils';
 import { getFormattedDate } from '@/app/ui/utils';
-import { IS_FINISHED } from '@/app/events/toby';
+import IS_FINISHED from '@/app/events/toby';
 export default async function Page({ params }) {
   /**
    * Protect server route if unauthenticated & get session
