@@ -7,8 +7,6 @@ import { IoIosArrowRoundForward, IoMdKey, IoMdMail } from 'react-icons/io';
 import { Typography, Button, Modal, ModalDialog } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 import axios from 'axios';
-import { URL } from '@/utils/globals';
-
 export default function ForgotForm({ onSubmit, error, setError }) {
   const [open, setOpen] = React.useState(false);
   const [secQuestion, setSecQuestion] = React.useState('');
@@ -20,7 +18,7 @@ export default function ForgotForm({ onSubmit, error, setError }) {
   const secQuestionPopup = async function () {
     try {
       const response = await axios.get(
-        `${URL}/api/users/security?email=${formData.email}`,
+        `/api/users/security?email=${formData.email}`,
       );
       setSecQuestion(response.data.secQuestion + '?');
       setError('');

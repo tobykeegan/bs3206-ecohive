@@ -7,7 +7,6 @@ import React from 'react';
 import { FaBackspace } from 'react-icons/fa';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
-import { URL } from '@/utils/globals';
 /**
  * Danger zone settings card
  * @author Alec Painter
@@ -17,7 +16,7 @@ export default function DangerCard() {
 
   const deleteAccount = async function () {
     try {
-      const response = await axios.delete(`${URL}/api/users`);
+      const response = await axios.delete(`/api/users`);
       console.log(response);
       signOut();
     } catch (error) {
