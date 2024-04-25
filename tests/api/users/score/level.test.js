@@ -8,14 +8,14 @@ require('dotenv').config();
  * Test requests to the /api/users/score/level endpoint.
  * @author Jade Carino
  */
-test.describe('GET request to /api/users/score/level', () => {
+test.describe('Test requests to endpoint /api/users/score/level', () => {
 
   // Before each test, connect to the database
   test.beforeAll(async () => {
     await connect();
   });
 
-  test('Should get a response from /api/users/score/level', async ({ request }) => {
+  test('Should get a response from GET to /api/users/score/level', async ({ request }) => {
     let req = await request.get('/api/whoami');
     let user = await req.json();
 
@@ -27,7 +27,7 @@ test.describe('GET request to /api/users/score/level', () => {
     expect(body).toHaveProperty('level', 1);
   });
 
-  test('Should get a not found response from /api/users/score/level', async ({ request }) => {
+  test('Should get a not found response from GET to /api/users/score/level', async ({ request }) => {
 
     const response = await request.get(`/api/users/score/level?email=nonsense@noexist.com`);
     const body = await response.json();

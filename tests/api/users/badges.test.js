@@ -8,14 +8,14 @@ require('dotenv').config();
  * Test requests to the /api/users/badges endpoint.
  * @author Jade Carino
  */
-test.describe('GET request to /api/users/badges', () => {
+test.describe('Test requests to endpoint /api/users/badges', () => {
 
   // Before each test, connect to the database
   test.beforeAll(async () => {
     await connect();
   });
 
-  test('Should get a response from /api/users/badges', async ({ request }) => {
+  test('Should get a response from GET to /api/users/badges', async ({ request }) => {
     let req = await request.get('/api/whoami');
     let user = await req.json();
 
@@ -31,7 +31,7 @@ test.describe('GET request to /api/users/badges', () => {
     expect(badges.length).toBe(0);
   });
 
-  test('Should get a not found response from /api/users/badges', async ({ request }) => {
+  test('Should get a not found response from GET to /api/users/badges', async ({ request }) => {
 
     const response = await request.get(`/api/users/badges?email=nonsense@noexist.com`);
     const body = await response.json();
