@@ -75,10 +75,9 @@ ARG db_conn
 ENV DB_VERSION ${db_conn}
 ENV CONTAINER="true"
 
-RUN echo "DB_VERSION is $DB_VERSION"
+RUN echo "===== Container Build Information ====="
+RUN echo "This container will connect to '$DB_VERSION'"
+RUN echo "===== Container Build Information ====="
 
-RUN env
-
-RUN echo "Container: $CONTAINER"
 
 CMD HOSTNAME="0.0.0.0" bun server.js
