@@ -30,8 +30,7 @@ after_failure:
   - docker exec ecohive-test env
   - docker logs --details ecohive-test
   - docker kill ecohive-test
-  - bun run build
-  - bun run test
+
 
 jobs:
   include:
@@ -44,9 +43,32 @@ jobs:
         - $SCRIPTS/wait.sh
         - docker logs --details ecohive-test
         - bun run test
+  
 
-after_success:
-  - $SCRIPTS/add_ssh_key
-  # - $SCRIPTS/build_images
-  - $SCRIPTS/deploy_image
-  - $SCRIPTS/start_container
+    - stage: Development Tests
+      if: branch != main AND type != pull_request
+      script:
+        - $SCRIPTS/copy_certificate
+        - bun run build
+        - bun run test
+
+    - stage: Production Tests
+      if: type = pull_request
+      script:
+        - $SCRIPTS/copy_certificate
+        - $SCRIPTS/build_image
+        - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
+        - docker ps
+        - $SCRIPTS/wait.sh
+        - docker exec ecohive-test env
+        - docker logs --details ecohive-test
+        - bun run test
+  
+
+    - stage: Deploy
+      if: branch = main AND type != pull_request
+      script:
+        - $SCRIPTS/add_ssh_key
+        - $SCRIPTS/build_image
+        - $SCRIPTS/deploy_image
+        - $SCRIPTS/start_container

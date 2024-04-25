@@ -11,14 +11,14 @@ fi
 # Check if TRAVIS_BRANCH is not main
 if [ "$TRAVIS_PULL_REQUEST" ]; then
   echo "Development database will be used"
-  DB_VERSION="development"
+  PROD_DB="development"
  
 elif [ "$TRAVIS_BRANCH" != "main" ]; then
    echo "Development database will be used"
-  DB_VERSION="development"
+  PROD_DB="development"
 else
    echo "Production database will be used"
-   DB_VERSION="production"
+   PROD_DB="production"
 fi
 
-docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=$DB_VERSION .
+docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=$PROD_DB .

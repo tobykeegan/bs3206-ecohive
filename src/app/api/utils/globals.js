@@ -4,16 +4,21 @@ require('dotenv').config();
 function getUrl() {
   const protocol = 'http';
   let url =
-    process.env.DB_VERSION == 'production'
-      ? 'uniprod1.fyre.ibm.com'
-      : 'localhost';
+    getDatabaseName() == 'production' ? 'uniprod1.fyre.ibm.com' : 'localhost';
   let port = process.env.PORT || 3000;
 
   return `${protocol}://${url}:${port}`;
 }
 
-function getDatabaseType() {
-  return process.env.DB_VERSION == 'development' ? 'development' : 'production';
+function getDatabaseName() {
+  // if the env var is set, use it
+  switch (process.env.PROD_DB) {
+    case 'production':
+      return 'production';
+    case 'development':
+    default:
+      return 'development';
+  }
 }
 
 module.exports = {
@@ -23,7 +28,7 @@ module.exports = {
     domain: 'mongodb+srv://ecohive-db.ifnc2nm.mongodb.net',
     queryString:
       'authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority',
-    db: getDatabaseType(),
+    db: getDatabaseName(),
     clientOptions: {
       tlsCertificateKeyFile: path.resolve(
         process.env.CERT_PATH || './cert.pem',

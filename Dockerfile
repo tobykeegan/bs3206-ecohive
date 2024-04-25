@@ -72,11 +72,11 @@ ARG next_secret
 ENV NEXTAUTH_SECRET ${next_secret}
 
 ARG db_conn
-ENV DB_VERSION ${db_conn}
+ENV PROD_DB ${db_conn}
 ENV CONTAINER="true"
 
 RUN echo "===== Container Build Information ====="
-RUN echo "This container will connect to '$DB_VERSION'"
+RUN echo "This container will connect to '$PROD_DB'"
 RUN echo "===== Container Build Information ====="
 
 
