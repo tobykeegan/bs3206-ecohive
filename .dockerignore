@@ -1,0 +1,20 @@
+# directories
+node_modules
+.next
+.git
+playwright
+tests
+!tests/utils.js
+test-results
+logs
+
+# files
+Dockerfile
+.dockerignore
+npm-debug.log
+README.md
+playwright.config.js
+.gitignore
+.prettierrc
+.travis.yml
+.github

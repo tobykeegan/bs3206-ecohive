@@ -7,6 +7,7 @@ const EventSchema = new Schema({
   type: String,
   location: String,
   description: String,
+  date: Date,
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User',

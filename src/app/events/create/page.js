@@ -23,24 +23,11 @@ export default async function CreateEvent() {
     redirect('/api/auth/signin');
   }
 
-  let eventImage;
   return (
     <main>
       <Navbar />
-      {eventImage && (
-        <section>
-          File details:
-          <ul>
-            <li>Name: {eventImage.name}</li>
-            <li>Type: {eventImage.type}</li>
-            <li>Size: {eventImage.size} bytes</li>
-          </ul>
-        </section>
-      )}
-      <div id="Footer-Div">
-        <Divider />
-        <Footer />
-      </div>
+      <Divider />
+      <Footer />
     </main>
   );
 }

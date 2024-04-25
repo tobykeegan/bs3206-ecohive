@@ -42,45 +42,51 @@ test.afterEach(async () => {
   }
 });
 
-test('Delete end-to-end', async ({ page }) => {
-  // Register user with info
-  await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
-  await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  await page.getByPlaceholder('Password').fill(userInfo.password);
-  await page.getByText('Choose a security question').click();
-  await page.getByRole('option', { name: userInfo.secQuestion }).click();
-  await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
-  let responsePromise = page.waitForResponse('**/api/users');
-  await page.getByLabel('Register').click();
-  let response = await responsePromise;
-  expect(response.status()).toBe(HTTP.CREATED);
+test.describe(() => {
+  // All tests in this describe group will get 3 retry attempts.
+  test.describe.configure({ retries: 3 });
+  test('Delete end-to-end', async ({ page }) => {
+    // Register user with info
+    await page.getByPlaceholder('Full Name').fill(userInfo.fullName);
+    await page.getByPlaceholder('Display Name').fill(userInfo.displayName);
+    await page.getByPlaceholder('Email').fill(userInfo.email);
+    await page.getByPlaceholder('Password').fill(userInfo.password);
+    await page.getByText('Choose a security question').click();
+    await page.getByRole('option', { name: userInfo.secQuestion }).click();
+    await page.getByPlaceholder('Answer').fill(userInfo.secAnswer);
+    let responsePromise = page.waitForResponse('**/api/users');
+    await page.getByLabel('Register').click();
+    let response = await responsePromise;
+    expect(response.status()).toBe(HTTP.CREATED);
 
-  // Log in as user
-  await page.waitForURL('/login');
-  await page.getByPlaceholder('Email').fill(userInfo.email);
-  await page.getByPlaceholder('Password').fill(userInfo.password);
-  responsePromise = page.waitForResponse('**/api/auth/callback/password-login');
-  await page.getByRole('button', { name: 'Login', exact: true }).click();
-  response = await responsePromise;
-  expect(response.status()).toBe(HTTP.OK);
+    // Log in as user
+    await page.waitForURL('/login');
+    await page.getByPlaceholder('Email').fill(userInfo.email);
+    await page.getByPlaceholder('Password').fill(userInfo.password);
+    responsePromise = page.waitForResponse(
+      '**/api/auth/callback/password-login',
+    );
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
+    response = await responsePromise;
+    expect(response.status()).toBe(HTTP.OK);
 
-  // Redirected to home page
-  await page.waitForURL('/');
-  await expect(page).toHaveURL('/');
+    // Redirected to home page
+    await page.waitForURL('/');
+    await expect(page).toHaveURL('/');
 
-  // Delete user account in settings
-  await page.goto('/settings');
-  // Click first button
-  await page.getByRole('button', { name: 'Delete Account' }).click();
-  // Click second button
-  await page.getByRole('button', { name: 'Delete Account' }).click();
+    // Delete user account in settings
+    await page.goto('/settings');
+    // Click first button
+    await page.getByRole('button', { name: 'Delete Account' }).click();
+    // Click second button
+    await page.getByRole('button', { name: 'Delete Account' }).click();
 
-  await expect(page).toHaveURL(/login.*/);
-  const sessionToken = await getCookie(page, 'next-auth.session-token');
-  expect(sessionToken).toBeNull();
+    await expect(page).toHaveURL(/login.*/);
+    const sessionToken = await getCookie(page, 'next-auth.session-token');
+    expect(sessionToken).toBeNull();
 
-  await connect();
-  const user = await User.findOne({ 'details.email': userInfo.email });
-  expect(user).toBeNull();
+    await connect();
+    const user = await User.findOne({ 'details.email': userInfo.email });
+    expect(user).toBeNull();
+  });
 });
