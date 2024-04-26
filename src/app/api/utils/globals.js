@@ -18,8 +18,11 @@ function getDatabaseName() {
     case 'production':
       db = 'production';
       logger.warn('PROD_DB specified production database');
+      break;
     case 'development':
       logger.info('PROD_DB specified development database');
+      db = 'development';
+      break;
     default:
       logger.warn("PROD_DB not set, defaulting to 'development'");
       db = 'development';
