@@ -20,6 +20,10 @@ echo "Starting new container"
 docker run -d --name ecohive-ui -p 3000:3000 ecohive-ui
 echo "Waitng 5 seconds for server to start"
 sleep 5
+echo "Container logs": 
 docker logs --details ecohive-ui
-docker exec -d ecohive-ui env
+echo "Container environment:"
+docker exec ecohive-ui env
+echo "Database state:"
+curl "localhost:3000/api/ping" | jq .
 EOF
