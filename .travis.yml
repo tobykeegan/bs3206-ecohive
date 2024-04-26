@@ -35,7 +35,7 @@ after_failure:
 jobs:
   include:
     - stage: Development Tests
-      if: branch != main AND type != pull_request
+      if: branch != main AND branch != pipeline AND type != pull_request
       script:
         - $SCRIPTS/copy_certificate
         - bun run build
@@ -53,7 +53,7 @@ jobs:
         - bun run test
 
     - stage: Deploy
-      # if: branch = main AND type != pull_request
+      if: branch = main OR branch = pipeline AND type != pull_request
       script:
         - $SCRIPTS/add_ssh_key
         - $SCRIPTS/copy_certificate
