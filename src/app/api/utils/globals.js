@@ -1,4 +1,5 @@
 const path = require('node:path');
+import logger from '@/utils/lbbun ogger';
 require('dotenv').config();
 
 function getUrl() {
@@ -11,14 +12,19 @@ function getUrl() {
 }
 
 function getDatabaseName() {
+  let db;
   // if the env var is set, use it
   switch (process.env.PROD_DB) {
     case 'production':
-      return 'production';
+      db = 'production';
+      logger.warn('PROD_DB specified production database');
     case 'development':
+      logger.info('PROD_DB specified development database');
     default:
-      return 'development';
+      logger.warn("PROD_DB not set, defaulting to 'development'");
+      db = 'development';
   }
+  return db;
 }
 
 module.exports = {
