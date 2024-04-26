@@ -1,5 +1,5 @@
 const path = require('node:path');
-import logger from '@/utils/lbbun ogger';
+import logger from '@/utils/logger';
 require('dotenv').config();
 
 function getUrl() {
