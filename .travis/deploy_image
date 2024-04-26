@@ -7,4 +7,8 @@ docker save ecohive-ui                                        \
       -oPreferredAuthentications=publickey                    \
     "$PRODUCTION_SERVER_USER"@"$PRODUCTION_SERVER_ADDRESS"    \
 docker load                                                   \
-&& ./home/travis/deploy.sh
+
+ssh -oStrictHostKeyChecking=no                                \
+      -i $SCRIPTS/key                                         \
+      -oPreferredAuthentications=publickey                    \
+    "$PRODUCTION_SERVER_USER"@"$PRODUCTION_SERVER_ADDRESS" ./deploy.sh
