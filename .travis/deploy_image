@@ -6,7 +6,7 @@ docker save ecohive-ui                                        \
       -i $SCRIPTS/key                                         \
       -oPreferredAuthentications=publickey                    \
     "$PRODUCTION_SERVER_USER"@"$PRODUCTION_SERVER_ADDRESS"    \
-docker load &&                                                \
+docker load                                                   \
 && docker kill ecohive-ui                                     \
 && docker container rm ecohive-ui                             \
 && docker run -d --name ecohive-ui -p 3000:3000 ecohive-ui    \
