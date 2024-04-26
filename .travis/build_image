@@ -24,4 +24,4 @@ else
    PROD_DB="production"
 fi
 
-docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=$PROD_DB .
+docker build -t "ecohive-ui" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=$PROD_DB .
