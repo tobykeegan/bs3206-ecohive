@@ -3,9 +3,9 @@ import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-const react = require('react');
-const reactDOM = require('react-dom');
-
+import EventForm from './EventForm';
+import { Container } from '@mui/joy';
+import PageHeader from '@/app/events/PageHeader';
 /**
  * TODO: Implement CreateEvent page
  * Page template for creating an event. This page is protected
@@ -26,6 +26,10 @@ export default async function CreateEvent() {
   return (
     <main>
       <Navbar />
+      <Container>
+        <PageHeader pageName="Create a new event" />
+        <EventForm />
+      </Container>
       <Divider />
       <Footer />
     </main>

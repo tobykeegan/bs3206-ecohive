@@ -13,7 +13,7 @@ export default function EventWidget({ event }) {
 
   const router = useRouter();
   return (
-    <Card style={{ width: '90vw' }}>
+    <Card>
       <Card.Body>
         <Card.Title>{event.name}</Card.Title>
         <ListGroup className="list-group-flush">
