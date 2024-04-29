@@ -66,4 +66,5 @@ export default async function Page({ params }) {
   } else {
     rendered = <h1>Event page template</h1>;
   }
+  return rendered;
 }
