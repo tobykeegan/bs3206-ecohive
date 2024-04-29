@@ -43,7 +43,7 @@ jobs:
 
     - stage: Production Tests
       if: type = pull_request
-      script: 
+      script:
         - $SCRIPTS/build_image
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
