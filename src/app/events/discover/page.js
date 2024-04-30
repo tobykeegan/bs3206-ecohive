@@ -53,8 +53,8 @@ export default async function Discover() {
   return (
     <main>
       <Navbar />
-      <PageHeader pageName="discover events near you" />
-      <CollapsibleEventSearch />
+      <PageHeader pageName="All Events" />
+      {/* <CollapsibleEventSearch /> */}
       <Divider />
       {rendered}
       <div id="Footer-Div">
