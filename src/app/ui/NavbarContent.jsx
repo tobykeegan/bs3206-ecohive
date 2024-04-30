@@ -63,7 +63,7 @@ export function NavbarContent({ ...props }) {
               My Past Events
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="#action2">My Impact</Nav.Link>
+          <Nav.Link href="/impact">My Impact</Nav.Link>
         </Nav>
         <Nav className="justify-content-end flex-grow-1 pe-3">
           {props.visible ? (

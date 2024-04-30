@@ -88,6 +88,11 @@ export const authOptions = {
             level: user.score.level,
             points: user.score.points,
           },
+          badges: user.badges,
+          stats: {
+            attendance: user.stats.attendance,
+            creation: user.stats.creation,
+          },
           profilePicture: user.profilePicture,
         };
       }
