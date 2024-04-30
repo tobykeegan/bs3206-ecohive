@@ -31,11 +31,6 @@ function MainNavbar() {
 
   const router = useRouter();
 
-  const handleAddEvent = () => {
-    // push to create event page
-    router.push('/events/create');
-  };
-
   return (
     <Navbar expand="md" className="mb-3" bg="primary">
       <Container fluid>
@@ -63,7 +58,10 @@ function MainNavbar() {
               </Button>
             </Tooltip>
             <Tooltip className="btnTooltip" title="Create Event" variant="soft">
-              <Button onClick={handleAddEvent} variant="outline-success">
+              <Button
+                onClick={() => router.push('/events/create')}
+                variant="outline-success"
+              >
                 +
               </Button>
             </Tooltip>
