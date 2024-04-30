@@ -6,8 +6,9 @@ import { redirect } from 'next/navigation';
 import EventForm from './EventForm';
 import { Container } from '@mui/joy';
 import PageHeader from '@/app/events/PageHeader';
+import { authOptions } from '@/api/auth/[...nextauth]/route';
+
 /**
- * TODO: Implement CreateEvent page
  * Page template for creating an event. This page is protected
  * by the server route and requires authentication to access.
  * @returns {JSX.Element} The create event page.
@@ -18,7 +19,7 @@ export default async function CreateEvent() {
    * Protect server route if unauthenticated & get session
    * @author Alec Painter
    */
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     redirect('/api/auth/signin');
   }
@@ -28,7 +29,7 @@ export default async function CreateEvent() {
       <Navbar />
       <Container>
         <PageHeader pageName="Create a new event" />
-        <EventForm />
+        <EventForm session={session} />
       </Container>
       <Divider />
       <Footer />
