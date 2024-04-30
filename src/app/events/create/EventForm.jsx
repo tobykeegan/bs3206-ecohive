@@ -3,16 +3,17 @@ import { Badge, Button, Stack, Input, Select, Option } from '@mui/joy';
 import React, { useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { getTodaysDate } from '@/app/utils/date';
+import style from '@/styles/events/create';
+import { NextResponse } from 'next/server';
+import axios from 'axios';
+import { HTTP } from '@/app/ui/utils';
 /**
  * Event Creation Card
  * @author Toby Keegan
  */
-export default function EventForm() {
+export default function EventForm({ session }) {
   const router = useRouter();
-  const { data: session } = useSession();
-  if (!session || !session.user) {
-    router.push('/api/auth/signin');
-  }
 
   const handleEventSubmission = async (formJson) => {
     const formData = new FormData();
@@ -20,12 +21,13 @@ export default function EventForm() {
       formData.append(key, formJson[key]);
     }
 
-    const response = await fetch('/api/events/create', {
-      method: 'POST',
+    console.log('Form Data: ', formData);
+    const response = await axios.post('/api/events/new', {
       body: formData,
     });
+    console.log('Response: ', response);
 
-    if (response.ok) {
+    if (response.status === HTTP.CREATED) {
       router.push('/events');
     } else {
       alert('Failed to create event');
@@ -47,15 +49,18 @@ export default function EventForm() {
     );
   };
 
+  const todaysDate = getTodaysDate(new Date());
+  console.log(todaysDate);
+
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const formJson = Object.fromEntries(formData.entries());
-
-        handleEventSubmission(formJson);
+        formJson.creator = session.user.id;
         alert(JSON.stringify(formJson));
+        handleEventSubmission(JSON.stringify(formJson));
       }}
     >
       <Stack spacing={1}>
@@ -93,7 +98,7 @@ export default function EventForm() {
           required
         />
         {genLabel('date-field', 'Date')}
-        <Input name="date-field" type="date" placeholder="Date" required />
+        <Input name="date-field" type="date" required />
         {genLabel('capacity-field', 'Event Capacity')}
         <Input
           id="capacity-field"
@@ -109,7 +114,9 @@ export default function EventForm() {
           accept="image/*"
           placeholder="Choose an image for your event."
         />
-        <Button type="submit">Submit</Button>
+        <Button id="submit-button" type="submit">
+          Submit
+        </Button>
       </Stack>
     </form>
   );
