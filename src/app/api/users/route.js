@@ -142,3 +142,20 @@ function toTitleCase(str) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }
+
+/**
+ * Fetches users sorting by points.
+ * @author Jade Carino
+ */
+export async function GET(req) {
+  const queryParams = req.nextUrl.searchParams;
+  const limit = queryParams.get('limit');
+
+  logger.debug(`Fetching users sorting by level and score`);
+
+  let users = await User.find()
+    .sort({ 'score.level': -1, 'score.points': -1 })
+    .limit(limit);
+
+  return NextResponse.json({ topUsers: users }, { status: HTTP.OK });
+}

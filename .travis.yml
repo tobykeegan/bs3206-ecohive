@@ -28,7 +28,7 @@ before_script:
   - bun run lint
 
 after_failure:
-  - echo "Container tests failed, let's try native tests:"
+  - echo "Container tests failed, see output:"
   - docker exec ecohive-test env
   - docker logs --details ecohive-test
 
