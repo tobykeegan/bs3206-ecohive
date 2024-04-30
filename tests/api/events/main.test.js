@@ -28,29 +28,22 @@ test.describe('Events API operations', () => {
   const TRACKED = randomString(16);
   test.beforeAll(async ({ request }) => {
     await connect();
-    // Generate a random number of events with no owner
-    const numEvents = Math.floor(Math.random() * 10) + 1;
-    const numOwnedEvents = Math.floor(Math.random() * 10) + 1;
 
-    for (let i = 0; i < numEvents; i++) {
-      const event = generateEvent();
-      event.name = `Events API Test Event #${i + 1}`;
-      event.description = TRACKED;
-      await event.save();
-    }
+    const numEvents = Math.floor(Math.random() * 10) + 1;
+
     // Generate a random number of events owned by this user
     let req = await request.get('/api/whoami');
 
     let user = await req.json();
-    for (let i = 0; i < numOwnedEvents; i++) {
+    for (let i = 0; i < numEvents; i++) {
       const event = generateEvent(user.id);
       event.description = TRACKED;
       await event.save();
     }
-    const numTotalEvents = numEvents + numOwnedEvents;
+
     // check the document count matches the number of events created
     expect(await Event.countDocuments({ description: TRACKED })).toBe(
-      numTotalEvents,
+      numEvents,
     );
   });
 
@@ -77,6 +70,7 @@ test.describe('Events API operations', () => {
       expect(event).toHaveProperty('date');
       expect(event).toHaveProperty('location');
       expect(event).toHaveProperty('description');
+      expect(event).toHaveProperty('creator');
     });
   });
   test('POST /events returns all events if a blank body is provided', async ({
