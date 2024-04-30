@@ -3,27 +3,42 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
-  name: String,
-  type: String,
-  location: String,
-  description: String,
-  date: Date,
+  name: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    enum: ['demonstration', 'meet-up', 'clean-up', 'education'],
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   attendance: {
     capacity: Number,
     signups: Number,
   },
   photoBase64: String,
-  points: Number,
-  tags: [
-    {
-      name: String,
-      colour: String,
-    },
-  ],
+  points: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Event = mongoose.models.Event || mongoose.model('Event', EventSchema);
