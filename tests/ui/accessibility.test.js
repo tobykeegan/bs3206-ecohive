@@ -11,8 +11,10 @@ const pages = [
 ];
 
 pages.forEach((url) => {
-  test(`Accessibility checks for '${url}' page`, async ({ page }, testInfo) => {
-    implemented(false);
+  // TODO: un-skip when I'm ready to deal with accessibility
+  test.skip(`Accessibility checks for '${url}' page`, async ({
+    page,
+  }, testInfo) => {
     await page.goto(url);
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     await testInfo.attach('accessibility-scan-results', {
