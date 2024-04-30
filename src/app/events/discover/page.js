@@ -19,7 +19,6 @@ export default async function Discover() {
    * Protect server route if unauthenticated & get session
    * @author Alec Painter
    */
-  console.log('Getting events from URL: ', URL, '/api/events');
   const session = await getServerSession();
   if (!session || !session.user) {
     redirect('/api/auth/signin');

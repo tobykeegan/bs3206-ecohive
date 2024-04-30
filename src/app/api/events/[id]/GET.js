@@ -11,7 +11,6 @@ import { HTTP } from '@/utils/globals';
  */
 
 export default async function getById(id) {
-  console.log('Event ID:', id);
   let event;
   try {
     event = await Event.findById(id);

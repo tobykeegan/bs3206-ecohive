@@ -55,7 +55,6 @@ export function generateRandomDate() {
 }
 
 export function generateEvent(ownerId) {
-  console.log('Generating event with owner ID: ' + ownerId + '...');
   let capacity = Math.floor(Math.random() * 10000) + 1000;
   let signups = Math.floor(Math.random() * capacity);
 
@@ -76,7 +75,7 @@ export function generateEvent(ownerId) {
     },
     points: Math.floor(Math.random() * 100) + 1,
   });
-  console.log('Generated event: ' + event);
+
   return event;
 }
 

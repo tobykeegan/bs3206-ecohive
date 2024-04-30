@@ -21,7 +21,6 @@ export default function EventForm({ session }) {
       formData.append(key, formJson[key]);
     }
 
-    console.log('Form Data: ', formData);
     const response = await axios.post('/api/events/new', {
       body: formData,
     });
@@ -50,7 +49,6 @@ export default function EventForm({ session }) {
   };
 
   const todaysDate = getTodaysDate(new Date());
-  console.log(todaysDate);
 
   return (
     <form

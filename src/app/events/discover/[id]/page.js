@@ -26,7 +26,7 @@ export default async function Page({ params }) {
   }
 
   const apiURL = `${URL}/api/events/${params.id}`;
-  console.log('API URL', apiURL);
+
   let res = await axios.get(apiURL);
 
   let event = res.data;
