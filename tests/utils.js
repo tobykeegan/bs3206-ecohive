@@ -55,12 +55,15 @@ export function generateRandomDate() {
 }
 
 export function generateEvent(ownerId) {
+  console.log('Generating event with owner ID: ' + ownerId + '...');
   let capacity = Math.floor(Math.random() * 10000) + 1000;
   let signups = Math.floor(Math.random() * capacity);
 
+  const validTypes = ['demonstration', 'meet-up', 'clean-up', 'education'];
+  let type = validTypes[Math.floor(Math.random() * validTypes.length)];
   const event = new Event({
     name: `Test Event ${randomString(5)}`,
-    type: 'Test Type',
+    type: type,
     location: 'Playwright Park',
     description: 'Test Description',
     date: generateRandomDate(),
@@ -71,15 +74,9 @@ export function generateEvent(ownerId) {
 
       signups: signups,
     },
-    photoBase64: 'this would be the image',
     points: Math.floor(Math.random() * 100) + 1,
-    tags: [
-      {
-        name: 'Test Tag',
-        colour: '#000000',
-      },
-    ],
   });
+  console.log('Generated event: ' + event);
   return event;
 }
 
