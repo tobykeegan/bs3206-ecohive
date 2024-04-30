@@ -54,7 +54,7 @@ jobs:
         - bun run test
 
     - stage: Deploy
-      if: branch = main OR branch = pipeline AND type != pull_request
+      if: branch = main AND type != pull_request
       script:
         - $SCRIPTS/add_ssh_key
         - $SCRIPTS/copy_certificate
