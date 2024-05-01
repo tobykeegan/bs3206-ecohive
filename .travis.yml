@@ -29,8 +29,8 @@ before_script:
 
 after_failure:
   - echo "Container tests failed, see container logs:"
-  - docker exec ecohive-test env
-  - docker logs --details ecohive-test
+  - docker exec ecohive-ui env
+  - docker logs --details ecohive-ui
 
 jobs:
   include:
@@ -46,11 +46,11 @@ jobs:
       script:
         - $SCRIPTS/copy_certificate
         - $SCRIPTS/build_image
-        - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
+        - docker run --name ecohive-ui -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - $SCRIPTS/wait.sh
-        - docker exec ecohive-test env
-        - docker logs --details ecohive-test
+        - docker exec ecohive-ui env
+        - docker logs --details ecohive-ui
         - bun run test
 
     - stage: Deploy
