@@ -46,7 +46,7 @@ jobs:
       script:
         - $SCRIPTS/copy_certificate
         - $SCRIPTS/build_image
-        - docker run --name ecohive-ui -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
+        - docker run --name ecohive-ui -d -p 3000:3000 ecohive-ui
         - docker ps
         - $SCRIPTS/wait.sh
         - docker exec ecohive-ui env
