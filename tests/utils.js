@@ -54,13 +54,13 @@ export function generateRandomDate() {
   return date;
 }
 
-export function generateEvent(ownerId) {
+export function generateEvent(ownerId, asJson = false) {
   let capacity = Math.floor(Math.random() * 10000) + 1000;
   let signups = Math.floor(Math.random() * capacity);
 
   const validTypes = ['demonstration', 'meet-up', 'clean-up', 'education'];
   let type = validTypes[Math.floor(Math.random() * validTypes.length)];
-  const event = new Event({
+  const event = {
     name: `Test Event ${randomString(5)}`,
     type: type,
     location: 'Playwright Park',
@@ -74,9 +74,9 @@ export function generateEvent(ownerId) {
       signups: signups,
     },
     points: Math.floor(Math.random() * 100) + 1,
-  });
-
-  return event;
+  };
+  if (asJson) return event;
+  return new Event(event);
 }
 
 export const HTTP = {

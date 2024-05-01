@@ -1,4 +1,5 @@
 import Event from '@/models/event';
+import Attendance from '@/models/attendance';
 import { NextResponse } from 'next/server';
 import logger from '@/utils/logger';
 import { HTTP } from '@/utils/globals';
@@ -10,9 +11,7 @@ import { HTTP } from '@/utils/globals';
  * @author Toby Keegan
  */
 export default async function deleteEvent(id) {
-  logger.info('Delete Event: ', id);
   let res = await Event.findByIdAndDelete(id);
-  logger.info('Delete Event Result: ', res);
   if (!res) {
     return NextResponse.json(
       {
@@ -23,10 +22,15 @@ export default async function deleteEvent(id) {
       },
     );
   }
+  // delete all attendance records for this event
+  const records = await Attendance.deleteMany({ event: id });
   return NextResponse.json(
     {
       id: id,
       message: 'Event deleted successfully',
+      attendanceRecords: {
+        deleted: records.deletedCount,
+      },
     },
     {
       status: HTTP.OK,
