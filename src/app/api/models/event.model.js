@@ -34,7 +34,11 @@ const EventSchema = new Schema({
     capacity: Number,
     signups: Number,
   },
-  photoBase64: String,
+  image: {
+    type: Schema.Types.ObjectId,
+    ref: 'Image',
+    required: false,
+  },
   points: {
     type: Number,
     default: 0,
