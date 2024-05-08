@@ -1,26 +1,22 @@
-import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { URL } from '@/app/api/utils/globals';
-import axios from 'axios';
-import { redirect } from 'next/navigation';
-import EventWidget from '../../EventWidget';
+import { GetImageURL } from '@/app/api/utils/images';
 import Navbar from '@/app/ui/Navbar';
-import Divider from '@mui/material/Divider';
-import Footer from '@/app/ui/Footer';
-import Typography from '@mui/joy/Typography';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import CardOverflow from '@mui/joy/CardOverflow';
-import AspectRatio from '@mui/joy/AspectRatio';
-import Image from 'next/image';
 import { getImageSrc } from '@/app/ui/utils';
-import { getFormattedDate } from '@/app/ui/utils';
-import IS_FINISHED from '@/app/events/toby';
+import { KeyboardArrowLeft } from '@mui/icons-material';
+import { Button, ButtonGroup, Stack } from '@mui/joy';
+import Box from '@mui/joy/Box';
+import axios from 'axios';
+import { getServerSession } from 'next-auth';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+
 export default async function Page({ params }) {
   /**
    * Protect server route if unauthenticated & get session
    * @author Alec Painter
    */
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     redirect('/api/auth/signin');
   }
@@ -30,41 +26,58 @@ export default async function Page({ params }) {
   let res = await axios.get(apiURL);
 
   let event = res.data;
-  let rendered;
 
-  if (IS_FINISHED) {
-    rendered = (
-      <main>
-        <Navbar />
-        <h1> Go back </h1>
-        <Card variant="outlined" sx={{ maxWidth: 400 }}>
-          <Typography level="h1">{event.name}</Typography>
-          <Typography level="h2" fontSize="xl" sx={{ mb: 0.5 }}>
-            {event.location} | {getFormattedDate(event.date)}
-          </Typography>
-          <Typography>{event.description}</Typography>
-        </Card>
+  // Check if the event is owned by the current user
+  let thisIsMyEvent = event.creator === session.user.id;
 
-        <Card variant="outlined" sx={{ width: 320 }}>
-          <CardOverflow>
-            <AspectRatio ratio="2">
-              <Image
-                src={getImageSrc(event.photoUrl)}
-                alt="Event Image"
-                layout="fill"
-              />
-            </AspectRatio>
-          </CardOverflow>
-        </Card>
-
-        <div id="Footer-Div">
-          <Divider />
-          <Footer />
-        </div>
-      </main>
-    );
-  } else {
-    rendered = <h1>Event page template</h1>;
+  // Get some displayable info about the event creator
+  let eventCreatorDetails;
+  try {
+    eventCreatorDetails = await axios.get(`${URL}/api/users/${event.creator}`);
+  } catch (error) {
+    eventCreatorDetails = { displayName: 'This event has no owner' };
   }
-  return rendered;
+
+  // get the image for the event
+  let image;
+
+  try {
+    image = await axios.get(`${URL}/api/images?id=${event.image}`);
+    console.log('Image: ', image);
+  } catch (error) {}
+  return (
+    <main>
+      <Navbar />
+      <Box my={4} display="flex" alignItems="center" gap={4} p={2}>
+        <form></form>
+        <Stack spacing={2}>
+          <ButtonGroup>
+            <Button startDecorator={<KeyboardArrowLeft />}>Go back</Button>
+            <Button color="primary" disabled={!thisIsMyEvent}>
+              Edit
+            </Button>
+            <Button color="danger" disabled={!thisIsMyEvent}>
+              Delete
+            </Button>
+          </ButtonGroup>
+          <h1>{event.name}</h1>
+          <p>
+            Creator:{' '}
+            {eventCreatorDetails.data.displayName ||
+              eventCreatorDetails.data.name}{' '}
+            {thisIsMyEvent ? '(You)' : ''}
+          </p>
+          <img
+            src={GetImageURL(event.image)}
+            alt="Event Image"
+            // width={500}
+            // height={500}
+          />
+          <p>{event.description}</p>
+          <p>{event.location}</p>
+          <p>{event.date}</p>
+        </Stack>
+      </Box>
+    </main>
+  );
 }
