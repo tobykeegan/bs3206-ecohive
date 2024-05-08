@@ -1,6 +1,7 @@
 import logger from '@/utils/logger';
 import { connect } from '@/services/mongoose';
 import User from '@/models/user';
+import Event from '@/models/event';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
@@ -106,6 +107,10 @@ export async function DELETE(req) {
   if (user.profilePicture) {
     await Image.findByIdAndDelete(user.profilePicture);
   }
+
+  // before deleting the user, delete all events created by
+  // them. this prevents orphaned events from being created
+  await Event.deleteMany({ creator: user._id });
 
   const deletedUser = await User.findOneAndDelete({
     'details.email': session.user.email,
