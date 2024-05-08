@@ -4,7 +4,7 @@ import Footer from '@/app/ui/Footer';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import EventForm from './EventForm';
-import { Container } from '@mui/joy';
+import { Container, Typography } from '@mui/joy';
 import PageHeader from '@/app/events/PageHeader';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
 
@@ -28,7 +28,10 @@ export default async function CreateEvent() {
     <main>
       <Navbar />
       <Container>
-        <PageHeader pageName="Create a new event" />
+        <Typography level="h1" align="left">
+          Create an event
+        </Typography>
+        <Divider />
         <EventForm session={session} />
       </Container>
       <Divider />

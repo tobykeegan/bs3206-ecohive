@@ -1,13 +1,11 @@
 'use client';
-import { Badge, Button, Stack, Input, Select, Option } from '@mui/joy';
-import React, { useRef, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { getTodaysDate } from '@/app/utils/date';
-import style from '@/styles/events/create';
-import { NextResponse } from 'next/server';
-import axios from 'axios';
 import { HTTP } from '@/app/ui/utils';
+import { getTodaysDate } from '@/app/utils/date';
+import { UploadImage } from '@/app/utils/images';
+import { Button, Input, Option, Select, Stack, Textarea } from '@mui/joy';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 /**
  * Event Creation Card
  * @author Toby Keegan
@@ -15,23 +13,9 @@ import { HTTP } from '@/app/ui/utils';
 export default function EventForm({ session }) {
   const router = useRouter();
 
-  const handleEventSubmission = async (formJson) => {
-    const formData = new FormData();
-    for (const key in formJson) {
-      formData.append(key, formJson[key]);
-    }
-
-    const response = await axios.post('/api/events/new', {
-      body: formData,
-    });
-    console.log('Response: ', response);
-
-    if (response.status === HTTP.CREATED) {
-      router.push('/events');
-    } else {
-      alert('Failed to create event');
-    }
-  };
+  if (!session || !session.user) {
+    router.push('/api/auth/signin');
+  }
 
   /**
    *
@@ -40,7 +24,7 @@ export default function EventForm({ session }) {
    * @returns {JSX.Element} A label for the input field
    * @author Toby Keegan
    */
-  const genLabel = (id, text) => {
+  const label = (id, text) => {
     return (
       <label htmlFor={id} id={`${id}-label`}>
         {text}
@@ -50,26 +34,69 @@ export default function EventForm({ session }) {
 
   const todaysDate = getTodaysDate(new Date());
 
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const form = Object.fromEntries(formData.entries());
+    form.creator = session.user.id;
+    console.log('form is ', form);
+
+    if (form.eventImage) {
+      console.log('Uploading image', form.eventImage.name);
+
+      UploadImage(form.eventImage)
+        .then(async (imageID) => {
+          console.log('Image uploaded: ', imageID);
+          form.eventImage = imageID;
+
+          // create the event object
+          const thisEvent = {
+            name: form.eventTitle,
+            type: form.eventType,
+            location: form.eventLocation,
+            description: form.eventDescription,
+            date: form.date,
+            attendance: {
+              capacity: form.eventCapacity,
+              signups: 1, // creator is signed up by default
+            },
+            image: form.eventImage,
+            creator: form.creator,
+          };
+
+          console.log('Creating event: ', thisEvent);
+          axios
+            .post('/api/events/new', thisEvent)
+            .then((response) => {
+              console.log('response is: ');
+              console.log(response.data);
+              if (response.status === HTTP.CREATED) {
+                router.push(`/events/discover/${response.data._id}`);
+              }
+            })
+            .catch((error) => {
+              console.error('Error creating event: ', error);
+            });
+        })
+        .catch(async (error) => {
+          console.error('Error uploading event image: ', error);
+          await axios.delete(`/api/images/${form.eventImage}`);
+        });
+    }
+  }
+
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const formJson = Object.fromEntries(formData.entries());
-        formJson.creator = session.user.id;
-        alert(JSON.stringify(formJson));
-        handleEventSubmission(JSON.stringify(formJson));
-      }}
-    >
+    <form onSubmit={handleFormSubmit}>
       <Stack spacing={1}>
-        {genLabel('name-field', 'Event Title')}
+        {label('name-field', 'Event Title')}
         <Input
           id="name-field"
           name="eventTitle"
           placeholder="Give your event a catchy name!"
           required
         />
-        {genLabel('type-field', 'Event Type')}
+
+        {label('type-field', 'Event Type')}
         <Select
           id="type-field"
           placeholder="What type of event is this?"
@@ -81,37 +108,38 @@ export default function EventForm({ session }) {
           <Option value="clean-up">Clean up</Option>
           <Option value="education">Education</Option>
         </Select>
-        {genLabel('location-field', 'Location')}
+        {label('location-field', 'Location')}
         <Input
           id="location-field"
           name="eventLocation"
           placeholder="Where is the event taking place?"
           required
         />
-        {genLabel('description', 'Description')}
-        <Input
+        {label('description-field', 'Description')}
+        <Textarea
           id="description-field"
           name="eventDescription"
           placeholder="Write something interesting about your event."
           required
         />
-        {genLabel('date-field', 'Date')}
-        <Input name="date-field" type="date" required />
-        {genLabel('capacity-field', 'Event Capacity')}
+        {label('date-field', 'Date')}
+        <Input id="date-field" name="eventDate" type="date" required />
+        {label('capacity-field', 'Event Capacity')}
         <Input
           id="capacity-field"
           name="eventCapacity"
           type="number"
           placeholder="Is there a maximum capacity?"
         />
-        {genLabel('image-field', 'Event Image')}
-        <Input
+        {label('image-field', 'Event Image')}
+        <input
           id="image-field"
           name="eventImage"
           type="file"
           accept="image/*"
           placeholder="Choose an image for your event."
         />
+
         <Button id="submit-button" type="submit">
           Submit
         </Button>
