@@ -208,11 +208,17 @@ test.describe('Events API operations', () => {
 
       const eventId = event._id.toString();
 
-      for (let i = 0; i < 10; i++) {
-        await new Attendance({
-          event: eventId,
-          user: user.id,
-        }).save();
+      for (let i = 0; i < 30; i++) {
+        try {
+          await new Attendance({
+            event: eventId,
+            user: user.id,
+          }).save();
+        } catch (err) {
+          if (err.code === 11000) {
+            console.log('Duplicate key error, skipping');
+          }
+        }
       }
 
       // now delete the event

@@ -7,6 +7,19 @@ export default async function POST(req) {
     await attendance.save();
     const { event, user } = req.body;
 
+    // check if there is already an event and user pair
+    const existingAttendance = await Attendance.findOne({ event, user });
+    if (existingAttendance) {
+      return NextResponse.json(
+        {
+          message: 'Attendance record already exists',
+        },
+        {
+          status: HTTP.CONFLICT,
+        },
+      );
+    }
+
     const attendance = new Attendance({
       event,
       user,
