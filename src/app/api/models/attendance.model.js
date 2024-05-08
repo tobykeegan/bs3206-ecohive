@@ -26,6 +26,9 @@ const AttendanceSchema = new Schema({
   },
 });
 
+// Ensure that the event and user pair is unique
+AttendanceSchema.index({ event: 1, user: 1 }, { unique: true });
+
 const Attendance =
   mongoose.models.Attendance || mongoose.model('Attendance', AttendanceSchema);
 
