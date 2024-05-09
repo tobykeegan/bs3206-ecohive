@@ -38,5 +38,6 @@ export async function GET(request, { params }) {
   return NextResponse.json({
     name: `${user.name.first} ${user.name.last}`,
     displayName: user.displayName,
+    picture: user.profilePicture,
   });
 }

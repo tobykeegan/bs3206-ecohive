@@ -23,18 +23,16 @@ export default async function GET(req) {
   try {
     if (keys.includes('event') && keys.includes('user')) {
       // if both event and user are provided, return the attendance record for that user at that event
-      // console.log('Getting attendance record for user at event');
+
       query = { user: params.user, event: params.event };
       attendanceResult = await Attendance.findOne(query);
     } else {
       switch (keys[0]) {
         case 'event':
-          console.log('Getting all users attending an event');
           query = { event: params.event };
           attendanceResult = await Attendance.find(query).select('user').exec();
           break;
         case 'user':
-          console.log('Getting all events a user has attended');
           query = { user: params.user };
           attendanceResult = await Attendance.find(query)
             .populate('event')
@@ -47,7 +45,6 @@ export default async function GET(req) {
 
           break;
         default:
-          console.log('Getting all attendance records');
           attendanceResult = await Attendance.find();
       }
     }

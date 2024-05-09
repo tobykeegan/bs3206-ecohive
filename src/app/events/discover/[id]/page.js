@@ -2,7 +2,14 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { URL } from '@/app/api/utils/globals';
 import { GetImageURL } from '@/app/api/utils/images';
 import Navbar from '@/app/ui/Navbar';
-import { KeyboardArrowLeft } from '@mui/icons-material';
+import {
+  CalendarMonth,
+  Description,
+  Groups,
+  KeyboardArrowLeft,
+  LocationOn,
+  Person,
+} from '@mui/icons-material';
 import { Button, ButtonGroup, Stack } from '@mui/joy';
 import Box from '@mui/joy/Box';
 import axios from 'axios';
@@ -10,6 +17,15 @@ import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import EventPicture from '../../EventPicture';
+import { FaCalendarCheck } from 'react-icons/fa6';
+import { IconButton, Typography } from '@mui/joy';
+import Alert from '@mui/joy/Alert';
+import { getFormattedDate } from '@/app/ui/utils';
+import DeleteEvent from './DeleteEventButton';
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
+import Link from '@mui/joy/Link';
+
+import GoBack from './GoBack';
 
 export default async function Page({ params }) {
   /**
@@ -30,6 +46,10 @@ export default async function Page({ params }) {
   // Check if the event is owned by the current user
   let thisIsMyEvent = event.creator === session.user.id;
 
+  if (thisIsMyEvent) {
+    console.log('This is my event');
+  }
+
   // Get some displayable info about the event creator
   let eventCreatorDetails;
   try {
@@ -39,9 +59,54 @@ export default async function Page({ params }) {
     eventCreatorDetails = { displayName: 'This event has no owner' };
   }
 
+  const genInfo = (icon, name, content) => {
+    return (
+      <Box
+        sx={{ display: 'flex', gap: 2, width: '100%', flexDirection: 'column' }}
+      >
+        <Alert
+          key={name}
+          sx={{ alignItems: 'flex-start' }}
+          startDecorator={icon}
+          variant="soft"
+        >
+          <div>
+            <div>{name}</div>
+            <Typography level="body-sm">{content}</Typography>
+          </div>
+        </Alert>
+      </Box>
+    );
+  };
+
+  const getAttendanceCount = () =>
+    axios
+      .get(`${URL}/api/events/registration/${event._id}`)
+      .then((res) => {
+        return res.data.signups;
+      })
+      .catch((err) => {
+        console.log('Error getting signups: ', err);
+      });
+
+  const YouChip = () => (
+    <Chip
+      startDecorator={<FaClipboardUser />}
+      variant="soft"
+      label="attendance-chip"
+      size="md"
+    >
+      You
+    </Chip>
+  );
   return (
     <main>
       <Navbar />
+      <Breadcrumbs>
+        <Link href="/">Home</Link>
+        <Link href="/events/discover">Events</Link>
+        <Link href={`/events/discover/${params.id}`}>{event.name}</Link>
+      </Breadcrumbs>
       <Box
         my={4}
         display="flex"
@@ -51,20 +116,21 @@ export default async function Page({ params }) {
         p={2}
       >
         <Stack spacing={2}>
-          <Button startDecorator={<KeyboardArrowLeft />}>Go back</Button>
           <EventPicture id={event.image} width={300} height={200} />
           <h1>{event.name}</h1>
-          <p>Creator: {thisIsMyEvent ? '(You)' : ''}</p>
-          <p>{event.description}</p>
-          <p>{event.location}</p>
-          <p>{event.date}</p>
-          <ButtonGroup>
-            <Button>Sign up</Button>
-            <Button>Share</Button>
-            <Button color="danger" disabled={!thisIsMyEvent}>
-              Delete
-            </Button>
-          </ButtonGroup>
+          {genInfo(<CalendarMonth />, 'Date', getFormattedDate(event.date))}
+          {genInfo(<Description />, 'Description', event.description)}
+          {genInfo(
+            <Person />,
+            'Creator',
+            `${eventCreatorDetails.data.name}${thisIsMyEvent ? ' (You)' : ''}`,
+          )}
+          {genInfo(<LocationOn />, 'Location', event.location)}
+          {genInfo(<Groups />, 'Current sign ups', getAttendanceCount())}
+          <Stack direction="row" spacing={2}>
+            <GoBack />
+            <DeleteEvent disabled={!thisIsMyEvent} event={event} />
+          </Stack>
         </Stack>
       </Box>
     </main>

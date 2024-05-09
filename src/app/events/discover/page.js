@@ -17,7 +17,8 @@ import IS_FINISHED from '@/app/events/toby';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { errorMonitor } from 'events';
 import { Button } from '@mui/joy';
-
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
+import Link from '@mui/joy/Link';
 export default async function Discover(req) {
   /**
    * Protect server route if unauthenticated & get session
@@ -92,6 +93,10 @@ export default async function Discover(req) {
   return (
     <main>
       <Navbar />
+      <Breadcrumbs>
+        <Link href="/">Home</Link>
+        <Link href="/events/discover">Events</Link>
+      </Breadcrumbs>
       <Box
         my={4}
         display="flex"

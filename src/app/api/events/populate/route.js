@@ -55,8 +55,6 @@ export async function POST(request) {
         await newAttend.save();
       } catch (err) {
         if (err.code === 11000) {
-          // duplicate key error, not a problem
-          console.log('Duplicate key error, skipping');
         }
       }
     });

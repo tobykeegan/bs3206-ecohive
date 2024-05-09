@@ -5,10 +5,13 @@ import Attendance from '@/models/attendance';
 /**
  * Delete an attendance record
  */
-export default async function DELETE(req) {
-  try {
-    const { event, user } = req.body;
+export default async function DELETE(request) {
+  // get any URL query params
+  const urlSearchParams = new URLSearchParams(request.nextUrl.searchParams);
+  const params = Object.fromEntries(urlSearchParams.entries());
 
+  const { event, user } = params;
+  try {
     const attendance = await Attendance.findOneAndDelete({ event, user });
 
     if (!attendance) {
