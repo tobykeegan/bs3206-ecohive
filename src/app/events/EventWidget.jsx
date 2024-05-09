@@ -1,105 +1,79 @@
 'use client';
 import * as React from 'react';
-import Card from 'react-bootstrap/Card';
-import { ListGroup } from 'react-bootstrap';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import IconButton from '@mui/joy/IconButton';
+import Typography from '@mui/joy/Typography';
+import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
+import { getFormattedDate } from '../ui/utils';
+import defaultEventImg from '@/static/default_event.jpeg';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { getFormattedDate, getImageSrc } from '@/app/ui/utils';
-import { Badge, Stack } from 'react-bootstrap';
-import PlaceIcon from '@mui/icons-material/Place';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-export default function EventWidget({ event }) {
-  const openEvent = () => {};
+import axios from 'axios';
+import EventPicture from './EventPicture';
+import styles from '@/styles/events/styles';
+import { Chip, Stack } from '@mui/joy';
+import { useSession } from 'next-auth/react';
+import {
+  FaCalendarCheck,
+  FaClipboardUser,
+  FaLocationDot,
+  FaLocationPin,
+} from 'react-icons/fa6';
+import SignupButton from './SignupButton';
 
+export default function EventCard({ event }) {
+  const { data: session } = useSession();
   const router = useRouter();
+  const handleClick = async (e) => {
+    router.push(`/events/discover/${event._id}`);
+  };
+
+  const userid = session.user.id;
+  console.log('user id is ', session.user.id);
+
   return (
     <Card>
-      <Card.Body>
-        <Card.Title>{event.name}</Card.Title>
-        <ListGroup className="list-group-flush">
-          <ListGroup.Item>
-            <Image
-              style={{
-                width: '100%',
-              }}
-              onClick={() => router.push(`/events/discover/${event._id}`)}
-              src={getImageSrc(event.photoUrl)}
-              width={250}
-              height={150}
-              alt="Picture of the event"
-            />
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Stack direction="horizontal" gap={3}>
-              <Badge className="eventChip" id="location-chip" pill>
-                <PlaceIcon />
-                {event.location}
-              </Badge>
-              <Badge className="eventChip" id="date-chip" pill>
-                <CalendarMonthOutlinedIcon />
-                {getFormattedDate(event.date)}
-              </Badge>
-            </Stack>
-          </ListGroup.Item>
-          <ListGroup.Item>{event.description}</ListGroup.Item>
-        </ListGroup>
-      </Card.Body>
+      <div>
+        <Typography level="title-lg">{event.name}</Typography>
+        <Typography level="body-sm">{getFormattedDate(event.date)}</Typography>
+        <SignupButton event={event} userid={userid} />
+      </div>
+      <AspectRatio minHeight="120px" maxHeight="200px">
+        <EventPicture width={300} height={200} id={event.image} />
+      </AspectRatio>
+      <CardContent orientation="horizontal">
+        <div>
+          <Stack direction="row" flexWrap="wrap" useFlexGap spacing={1}>
+            <Chip
+              startDecorator={<FaClipboardUser />}
+              variant="soft"
+              label="attendance-chip"
+              size="md"
+            >
+              {event.attendance.signups}
+            </Chip>
+            <Chip
+              startDecorator={<FaLocationDot />}
+              label="location-chip"
+              size="md"
+            >
+              {event.location}
+            </Chip>
+          </Stack>
+        </div>
+        <Button
+          id="event-details-btn"
+          variant="solid"
+          size="md"
+          aria-label="See details about this event"
+          sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+          onClick={handleClick}
+        >
+          Details
+        </Button>
+      </CardContent>
     </Card>
   );
-  // return (
-  //   <Card
-  //     variant="outlined"
-  //     sx={{
-  //       minWidth: 300,
-  //     }}
-  //   >
-  //     <CardContent
-  //       orientation="horizontal"
-  //       sx={{ alignItems: 'center', gap: 1 }}
-  //     >
-  //       <Typography fontWeight="lg">{event.name}</Typography>
-  //     </CardContent>
-  //     <CardOverflow>
-  //       <AspectRatio>
-  //         <Image
-  //           onClick={() => router.push(`/events/discover/${event._id}`)}
-  //           src={getImageSrc(event.photoUrl)}
-  //           width={500}
-  //           height={500}
-  //           alt="Picture of the event"
-  //         />
-  //       </AspectRatio>
-  //     </CardOverflow>
-  //     <CardContent
-  //       orientation="horizontal"
-  //       sx={{ alignItems: 'center', mx: -1 }}
-  //     >
-  //       <Stack gap={3} direction="horizontal">
-  //         <Badge className="eventChip" id="location-chip" pill>
-  //           <PlaceIcon />
-  //           {event.location}
-  //         </Badge>
-  //         <Badge className="eventChip" id="date-chip" pill>
-  //           <CalendarMonthOutlinedIcon />
-  //           {getFormattedDate(event.date)}
-  //         </Badge>
-  //       </Stack>
-  //     </CardContent>
-  //     <CardContent>
-  //       <Link
-  //         component="button"
-  //         underline="none"
-  //         fontSize="10px"
-  //         sx={{ color: 'text.tertiary', my: 0.5 }}
-  //       ></Link>
-  //       <Typography fontSize="sm">
-  //         <Link
-  //           component="button"
-  //           color="neutral"
-  //           fontWeight="lg"
-  //           textColor="text.primary"
-  //         ></Link>{' '}
-  //         {event.description}
-  //       </Typography>
-  //     </CardContent>
 }

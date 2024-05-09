@@ -41,6 +41,8 @@ export default function EventForm({ session }) {
     form.creator = session.user.id;
     console.log('form is ', form);
 
+    let newEventId;
+
     if (form.eventImage) {
       console.log('Uploading image', form.eventImage.name);
 
@@ -67,11 +69,45 @@ export default function EventForm({ session }) {
           console.log('Creating event: ', thisEvent);
           axios
             .post('/api/events/new', thisEvent)
-            .then((response) => {
-              console.log('response is: ');
-              console.log(response.data);
-              if (response.status === HTTP.CREATED) {
-                router.push(`/events/discover/${response.data._id}`);
+            .then((res) => {
+              console.log('res is: ');
+              console.log(res.data);
+              if (res.status === HTTP.CREATED) {
+                newEventId = res.data._id;
+                console.log('Event: ', newEventId);
+                console.log('Creator: ', form.creator);
+                // create an attendance record for the user that created the event
+                axios
+                  .post('/api/events/registration', {
+                    event: newEventId,
+                    user: form.creator,
+                  })
+                  .then((res) => {
+                    console.log('attendance registration res was: ', res);
+                    // if the attendance record was created successfully, redirect to the event page
+                    if (res.status === HTTP.CREATED) {
+                      console.log('Attendance record created for creator');
+                      router.push(`/events/discover/${newEventId}`);
+                    }
+                  })
+                  .catch((error) => {
+                    // if the attendance record was not created successfully, delete the event
+                    console.error(
+                      'Error creating attendance record, will back out event creation: ',
+                      error,
+                    );
+                    axios
+                      .delete(`/api/events/${newEventId}`)
+                      .then((res) => {
+                        if (res.status === HTTP.OK) {
+                          console.log('Event deleted');
+                        }
+                      })
+                      .catch((err) => {
+                        // if the event was not deleted successfully, this is an unrecoverable error
+                        console.error('Error deleting event: ', err);
+                      });
+                  });
               }
             })
             .catch((error) => {

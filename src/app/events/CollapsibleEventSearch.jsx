@@ -7,7 +7,7 @@ function CollapsibleEventSearch() {
     <Container fluid>
       <Accordion flush>
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Advanced Search</Accordion.Header>
+          <Accordion.Header>Filter</Accordion.Header>
           <Accordion.Body>
             <EventSearchCard />
           </Accordion.Body>

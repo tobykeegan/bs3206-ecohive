@@ -1,8 +1,5 @@
 import defaultEventImg from '@/static/default_event.jpeg';
-
-export const getImageSrc = (event) => {
-  return defaultEventImg;
-};
+import axios from 'axios';
 
 export const getFormattedDate = (convertDate) => {
   let date = new Date(convertDate);
