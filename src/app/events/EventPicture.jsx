@@ -10,12 +10,14 @@ import defaultEventImage from '@/static/default_event.jpeg';
  *
  * @returns A NextJS Image component with the picture specified
  * by the id prop. If the id is not set, a default image is used.
+ * @author Toby Keegan
  */
 export default function EventPicture(props) {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch the image from the server
   useEffect(() => {
     const fetchImage = () => {
       // If the image is not set, don't try to fetch it
@@ -46,6 +48,7 @@ export default function EventPicture(props) {
   }
 
   if (error || !imageUrl) {
+    // If there is an error or the image is not set, grab a random image from the internet
     return (
       <Image
         src="https://picsum.photos/300/200"

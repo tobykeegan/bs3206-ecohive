@@ -10,17 +10,19 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import EventPicture from './EventPicture';
 import { Chip, Stack, Tooltip } from '@mui/joy';
-import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import styles from '@/styles/events/styles';
-import {
-  FaCalendarCheck,
-  FaClipboardUser,
-  FaLocationDot,
-  FaLocationPin,
-} from 'react-icons/fa6';
+import { FaClipboardUser, FaLocationDot } from 'react-icons/fa6';
+
 import SignupButton from './SignupButton';
 
+/**
+ * Event card component. Displays a card with event information
+ * @param {Object} event - The event to display
+ * @param {string} userid - The user id of the current user
+ * @returns {JSX.Element} - A card with event information and buttons to view more details or sign up
+ * @author Toby Keegan
+ */
 export default function EventCard({ event, userid }) {
   // create some state for signups
   const [signups, setSignups] = useState(0);

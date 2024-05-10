@@ -5,7 +5,6 @@ import ButtonGroup from '@mui/joy/ButtonGroup';
 import Divider from '@mui/joy/Divider';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
-import DialogActions from '@mui/joy/DialogActions';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import EditNoteIcon from '@mui/icons-material/EditNote';
@@ -15,16 +14,28 @@ import { Alert, Stack, Tooltip } from '@mui/joy';
 import { FormControl } from '@mui/joy';
 import { FormLabel } from '@mui/joy';
 import { Input, Select, Option } from '@mui/joy';
-import { getFormattedDate } from '@/app/ui/utils';
 import InfoIcon from '@mui/icons-material/Info';
 import styles from '@/styles/events/styles';
 
+/**
+ * Convert a JavaScript Date object to a value interpeted by an input field
+ * @returns {string} - The date in the format 'YYYY-MM-DD'
+ * @author Toby Keegan
+ */
 Date.prototype.toInputValue = function () {
   var local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
   return local.toJSON().slice(0, 10);
 };
 
+/**
+ * Edit event component.
+ * @param {Object} event - The event to edit
+ * @param {boolean} disabled - Whether the edit button should be disabled
+ *
+ *
+ * @returns {JSX.Element} - A button that opens a modal to edit the event
+ */
 export default function EditEvent({ event, disabled }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);

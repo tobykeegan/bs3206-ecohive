@@ -25,6 +25,12 @@ import GoBack from './GoBack';
 import InfoIcon from '@mui/icons-material/Info';
 import styles from '@/styles/events/styles';
 
+/**
+ *
+ * @param {string} type  - The type of event
+ * @returns {string} - The pretty name of the event type
+ * @author Toby Keegan
+ */
 function getPrettyType(type) {
   switch (type) {
     case 'demonstration':
@@ -40,6 +46,10 @@ function getPrettyType(type) {
   }
 }
 
+/**
+ * Root page for the event detail view
+ * @author Toby Keegan
+ */
 export default async function Page({ params }) {
   /**
    * Protect server route if unauthenticated & get session

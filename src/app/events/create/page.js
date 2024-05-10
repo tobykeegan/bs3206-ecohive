@@ -5,11 +5,11 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import EventForm from './EventForm';
 import { Container, Typography } from '@mui/joy';
-import PageHeader from '@/app/events/PageHeader';
 import { authOptions } from '@/api/auth/[...nextauth]/route';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
 import { Stack } from '@mui/material';
+
 /**
  * Page template for creating an event. This page is protected
  * by the server route and requires authentication to access.

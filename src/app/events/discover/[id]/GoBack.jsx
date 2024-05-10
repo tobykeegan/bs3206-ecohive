@@ -3,7 +3,11 @@ import { Button } from '@mui/joy';
 import { ArrowBack } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/events/styles';
-// create a JoyUI component that redirects to the previous page
+
+/**
+ * @returns Simple button that navigates back to the previous page
+ * @author Toby Keegan
+ */
 export default function GoBack() {
   const router = useRouter();
   return (

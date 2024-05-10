@@ -11,6 +11,15 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+
+/**
+ * Delete event component.
+ * @param {Object} event - The event to delete
+ * @param {boolean} disabled - Whether the delete button should be disabled
+ *
+ *
+ * @returns {JSX.Element} - A button that opens a modal to delete the event
+ */
 export default function DeleteEvent({ event, disabled }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);

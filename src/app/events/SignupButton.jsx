@@ -4,11 +4,24 @@ import IconButton from '@mui/joy/IconButton';
 import { Tooltip } from '@mui/joy';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
+/**
+ * Button to sign up for an event. Allows users to sign up for an event or remove their attendance.
+ * @param {Object} event - The event to sign up for
+ * @param {string} userid - The user id of the current user
+ * @param {function} attendanceUpdater - A function to update the number of signups for the event
+ * @returns {JSX.Element} - A button to sign up for an event
+ * @author Toby Keegan
+ */
 export default function SignupButton({ event, userid, attendanceUpdater }) {
   const [userIsAttending, setUserIsAttending] = useState(false);
 
+  /**
+   * Handles adding attendance for the event.
+   * @returns {Promise<void>} A promise that resolves when the attendance is added successfully.
+   * @author Toby Keegan
+   */
   const handleAddAttendance = async () => {
     let uri = '/api/events/registration';
     axios
@@ -24,6 +37,12 @@ export default function SignupButton({ event, userid, attendanceUpdater }) {
         console.log('error is ', err);
       });
   };
+
+  /**
+   * Handles removing attendance for the event.
+   * @returns {Promise<void>} A promise that resolves when the attendance is removed successfully.
+   * @author Toby Keegan
+   */
   const handleRemoveAttendance = async () => {
     let uri = `/api/events/registration?event=${event._id}&user=${userid}`;
     axios
@@ -37,6 +56,11 @@ export default function SignupButton({ event, userid, attendanceUpdater }) {
       });
   };
 
+  /**
+   * Fetches the user's attendance status for the event.
+   * @returns {Promise<void>} A promise that resolves when the user's attendance status is fetched.
+   * @author Toby Keegan
+   */
   const fetchUserIsAttending = async () => {
     let uri = `/api/events/registration?event=${event._id}&user=${userid}`;
     axios

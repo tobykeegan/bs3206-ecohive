@@ -1,6 +1,5 @@
 import Navbar from '@/app/ui/Navbar';
 import EventWidget from '../EventWidget';
-import { Container, Stack } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Box } from '@mui/joy';
@@ -8,16 +7,20 @@ import Divider from '@mui/joy/Divider';
 import Footer from '@/app/ui/Footer';
 import axios from 'axios';
 import { URL } from '@/utils/globals';
-// import style from '../../styles/events/styles.scss';
-import PageHeader from '../PageHeader';
 import CollapsibleEventSearch from '../CollapsibleEventSearch';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { errorMonitor } from 'events';
-import { Button } from '@mui/joy';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
+import style from '../../styles/events/styles.scss';
+
+/**
+ * Discover page for events. This page is protected
+ * by the server route and requires authentication to access.
+ * @returns {JSX.Element} The discover events page.
+ * @author Toby Keegan
+ */
 export default async function Discover(req) {
   /**
    * Protect server route if unauthenticated & get session

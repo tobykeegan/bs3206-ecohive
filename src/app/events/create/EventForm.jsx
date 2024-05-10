@@ -8,6 +8,16 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/events/styles';
 
+/**
+ * Convert a JavaScript Date object to a value interpeted by an input field
+ * @returns {string} - The date in the format 'YYYY-MM-DD'
+ * @author Toby Keegan
+ */
+Date.prototype.toInputValue = function () {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+};
 Date.prototype.toInputValue = function () {
   var local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -15,7 +25,8 @@ Date.prototype.toInputValue = function () {
 };
 
 /**
- * Event Creation Form
+ * Event Creation Form. This form is used to create a new event.
+ * @param {Object} session - The session object.
  * @author Toby Keegan
  */
 export default function EventForm({ session }) {
