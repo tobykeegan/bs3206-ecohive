@@ -72,7 +72,7 @@ ARG next_secret
 ENV NEXTAUTH_SECRET ${next_secret}
 
 ARG db_conn
-ENV PROD_DB ${db_conn}
+ENV PROD_DB ${use_db}
 ENV CONTAINER="true"
 
 RUN echo "===== Container Build Information ====="

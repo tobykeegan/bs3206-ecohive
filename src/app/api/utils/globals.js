@@ -12,6 +12,7 @@ function getUrl() {
 
 function getDatabaseName() {
   let db;
+  console.log('PROD_DB:', process.env.PROD_DB);
   // if the env var is set, use it
   switch (process.env.PROD_DB) {
     case 'production':
