@@ -32,7 +32,7 @@ function MainNavbar() {
   const router = useRouter();
 
   return (
-    <Navbar expand="md" className="mb-3" bg="primary">
+    <Navbar aria-label="Navbar" expand="md" className="mb-3" bg="primary">
       <Container fluid>
         <Navbar.Brand href="/">{metadata.title}</Navbar.Brand>
 
