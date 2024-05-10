@@ -13,7 +13,6 @@ import PageHeader from '../PageHeader';
 import CollapsibleEventSearch from '../CollapsibleEventSearch';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import IS_FINISHED from '@/app/events/toby';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { errorMonitor } from 'events';
 import { Button } from '@mui/joy';

@@ -1,24 +1,20 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { URL } from '@/app/api/utils/globals';
-import { GetImageURL } from '@/app/api/utils/images';
 import Navbar from '@/app/ui/Navbar';
 import {
   CalendarMonth,
   Description,
   Groups,
-  KeyboardArrowLeft,
   LocationOn,
   Person,
 } from '@mui/icons-material';
-import { Button, ButtonGroup, Stack } from '@mui/joy';
+import { Stack } from '@mui/joy';
 import Box from '@mui/joy/Box';
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import EventPicture from '../../EventPicture';
-import { FaCalendarCheck } from 'react-icons/fa6';
-import { IconButton, Typography } from '@mui/joy';
+import { Typography } from '@mui/joy';
 import Alert from '@mui/joy/Alert';
 import { getFormattedDate } from '@/app/ui/utils';
 import DeleteEvent from './DeleteEventButton';
@@ -89,16 +85,6 @@ export default async function Page({ params }) {
         console.log('Error getting signups: ', err);
       });
 
-  const YouChip = () => (
-    <Chip
-      startDecorator={<FaClipboardUser />}
-      variant="soft"
-      label="attendance-chip"
-      size="md"
-    >
-      You
-    </Chip>
-  );
   return (
     <main>
       <Navbar />
