@@ -32,10 +32,10 @@ export default function DeleteEvent({ event, disabled }) {
   return (
     <React.Fragment>
       <Button
-        variant="outlined"
+        variant="soft"
         color="danger"
         disabled={disabled}
-        endDecorator={<DeleteForever />}
+        startDecorator={<DeleteForever />}
         onClick={() => setOpen(true)}
       >
         Cancel Event

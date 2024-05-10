@@ -68,7 +68,7 @@ export default function EventForm({ session }) {
 
           console.log('Creating event: ', thisEvent);
           axios
-            .post('/api/events/new', thisEvent)
+            .put('/api/events/new', thisEvent)
             .then((res) => {
               console.log('res is: ');
               console.log(res.data);
@@ -78,7 +78,7 @@ export default function EventForm({ session }) {
                 console.log('Creator: ', form.creator);
                 // create an attendance record for the user that created the event
                 axios
-                  .post('/api/events/registration', {
+                  .put('/api/events/registration', {
                     event: newEventId,
                     user: form.creator,
                   })

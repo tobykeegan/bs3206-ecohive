@@ -17,11 +17,27 @@ import EventPicture from '../../EventPicture';
 import { Typography } from '@mui/joy';
 import Alert from '@mui/joy/Alert';
 import { getFormattedDate } from '@/app/ui/utils';
+import EditEvent from './EditEventButton';
 import DeleteEvent from './DeleteEventButton';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
-
 import GoBack from './GoBack';
+import InfoIcon from '@mui/icons-material/Info';
+import styles from '@/styles/events/styles';
+function getPrettyType(type) {
+  switch (type) {
+    case 'demonstration':
+      return 'Demonstration';
+    case 'meet-up':
+      return 'Meet up';
+    case 'clean-up':
+      return 'Clean up';
+    case 'education':
+      return 'Education';
+    default:
+      return 'Unknown';
+  }
+}
 
 export default async function Page({ params }) {
   /**
@@ -61,8 +77,8 @@ export default async function Page({ params }) {
         sx={{ display: 'flex', gap: 2, width: '100%', flexDirection: 'column' }}
       >
         <Alert
+          className="eventInfo"
           key={name}
-          sx={{ alignItems: 'flex-start' }}
           startDecorator={icon}
           variant="soft"
         >
@@ -104,6 +120,7 @@ export default async function Page({ params }) {
         <Stack spacing={2}>
           <EventPicture id={event.image} width={300} height={200} />
           <h1>{event.name}</h1>
+          {genInfo(<InfoIcon />, 'Type', getPrettyType(event.type))}
           {genInfo(<CalendarMonth />, 'Date', getFormattedDate(event.date))}
           {genInfo(<Description />, 'Description', event.description)}
           {genInfo(
@@ -115,6 +132,7 @@ export default async function Page({ params }) {
           {genInfo(<Groups />, 'Current sign ups', getAttendanceCount())}
           <Stack direction="row" spacing={2}>
             <GoBack />
+            <EditEvent disabled={!thisIsMyEvent} event={event} />
             <DeleteEvent disabled={!thisIsMyEvent} event={event} />
           </Stack>
         </Stack>

@@ -8,13 +8,8 @@ require('dotenv').config();
 
 /**
  * Tests for getting events using the /api/events endpoint.
- * The tests cover the following scenarios:
- * - Retrieving a list of all events
- * - Retrieving a single event by specifying an ID
- * - Retrieving a single event by specifying a search criteria
- * - Retrieving multiple events by specifying a search criteria
- * - Retrieving all events if a blank body is provided
- * - Returning a 404 if no events are found
+ *
+ * These tests cover Create, Read, Update, and Delete Operations.
  * @author Toby Keegan
  */
 

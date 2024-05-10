@@ -16,18 +16,41 @@
   }
 }
 
-#location-chip {
+.is-ecohive-primary{
+  color: white !important;
+  background-color: global.$primary !important;
+
+}
+.is-ecohive-secondary{
+  color: white !important;
   background-color: global.$secondary !important;
+
+
 }
 
-#date-chip {
+.is-ecohive-interaction{
+  color: white !important;
+  background-color: global.$interaction !important;
+
+}
+
+.is-ecohive-additional{
+  color: white !important;
   background-color: global.$additional !important;
 }
 
-.eventChip {
-  text-align: center;
+.eventInfo {
+  background-color: global.$primary !important
+}
+.editButton {
+  background-color: global.$secondary !important
+
+}
+#back-btn {
+  background-color: global.$additional !important;
 }
 
-#event-details-btn {
-  background-color: global.$interaction !important;
+#event-details-btn{
+  background-color: global.$additional !important;
 }
+

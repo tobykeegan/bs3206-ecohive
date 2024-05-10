@@ -88,7 +88,7 @@ export default function EventCard({ event }) {
           </Stack>
         </div>
         <Button
-          id="event-details-btn"
+          className="is-ecohive-interaction"
           variant="solid"
           size="md"
           aria-label="See details about this event"
