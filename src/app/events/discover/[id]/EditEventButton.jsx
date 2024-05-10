@@ -82,8 +82,8 @@ export default function EditEvent({ event, disabled }) {
                 })
                 .finally(() => {
                   console.log('Done processing');
-                  router.push(`/events/discover/${thisEventId}`);
                   setOpen(false);
+                  router.refresh();
                 });
             }}
           >

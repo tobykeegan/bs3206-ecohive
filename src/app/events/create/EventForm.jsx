@@ -15,7 +15,7 @@ Date.prototype.toInputValue = function () {
 };
 
 /**
- * Event Creation Card
+ * Event Creation Form
  * @author Toby Keegan
  */
 export default function EventForm({ session }) {

@@ -5,7 +5,7 @@ export const getFormattedDate = (convertDate) => {
   let date = new Date(convertDate);
   if (date.toString() === 'Invalid Date') return 'N/A';
 
-  let dateString = date.toLocaleDateString('en-FB', {
+  let dateString = date.toLocaleDateString('en-GB', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
