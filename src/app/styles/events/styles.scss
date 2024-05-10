@@ -16,41 +16,35 @@
   }
 }
 
-.is-ecohive-primary{
+.is-ecohive-primary {
   color: white !important;
   background-color: global.$primary !important;
-
 }
-.is-ecohive-secondary{
+.is-ecohive-secondary {
   color: white !important;
   background-color: global.$secondary !important;
-
-
 }
 
-.is-ecohive-interaction{
+.is-ecohive-interaction {
   color: white !important;
   background-color: global.$interaction !important;
-
 }
 
-.is-ecohive-additional{
+.is-ecohive-additional {
   color: white !important;
   background-color: global.$additional !important;
 }
 
 .eventInfo {
-  background-color: global.$primary !important
+  background-color: global.$primary !important;
 }
 .editButton {
-  background-color: global.$secondary !important
-
+  background-color: global.$secondary !important;
 }
 #back-btn {
   background-color: global.$additional !important;
 }
 
-#event-details-btn{
+#event-details-btn {
   background-color: global.$additional !important;
 }
-
