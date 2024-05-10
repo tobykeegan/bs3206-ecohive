@@ -39,7 +39,7 @@ export default function EventPicture(props) {
       }
     };
     fetchImage();
-  }, []);
+  }, [props.id]);
 
   if (isLoading) {
     return <Image src={loading} alt="Loading" {...props} />;
