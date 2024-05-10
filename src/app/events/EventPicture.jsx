@@ -47,7 +47,11 @@ export default function EventPicture(props) {
 
   if (error || !imageUrl) {
     return (
-      <Image src={defaultEventImage} alt="Default event image" {...props} />
+      <Image
+        src="https://picsum.photos/300/200"
+        alt="Default event image"
+        {...props}
+      />
     );
   }
 

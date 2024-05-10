@@ -1,6 +1,5 @@
 'use client';
 import { FaCalendarCheck } from 'react-icons/fa6';
-import { useSession } from 'next-auth/react';
 import IconButton from '@mui/joy/IconButton';
 import { Tooltip } from '@mui/joy';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';

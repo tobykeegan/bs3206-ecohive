@@ -18,6 +18,13 @@ import { Input, Select, Option } from '@mui/joy';
 import { getFormattedDate } from '@/app/ui/utils';
 import InfoIcon from '@mui/icons-material/Info';
 import styles from '@/styles/events/styles';
+
+Date.prototype.toInputValue = function () {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+};
+
 export default function EditEvent({ event, disabled }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -129,29 +136,22 @@ export default function EditEvent({ event, disabled }) {
 
               <FormControl>
                 <FormLabel>Date</FormLabel>
-                <Tooltip
-                  title="Changing the date is not yet supported"
-                  color="danger"
-                  placement="top"
-                >
-                  <span>
-                    <Input
-                      disabled
-                      id="date-field"
-                      name="eventDate"
-                      type="text"
-                      defaultValue={getFormattedDate(event.date)}
-                    />
-                  </span>
-                </Tooltip>
+
+                <Input
+                  id="date-field"
+                  name="date"
+                  type="date"
+                  defaultValue={new Date(event.date).toInputValue()}
+                  required
+                />
               </FormControl>
               <ButtonGroup buttonFlex={1} spacing={2} aria-label="Form buttons">
                 <Button
-                  color="danger"
+                  className="is-ecohive-secondary"
                   variant="soft"
                   onClick={() => setOpen(false)}
                 >
-                  Cancel
+                  Go back
                 </Button>
                 <Button
                   className="is-ecohive-interaction"

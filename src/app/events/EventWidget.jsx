@@ -4,19 +4,15 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 import { getFormattedDate } from '../ui/utils';
-import defaultEventImg from '@/static/default_event.jpeg';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import EventPicture from './EventPicture';
-import styles from '@/styles/events/styles';
 import { Chip, Stack, Tooltip } from '@mui/joy';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-
+import styles from '@/styles/events/styles';
 import {
   FaCalendarCheck,
   FaClipboardUser,
@@ -25,7 +21,7 @@ import {
 } from 'react-icons/fa6';
 import SignupButton from './SignupButton';
 
-export default function EventCard({ event }) {
+export default function EventCard({ event, userid }) {
   // create some state for signups
   const [signups, setSignups] = useState(0);
 
@@ -41,13 +37,10 @@ export default function EventCard({ event }) {
       });
   });
 
-  const { data: session } = useSession();
   const router = useRouter();
   const handleClick = async (e) => {
     router.push(`/events/discover/${event._id}`);
   };
-
-  const userid = session.user.id;
 
   return (
     <Card>

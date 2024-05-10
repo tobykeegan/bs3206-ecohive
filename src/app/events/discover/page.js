@@ -55,7 +55,7 @@ export default async function Discover(req) {
     eventCards = res.data.map((event) => {
       return (
         <Col className="m-1" key={event._id}>
-          <EventWidget key={event._id} event={event} />
+          <EventWidget key={event._id} event={event} userid={session.user.id} />
         </Col>
       );
     });

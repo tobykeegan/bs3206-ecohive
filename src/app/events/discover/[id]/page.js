@@ -24,6 +24,7 @@ import Link from '@mui/joy/Link';
 import GoBack from './GoBack';
 import InfoIcon from '@mui/icons-material/Info';
 import styles from '@/styles/events/styles';
+
 function getPrettyType(type) {
   switch (type) {
     case 'demonstration':
