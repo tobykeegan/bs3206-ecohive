@@ -40,6 +40,13 @@ test.describe('Events API operations', () => {
       const event = generateEvent(user.id);
       event.description = TRACKED;
       await event.save();
+      // attend this event manually, as only the API does this
+      // automatically
+      const attendanceRecord = new Attendance({
+        event: event._id,
+        user: user.id,
+      });
+      await attendanceRecord.save();
     }
 
     // check the document count matches the number of events created
@@ -215,8 +222,8 @@ test.describe('Events API operations', () => {
             user: user.id,
           }).save();
         } catch (err) {
-          if (err.code === 11000) {
-            console.log('Duplicate key error, skipping');
+          if (err.code !== 11000) {
+            console.log(err);
           }
         }
       }

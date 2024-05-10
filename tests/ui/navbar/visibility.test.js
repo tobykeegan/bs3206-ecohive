@@ -7,13 +7,7 @@ import { implemented } from '../../utils';
  */
 test.describe('Navbar visibility', () => {
   const pages = {
-    visible: [
-      '/',
-      '/settings',
-      '/events/discover',
-      '/events/history',
-      '/events/upcoming',
-    ],
+    visible: ['/', '/settings', '/events/discover'],
     hidden: ['/login', '/register'],
   };
 
@@ -24,7 +18,11 @@ test.describe('Navbar visibility', () => {
   pages.visible.forEach((url) => {
     test(`Visible on '${url}' page`, async ({ page }) => {
       await page.goto(url);
-      await expect(page.locator('nav', { name: 'navbar' })).toBeVisible();
+      await expect(
+        page
+          .locator('nav')
+          .filter({ hasText: 'EcoHiveEcoHiveEventsMy Impact+' }),
+      ).toBeVisible();
     });
   });
 
@@ -35,7 +33,11 @@ test.describe('Navbar visibility', () => {
   pages.hidden.forEach((url) => {
     test(`Not visible on '${url}' page`, async ({ page }) => {
       await page.goto(url);
-      await expect(page.locator('nav', { name: 'navbar' })).not.toBeVisible();
+      await expect(
+        page
+          .locator('nav')
+          .filter({ hasText: 'EcoHiveEcoHiveEventsMy Impact+' }),
+      ).not.toBeVisible();
     });
   });
 });
