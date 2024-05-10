@@ -1,5 +1,4 @@
 const path = require('node:path');
-import logger from '@/utils/logger';
 require('dotenv').config();
 
 function getUrl() {
@@ -17,14 +16,14 @@ function getDatabaseName() {
   switch (process.env.PROD_DB) {
     case 'production':
       db = 'production';
-      logger.warn('PROD_DB specified production database');
+      console.log('PROD_DB specified production database');
       break;
     case 'development':
-      logger.info('PROD_DB specified development database');
+      console.log('PROD_DB specified development database');
       db = 'development';
       break;
     default:
-      logger.warn("PROD_DB not set, defaulting to 'development'");
+      console.log("PROD_DB not set, defaulting to 'development'");
       db = 'development';
   }
   return db;
