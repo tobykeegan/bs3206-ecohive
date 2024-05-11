@@ -1,4 +1,6 @@
 import Badge from './Badge';
+import { URL } from '@/utils/globals';
+import axios from 'axios';
 
 /*
  * The Badge Evaluator to determine if a user's activity on
@@ -6,10 +8,10 @@ import Badge from './Badge';
  * @author Jade Carino
  */
 class BadgeEvaluator {
-  constructor(allBadges, usersBadges, user) {
+  constructor(allBadges, usersBadges, userStats) {
     this.allBadges = allBadges;
     this.usersBadges = usersBadges;
-    this.user = user;
+    this.userStats = userStats;
   }
 
   evaluateNewBadges() {
@@ -22,10 +24,10 @@ class BadgeEvaluator {
       if (!this.usersBadges.includes(badge.id)) {
         // Call the deserialized function stored with the badge to see if user meets criteria...
         let func = new Function(
-          'user',
+          'userStats',
           `return (${badge.criteria.serializedFunction})`,
         );
-        let userMeetsCriteria = func(this.user);
+        let userMeetsCriteria = func(this.userStats);
 
         if (userMeetsCriteria) {
           console.log('This user has now achieved badge ' + badge.id);

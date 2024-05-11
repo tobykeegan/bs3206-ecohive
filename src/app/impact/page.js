@@ -74,6 +74,8 @@ export default async function Impact() {
     console.log(err);
   }
 
+  let userStats = await getUserStats(session.user.id);
+
   let topUsers;
   try {
     let res = await axios.get(`${URL}/api/users?limit=5`);
@@ -90,7 +92,7 @@ export default async function Impact() {
   const badgeEvaluator = new BadgeEvaluator(
     allBadges,
     usersBadges,
-    session.user,
+    userStats,
   );
   const newBadgesEarned = badgeEvaluator.evaluateNewBadges();
 
@@ -110,6 +112,28 @@ export default async function Impact() {
   let newBadges;
   if (newBadgesEarned != undefined && newBadgesEarned.length > 0) {
     newBadges = badgeEvaluator.renderNewBadgeComponents(newBadgesEarned);
+  }
+
+  async function getUserStats(userid) {
+    let attendance, creation;
+    await axios.get(`${URL}/api/events/registration?user=${userid}`)
+    .then((res) => {
+      attendance = (res.data).length;
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+    await axios.get(`${URL}/api/events?creator=${userid}`)
+    .then((res) => {
+      creation = (res.data).length;
+    })
+    .catch((err) => [
+      console.log(err)
+    ])
+
+    let userStats = { attendance: attendance, creation: creation };
+    return userStats;
   }
 
   return (
