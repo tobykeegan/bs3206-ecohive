@@ -46,7 +46,7 @@ jobs:
       script:
         - $SCRIPTS/copy_certificate development
         - docker build --quiet -t "ecohive-ui:$TRAVIS_BRANCH" .
-        - docker run --name ecohive-test -d -p 3000:3000 -e NEXTAUTH_SECRET $NEXTAUTH_SECRET PROD_DB development ecohive-ui:$TRAVIS_BRANCH
+        - docker run --name ecohive-test -d -p 3000:3000 -e NEXTAUTH_SECRET=$NEXTAUTH_SECRET -e PROD_DB=development ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - $SCRIPTS/wait.sh
         - docker exec ecohive-test env
