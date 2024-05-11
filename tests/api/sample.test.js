@@ -17,7 +17,7 @@ test.describe('GET /api/ping', () => {
         dbstate: {
           name: mongo.db,
           state: 'connected',
-          containerised: true,
+          containerised: 'true',
           prod_db: mongo.db,
         },
       }),
