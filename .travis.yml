@@ -45,7 +45,7 @@ jobs:
       if: type = pull_request
       script:
         - $SCRIPTS/copy_certificate development
-        - docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg NEXTAUTH_SECRET=${NEXTAUTH_SECRET} --build-arg PROD_DB=development .
+        - docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg NEXTAUTH_SECRET=${NEXTAUTH_SECRET} --build-arg use_db=development .
         - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - $SCRIPTS/wait.sh
@@ -58,6 +58,6 @@ jobs:
       script:
         - $SCRIPTS/add_ssh_key
         - $SCRIPTS/copy_certificate production
-        - docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg NEXTAUTH_SECRET=${NEXTAUTH_SECRET} --build-arg PROD_DB=production" .
+        - docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg NEXTAUTH_SECRET=${NEXTAUTH_SECRET} --build-arg use_db=production .
         - $SCRIPTS/deploy_image
         - $SCRIPTS/start_container
