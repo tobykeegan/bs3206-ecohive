@@ -35,13 +35,13 @@ test.describe('Navbar Functionality', () => {
           type: 'link',
         },
         {
-          name: 'My Upcoming Events',
-          url: '/events/upcoming',
+          name: 'Upcoming Events',
+          url: '/events/discover',
           type: 'link',
         },
         {
-          name: 'My Past Events',
-          url: '/events/history',
+          name: 'My Events',
+          url: '/events/discover',
           type: 'link',
         },
       ],
@@ -239,7 +239,7 @@ test.describe('Navbar Functionality', () => {
             // check the href
             await expect(
               page.locator('#NavbarContent :text-is("' + submenu.name + '")'),
-            ).toHaveAttribute('href', submenu.url);
+            ).toHaveAttribute('href', new RegExp(`^${submenu.url}.*$`));
           }
         });
       }

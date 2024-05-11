@@ -6,27 +6,15 @@ dev_cert="./.travis/dev_cert.pem"
 prod_cert="./.travis/production_cert.pem"
 destination="./cert.pem"
 
-echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
-echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
-
-
-# Check if the TRAVIS_BRANCH variable is not set
-if [ -z "$TRAVIS_BRANCH" ]; then
-  echo "Error: TRAVIS_BRANCH variable is not set."
-  exit 1
-fi
-
-# Check if TRAVIS_BRANCH is not main
-if [ "$TRAVIS_PULL_REQUEST" ]; then
+if [ "${1}" == "development" ]; then
  # Copy dev_cert.pem to cert.pem
   cp "$dev_cert" "$destination"
   echo "Copied $dev_cert to $destination"
-elif [ "$TRAVIS_BRANCH" != "main" ]; then
- # Copy dev_cert.pem to cert.pem
-  cp "$dev_cert" "$destination"
-  echo "Copied $dev_cert to $destination"
-else
-  # Copy prod_cert.pem to cert.pem
+elif [ "${1}" == "production"  ]; then
+ # Copy prod_cert.pem to cert.pem
   cp "$prod_cert" "$destination"
   echo "Copied $prod_cert to $destination"
+else
+  echo "Choice '${1}' not valid."
+  exit 1
 fi

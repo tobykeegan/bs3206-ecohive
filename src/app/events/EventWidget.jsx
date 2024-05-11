@@ -1,105 +1,98 @@
 'use client';
 import * as React from 'react';
-import Card from 'react-bootstrap/Card';
-import { ListGroup } from 'react-bootstrap';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import Typography from '@mui/joy/Typography';
+import { getFormattedDate } from '../ui/utils';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { getFormattedDate, getImageSrc } from '@/app/ui/utils';
-import { Badge, Stack } from 'react-bootstrap';
-import PlaceIcon from '@mui/icons-material/Place';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-export default function EventWidget({ event }) {
-  const openEvent = () => {};
+import axios from 'axios';
+import EventPicture from './EventPicture';
+import { Chip, Stack, Tooltip } from '@mui/joy';
+import { useState, useEffect } from 'react';
+import styles from '@/styles/events/styles';
+import { FaClipboardUser, FaLocationDot } from 'react-icons/fa6';
+
+import SignupButton from './SignupButton';
+
+/**
+ * Event card component. Displays a card with event information
+ * @param {Object} event - The event to display
+ * @param {string} userid - The user id of the current user
+ * @returns {JSX.Element} - A card with event information and buttons to view more details or sign up
+ * @author Toby Keegan
+ */
+export default function EventCard({ event, userid }) {
+  // create some state for signups
+  const [signups, setSignups] = useState(0);
+
+  useEffect(() => {
+    // get the number of signups for this event
+    axios
+      .get(`/api/events/registration/${event._id}`)
+      .then((res) => {
+        setSignups(res.data.signups);
+      })
+      .catch((err) => {
+        console.log('Error getting signups: ', err);
+      });
+  });
 
   const router = useRouter();
+  const handleClick = async (e) => {
+    router.push(`/events/discover/${event._id}`);
+  };
+
   return (
-    <Card style={{ width: '90vw' }}>
-      <Card.Body>
-        <Card.Title>{event.name}</Card.Title>
-        <ListGroup className="list-group-flush">
-          <ListGroup.Item>
-            <Image
-              style={{
-                width: '100%',
-              }}
-              onClick={() => router.push(`/events/discover/${event._id}`)}
-              src={getImageSrc(event.photoUrl)}
-              width={250}
-              height={150}
-              alt="Picture of the event"
-            />
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Stack direction="horizontal" gap={3}>
-              <Badge className="eventChip" id="location-chip" pill>
-                <PlaceIcon />
+    <Card>
+      <div>
+        <Typography level="title-lg">{event.name}</Typography>
+        <Typography level="body-sm">{getFormattedDate(event.date)}</Typography>
+        <SignupButton
+          event={event}
+          userid={userid}
+          attendanceUpdater={setSignups}
+        />
+      </div>
+      <AspectRatio minHeight="120px" maxHeight="200px">
+        <EventPicture width={300} height={200} id={event.image} />
+      </AspectRatio>
+      <CardContent orientation="horizontal">
+        <div>
+          <Stack direction="row" flexWrap="wrap" useFlexGap spacing={1}>
+            <Tooltip title="Attendees" placement="top" variant="soft">
+              <Chip
+                startDecorator={<FaClipboardUser />}
+                variant="soft"
+                label="attendance-chip"
+                size="md"
+              >
+                {signups}
+              </Chip>
+            </Tooltip>
+            <Tooltip title="Location" placement="top" variant="soft">
+              <Chip
+                startDecorator={<FaLocationDot />}
+                label="location-chip"
+                size="md"
+              >
                 {event.location}
-              </Badge>
-              <Badge className="eventChip" id="date-chip" pill>
-                <CalendarMonthOutlinedIcon />
-                {getFormattedDate(event.date)}
-              </Badge>
-            </Stack>
-          </ListGroup.Item>
-          <ListGroup.Item>{event.description}</ListGroup.Item>
-        </ListGroup>
-      </Card.Body>
+              </Chip>
+            </Tooltip>
+          </Stack>
+        </div>
+        <Button
+          className="is-ecohive-interaction"
+          variant="solid"
+          size="md"
+          aria-label="See details about this event"
+          sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
+          onClick={handleClick}
+        >
+          Details
+        </Button>
+      </CardContent>
     </Card>
   );
-  // return (
-  //   <Card
-  //     variant="outlined"
-  //     sx={{
-  //       minWidth: 300,
-  //     }}
-  //   >
-  //     <CardContent
-  //       orientation="horizontal"
-  //       sx={{ alignItems: 'center', gap: 1 }}
-  //     >
-  //       <Typography fontWeight="lg">{event.name}</Typography>
-  //     </CardContent>
-  //     <CardOverflow>
-  //       <AspectRatio>
-  //         <Image
-  //           onClick={() => router.push(`/events/discover/${event._id}`)}
-  //           src={getImageSrc(event.photoUrl)}
-  //           width={500}
-  //           height={500}
-  //           alt="Picture of the event"
-  //         />
-  //       </AspectRatio>
-  //     </CardOverflow>
-  //     <CardContent
-  //       orientation="horizontal"
-  //       sx={{ alignItems: 'center', mx: -1 }}
-  //     >
-  //       <Stack gap={3} direction="horizontal">
-  //         <Badge className="eventChip" id="location-chip" pill>
-  //           <PlaceIcon />
-  //           {event.location}
-  //         </Badge>
-  //         <Badge className="eventChip" id="date-chip" pill>
-  //           <CalendarMonthOutlinedIcon />
-  //           {getFormattedDate(event.date)}
-  //         </Badge>
-  //       </Stack>
-  //     </CardContent>
-  //     <CardContent>
-  //       <Link
-  //         component="button"
-  //         underline="none"
-  //         fontSize="10px"
-  //         sx={{ color: 'text.tertiary', my: 0.5 }}
-  //       ></Link>
-  //       <Typography fontSize="sm">
-  //         <Link
-  //           component="button"
-  //           color="neutral"
-  //           fontWeight="lg"
-  //           textColor="text.primary"
-  //         ></Link>{' '}
-  //         {event.description}
-  //       </Typography>
-  //     </CardContent>
 }

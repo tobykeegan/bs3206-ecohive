@@ -10,7 +10,8 @@ import AboutEcoHiveCard from './home/AboutEcoHiveCard';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import styles from '@/styles/home';
-
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
+import Link from '@mui/joy/Link';
 /**
  * The Home page.
  * @author Jade Carino
@@ -32,6 +33,9 @@ export default async function Home() {
       }}
     >
       <Navbar />
+      <Breadcrumbs>
+        <Link href="/">Home</Link>
+      </Breadcrumbs>
 
       <div
         id="Home-Page"

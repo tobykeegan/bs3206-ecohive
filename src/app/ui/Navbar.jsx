@@ -9,6 +9,7 @@ import { metadata } from '../global.vars';
 import { NavbarContent } from './NavbarContent';
 import { useState, useCallback } from 'react';
 import Tooltip from '@mui/joy/Tooltip';
+import { useRouter } from 'next/navigation';
 
 // this is needed to tell the sass compiler where to look
 import styles from '@/styles/navbar';
@@ -28,8 +29,10 @@ function MainNavbar() {
     [setShowNavbarContent],
   );
 
+  const router = useRouter();
+
   return (
-    <Navbar expand="md" className="mb-3" bg="primary">
+    <Navbar aria-label="Navbar" expand="md" className="mb-3" bg="primary">
       <Container fluid>
         <Navbar.Brand href="/">{metadata.title}</Navbar.Brand>
 
@@ -55,7 +58,12 @@ function MainNavbar() {
               </Button>
             </Tooltip>
             <Tooltip className="btnTooltip" title="Create Event" variant="soft">
-              <Button variant="outline-success">+</Button>
+              <Button
+                onClick={() => router.push('/events/create')}
+                variant="outline-success"
+              >
+                +
+              </Button>
             </Tooltip>
           </ButtonGroup>
         </Form>

@@ -1,22 +1,3 @@
 #!/bin/bash
 
-echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
-echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
-
-echo "Building image for branch:$TRAVIS_BRANCH, PR:$TRAVIS_PULL_REQUEST"
-
-
-# Check if TRAVIS_BRANCH is not main
-if [ "$TRAVIS_PULL_REQUEST" ]; then
-  echo "Development database will be used as this is a PR"
-  PROD_DB="development"
- 
-elif [ "$TRAVIS_BRANCH" != "main" ]; then
-   echo "Development database will be used as this is a branch build"
-  PROD_DB="development"
-else
-   echo "Production database will be used as this is the main branch"
-   PROD_DB="production"
-fi
-
-docker build -t "ecohive-ui" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=$PROD_DB .
+docker build -t "ecohive-ui:$TRAVIS_BRANCH" --build-arg next_secret=$NEXTAUTH_SECRET --build-arg db_conn=${1} .
