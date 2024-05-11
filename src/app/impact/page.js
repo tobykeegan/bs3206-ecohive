@@ -13,10 +13,9 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 import { URL } from '@/utils/globals';
 import axios from 'axios';
-
-import styles from '../styles/impact/impact.scss';
 import { Link } from '@mui/joy';
 
+import styles from '../styles/impact/impact.scss';
 /**
  * The Impact page, to provide gamification and
  * reward EcoHive users for their their eco-friendly activities.
@@ -86,16 +85,12 @@ export default async function Impact() {
     console.log(err);
   }
 
-  /**
-   * Call the Badge Evaluator to see if the user has
-   * earned any new badges for their recent activity.
+  /****************************************************
+   * Call the Badge Evaluator to see if the user has  *
+   * earned any new badges for their recent activity. *
    * @author Jade Carino
    */
-  const badgeEvaluator = new BadgeEvaluator(
-    allBadges,
-    usersBadges,
-    userStats,
-  );
+  const badgeEvaluator = new BadgeEvaluator(allBadges, usersBadges, userStats);
   const newBadgesEarned = badgeEvaluator.evaluateNewBadges();
 
   for (let index in newBadgesEarned) {
@@ -118,21 +113,21 @@ export default async function Impact() {
 
   async function getUserStats(userid) {
     let attendance, creation;
-    await axios.get(`${URL}/api/events/registration?user=${userid}`)
-    .then((res) => {
-      attendance = (res.data).length;
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    await axios
+      .get(`${URL}/api/events/registration?user=${userid}`)
+      .then((res) => {
+        attendance = res.data.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    await axios.get(`${URL}/api/events?creator=${userid}`)
-    .then((res) => {
-      creation = (res.data).length;
-    })
-    .catch((err) => [
-      console.log(err)
-    ])
+    await axios
+      .get(`${URL}/api/events?creator=${userid}`)
+      .then((res) => {
+        creation = res.data.length;
+      })
+      .catch((err) => [console.log(err)]);
 
     let userStats = { attendance: attendance, creation: creation };
     return userStats;

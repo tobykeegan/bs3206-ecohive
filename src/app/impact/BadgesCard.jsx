@@ -1,6 +1,5 @@
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import styles from '../styles/impact/impact.scss';
 
@@ -21,11 +20,7 @@ export default function BadgesCard({ badgeCards }) {
         alignItems: 'center',
       }}
     >
-      <Typography
-        level="h3"
-        id="badges-heading"
-        data-testid="badges-heading"
-      >
+      <Typography level="h3" id="badges-heading" data-testid="badges-heading">
         Badges
       </Typography>
 

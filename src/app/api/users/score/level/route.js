@@ -1,9 +1,7 @@
 import { connect } from '@/services/mongoose';
-import { getServerSession } from 'next-auth';
 import logger from '@/utils/logger';
 import { NextResponse } from 'next/server';
 import User from '@/models/user';
-import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { HTTP } from '@/utils/globals';
 
 await connect();

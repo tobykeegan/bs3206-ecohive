@@ -2,7 +2,6 @@
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 import { IoMdSearch } from 'react-icons/io';
 import { metadata } from '../global.vars';

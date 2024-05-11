@@ -11,7 +11,7 @@ import Event from '@/models/event';
  * @throws {NextResponse} - If no events are found, returns a 404 error.
  *
  *
- * @author Toby Keegan
+ * @author Toby Keegan, Jade Carino
  */
 export default async function POST(request) {
   // parse the body of the request

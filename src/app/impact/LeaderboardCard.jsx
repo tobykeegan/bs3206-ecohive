@@ -2,7 +2,6 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Leaderboard from './Leaderboard';
 import Typography from '@mui/joy/Typography';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
 import styles from '../styles/impact/impact.scss';
 

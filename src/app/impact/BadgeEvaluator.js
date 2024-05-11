@@ -1,6 +1,4 @@
 import Badge from './Badge';
-import { URL } from '@/utils/globals';
-import axios from 'axios';
 
 /*
  * The Badge Evaluator to determine if a user's activity on
