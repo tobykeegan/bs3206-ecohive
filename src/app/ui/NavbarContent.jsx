@@ -55,12 +55,14 @@ export function NavbarContent({ ...props }) {
               Discover Events
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/events/upcoming">
-              My Upcoming Events
+            <NavDropdown.Item href="/events/discover?attending=yes">
+              Upcoming Events
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/events/history">
-              My Past Events
+            <NavDropdown.Item
+              href={`/events/discover?creator=${session.user.id}`}
+            >
+              My Events
             </NavDropdown.Item>
           </NavDropdown>
           <Nav.Link href="/impact">My Impact</Nav.Link>

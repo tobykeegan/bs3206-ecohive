@@ -11,7 +11,7 @@ import { CiSquarePlus } from 'react-icons/ci';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { SlLocationPin } from 'react-icons/sl';
 import { GoTag } from 'react-icons/go';
-
+import { getTodaysDate } from '@/app/utils/date';
 import styles from '@/styles/home';
 
 /**
@@ -194,9 +194,3 @@ export default function EventSearchCard() {
 
 const today = new Date();
 const formattedDate = getTodaysDate(today);
-function getTodaysDate(date) {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}

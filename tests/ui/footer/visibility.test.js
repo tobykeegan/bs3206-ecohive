@@ -6,13 +6,7 @@ import { expect, test } from '@playwright/test';
  */
 test.describe('Footer visibility', () => {
   const pages = {
-    visible: [
-      '/',
-      '/settings',
-      '/events/discover',
-      '/events/history',
-      '/events/upcoming',
-    ],
+    visible: ['/', '/settings', '/events/discover'],
     hidden: ['/login', '/register'],
   };
 
@@ -23,18 +17,18 @@ test.describe('Footer visibility', () => {
   pages.visible.forEach((url) => {
     test(`Visible on '${url}' page`, async ({ page }) => {
       await page.goto(url);
-      await expect(page.locator('nav', { name: 'navbar' })).toBeVisible();
+      await expect(page.locator('#Footer-Div')).toBeVisible();
     });
   });
 
   /**
-   * Check the navbar is hidden on the correct pages.
+   * Check the footer is hidden on the correct pages.
    * @author Jade Carino
    */
   pages.hidden.forEach((url) => {
     test(`Not visible on '${url}' page`, async ({ page }) => {
       await page.goto(url);
-      await expect(page.locator('nav', { name: 'navbar' })).not.toBeVisible();
+      await expect(page.locator('#Footer-Div')).not.toBeVisible();
     });
   });
 });

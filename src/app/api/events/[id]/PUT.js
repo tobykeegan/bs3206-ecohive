@@ -16,6 +16,8 @@ export default async function putById(id, request) {
 
   fields = await request.json();
 
+  console.log('Fields: ', fields);
+
   if (!fields) {
     return NextResponse.json(
       {

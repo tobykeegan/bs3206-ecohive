@@ -1,0 +1,7 @@
+@use '../global.scss' as global;
+
+#submit-button {
+  background-color: global.$interaction;
+  border: global.$interaction;
+  color: white;
+}

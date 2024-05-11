@@ -71,8 +71,8 @@ ENV CERT_PATH="./cert.pem"
 ARG next_secret
 ENV NEXTAUTH_SECRET ${next_secret}
 
-ARG db_conn
-ENV PROD_DB ${db_conn}
+ARG use_db
+ENV PROD_DB ${use_db}
 ENV CONTAINER="true"
 
 RUN echo "===== Container Build Information ====="

@@ -37,16 +37,16 @@ jobs:
     - stage: Development Tests
       if: branch != main AND type != pull_request
       script:
-        - $SCRIPTS/copy_certificate
+        - $SCRIPTS/copy_certificate development
         - bun run build
         - bun run test
 
     - stage: Production Tests
       if: type = pull_request
       script:
-        - $SCRIPTS/copy_certificate
-        - $SCRIPTS/build_image
-        - docker run --name ecohive-test -d -p 3000:3000 ecohive-ui:$TRAVIS_BRANCH
+        - $SCRIPTS/copy_certificate development
+        - docker build --quiet -t "ecohive-ui:$TRAVIS_BRANCH" .
+        - docker run --name ecohive-test -d -p 3000:3000 -e NEXTAUTH_SECRET=$NEXTAUTH_SECRET -e PROD_DB=development ecohive-ui:$TRAVIS_BRANCH
         - docker ps
         - $SCRIPTS/wait.sh
         - docker exec ecohive-test env
@@ -57,6 +57,7 @@ jobs:
       if: branch = main AND type != pull_request
       script:
         - $SCRIPTS/add_ssh_key
-        - $SCRIPTS/build_image
+        - $SCRIPTS/copy_certificate production
+        - docker build --quiet -t "ecohive-ui:$TRAVIS_BRANCH" .
         - $SCRIPTS/deploy_image
         - $SCRIPTS/start_container
