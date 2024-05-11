@@ -5,6 +5,7 @@ import { Tooltip } from '@mui/joy';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 import axios from 'axios';
 import { useState } from 'react';
+import { rewardUserPoints } from '@/app/utils/impact';
 
 /**
  * Button to sign up for an event. Allows users to sign up for an event or remove their attendance.
@@ -32,6 +33,7 @@ export default function SignupButton({ event, userid, attendanceUpdater }) {
       .then((res) => {
         attendanceUpdater((prev) => prev + 1);
         setUserIsAttending(true);
+        rewardUserPoints(userid, 250);
       })
       .catch((err) => {
         console.log('error is ', err);

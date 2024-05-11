@@ -38,10 +38,10 @@ export async function GET(req) {
  */
 export async function PATCH(req) {
   const reqBody = await req.json();
-  let { email } = reqBody;
+  let { userid } = reqBody;
 
   const user = await User.findOne({
-    'details.email': email,
+    _id: userid,
   }).select('+score.level');
   if (!user) {
     logger.warn(`Could not find user: ${email}`);

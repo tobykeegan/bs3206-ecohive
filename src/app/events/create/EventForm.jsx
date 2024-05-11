@@ -2,10 +2,11 @@
 import { HTTP } from '@/app/ui/utils';
 import { UploadImage } from '@/app/utils/images';
 import { ButtonGroup, FormControl, FormLabel } from '@mui/joy';
-
 import { Button, Input, Option, Select, Stack } from '@mui/joy';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { rewardUserPoints } from '@/app/utils/impact';
+
 import styles from '@/styles/events/styles';
 
 /**
@@ -85,6 +86,7 @@ export default function EventForm({ session }) {
                     console.log('Attendance record created for creator');
                     router.push(`/events/discover/${newEventId}`);
                   }
+                  rewardUserPoints(session.id, 500);
                 })
                 .catch((error) => {
                   // if the attendance record was not created successfully, delete the event

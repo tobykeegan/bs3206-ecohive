@@ -38,22 +38,13 @@ export default async function Impact() {
     console.log(err);
   }
 
-  let points;
+  let points, level;
   try {
     let res = await axios.get(
-      `${URL}/api/users/score/points?email=${session.user.email}`,
+      `${URL}/api/users/score?email=${session.user.email}`,
     );
-    points = res.data.points;
-  } catch (err) {
-    console.log(err);
-  }
-
-  let level;
-  try {
-    let res = await axios.get(
-      `${URL}/api/users/score/level?email=${session.user.email}`,
-    );
-    level = res.data.level;
+    points = res.data.score.points;
+    level = res.data.score.level;
   } catch (err) {
     console.log(err);
   }

@@ -1,10 +1,8 @@
 import { connect } from '@/services/mongoose';
-import { getServerSession } from 'next-auth';
 import logger from '@/utils/logger';
 import { NextResponse } from 'next/server';
 import User from '@/models/user';
-import { authOptions } from '@/api/auth/[...nextauth]/route';
-import { HTTP } from '@/utils/globals';
+import { HTTP, URL } from '@/utils/globals';
 import axios from 'axios';
 
 await connect();
@@ -39,13 +37,13 @@ export async function GET(req) {
  */
 export async function PATCH(req) {
   const reqBody = await req.json();
-  let { email, pointsToAdd } = reqBody;
+  let { userid, pointsToAdd } = reqBody;
 
   const user = await User.findOne({
-    'details.email': email,
+    _id: userid,
   }).select('+score.points');
   if (!user) {
-    logger.warn(`Could not find user: ${email}`);
+    logger.warn(`Could not find user: ${userid}`);
     return NextResponse.json(
       { message: 'Unable to find user in database' },
       { status: HTTP.NOT_FOUND },
@@ -69,9 +67,15 @@ export async function PATCH(req) {
       );
     }
   } else {
-    // To do:
-    // Their level also needs to be upgraded!
-    // That API call should happen in the component/page...
+    // Their points increase means they should also be upgraded levels too
+    try {
+      axios.patch(
+        `${URL}/api/users/score/level`,
+        JSON.stringify({ userid: userid }),
+      );
+    } catch (err) {
+      console.log(err);
+    }
 
     // Upgrade their points at the start of a new level
     try {
