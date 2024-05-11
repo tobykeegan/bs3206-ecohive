@@ -69,10 +69,10 @@ ENV PORT 3000
 ENV CERT_PATH="./cert.pem"
 
 ARG next_secret
-ENV NEXTAUTH_SECRET ${next_secret}
+ENV NEXTAUTH_SECRET=${next_secret}
 
 ARG use_db
-ENV PROD_DB ${use_db}
+ENV PROD_DB=${use_db}
 ENV CONTAINER="true"
 
 RUN echo "===== Container Build Information ====="
