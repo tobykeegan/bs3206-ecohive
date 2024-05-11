@@ -16,9 +16,13 @@ import axios from 'axios';
 import { Link } from '@mui/joy';
 
 import styles from '../styles/impact/impact.scss';
+
 /**
- * The Impact page, to provide gamification and
- * reward EcoHive users for their their eco-friendly activities.
+ * The Impact page, to provide gamification and reward
+ * EcoHive users for their their eco-friendly activities.
+ * This page is protected by the server route and requires
+ * authentication to access.
+ * @returns {JSX.Element} The Home page.
  * @author Jade Carino
  */
 export default async function Impact() {
@@ -86,10 +90,10 @@ export default async function Impact() {
   }
 
   /****************************************************
-   * Call the Badge Evaluator to see if the user has  *
-   * earned any new badges for their recent activity. *
+   * Call the Badge Evaluator to see if the user has
+   * earned any new badges for their recent activity.
    * @author Jade Carino
-   */
+   ***************************************************/
   const badgeEvaluator = new BadgeEvaluator(allBadges, usersBadges, userStats);
   const newBadgesEarned = badgeEvaluator.evaluateNewBadges();
 

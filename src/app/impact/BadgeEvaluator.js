@@ -1,8 +1,10 @@
 import Badge from './Badge';
 
 /*
- * The Badge Evaluator to determine if a user's activity on
- * EcoHive has earned them new badges.
+ * The Badge Evaluator
+ * Runs when the user opens the Impact Page and evaluates if any of
+ * the user's recent activity has earned them any new badges.
+ * If it has, a modal will be opened to tell them they have earned new badges.
  * @author Jade Carino
  */
 class BadgeEvaluator {

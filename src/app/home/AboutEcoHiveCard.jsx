@@ -3,7 +3,9 @@ import Typography from '@mui/joy/Typography';
 import styles from '@/styles/home';
 
 /**
- * Card for the Home page to display information about the EcoHive.
+ * A component for the Home page that displays information
+ * about the EcoHive and their mission.
+ * @returns {JSX.Element} The EcoHive information component.
  * @author Jade Carino
  */
 export default function AboutEcoHiveCard() {

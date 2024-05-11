@@ -24,7 +24,9 @@ function formatDate(dateString) {
 }
 
 /**
- * The card for the Home page that lets the user search for events.
+ * A component for the Home page that a user can search for events
+ * by location, type, date and capacity.
+ * @returns {JSX.Element} The event search component.
  * @author Jade Carino
  */
 export default function EventSearchCard() {

@@ -8,8 +8,9 @@ import PersonalImpactOffsets from '../impact/PersonalImpactOffsets';
 import styles from '@/styles/home';
 
 /**
- * The card for the Home page that welcomes the user and
- * has a quick view of their points, level and personal impact.
+ * A component for the Home page that displays information
+ * about the user's points and level, and welcomes them back.
+ * @returns {JSX.Element} The EcoHive welcome component.
  * @author Jade Carino
  */
 export default function WelcomeCard({ session, points, level }) {

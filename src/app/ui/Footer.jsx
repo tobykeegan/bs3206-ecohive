@@ -3,7 +3,9 @@ import Link from '@mui/joy/Link';
 import styles from '@/styles/home';
 
 /**
- * Footer with link at the bottom of the site for user navigation.
+ * A footer component to allow easy and quick
+ * navigation around the application from any page.
+ * @returns {JSX.Element} The sticky footer.
  * @author Jade Carino
  */
 export default function Footer() {

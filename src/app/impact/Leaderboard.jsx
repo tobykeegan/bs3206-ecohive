@@ -1,7 +1,9 @@
 import { Table } from '@mui/joy';
 
 /**
- * The card for the leaderboard of all EcoHive users based on points achieved.
+ * A component for the Impact page that displays a leaderboard
+ * of the five users with the highest level and points combination.
+ * @returns {JSX.Element} The EcoHive leaderboard card.
  * @author Jade Carino
  */
 export default function Leaderboard({ topUsers }) {

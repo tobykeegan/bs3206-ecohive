@@ -7,7 +7,13 @@ import { HTTP } from '@/utils/globals';
 await connect();
 
 /**
- * Get a user's level to display on the Impact Page.
+ * GET request to /api/users/score/level.
+ * Retrieves the user's level to display on the Home and Impact pages.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response containing the user's level.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {
@@ -31,7 +37,13 @@ export async function GET(req) {
 }
 
 /**
- * Update a user's level.
+ * PATCH request to /api/users/score/level.
+ * Updates the users level incrementing it by 1.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response confirming a successful update.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function PATCH(req) {

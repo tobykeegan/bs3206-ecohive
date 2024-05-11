@@ -7,7 +7,8 @@ import badgePhoto from '../static/badge.png';
 import styles from '../styles/impact/impact.scss';
 
 /**
- * The card to display a single badge.
+ * A card to display a single EcoHive badge.
+ * @returns {JSX.Element} A EcoHive badge card.
  * @author Jade Carino
  */
 export default function Badge({ name, desc }) {

@@ -13,8 +13,11 @@ import { URL } from '@/utils/globals';
 import axios from 'axios';
 
 import styles from '@/styles/home';
+
 /**
- * The Home page.
+ * The EcoHive home page with information and search. This page is protected
+ * by the server route and requires authentication to access.
+ * @returns {JSX.Element} The Home page.
  * @author Jade Carino
  */
 export default async function Home() {

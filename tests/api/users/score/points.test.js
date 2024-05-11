@@ -7,9 +7,9 @@ require('dotenv').config();
 /**
  * Test requests to the /api/users/score/points endpoint.
  * These test the following scenarios:
- * - Retrieving a user's level
- * - Retrieving the level of a nonexistent user
- * - Updating a user's level
+ * - Retrieving a user's points
+ * - Retrieving the points of a nonexistent user
+ * - Updating a user's points
  * @author Jade Carino
  */
 test.describe('Test requests to endpoint /api/users/score/points', () => {

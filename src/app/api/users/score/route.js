@@ -7,8 +7,13 @@ import { HTTP } from '@/utils/globals';
 await connect();
 
 /**
- * Get a user's score which contains their points and level.
- * Put into one API call to minimise contact with the DB for performance.
+ * GET request to /api/users/score.
+ * Retrieves a score object with their points and level.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response containing a JSON object.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {

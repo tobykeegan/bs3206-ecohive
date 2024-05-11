@@ -7,7 +7,13 @@ import { HTTP } from '@/utils/globals';
 await connect();
 
 /**
- * Get a user's badges to display on the Impact Page.
+ * GET request to /api/users/badges.
+ * Retrieves all badges achieved by a user.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response containing an array of all badges.
+ * @throws {NextResponse} - If no events are found, returns a 404 error.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {
@@ -31,7 +37,13 @@ export async function GET(req) {
 }
 
 /**
- * Update a user's badges.
+ * PATCH request to /api/users/badges.
+ * Updates a user's badges in the database.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response confirming a successful update.
+ * @throws {NextResponse} - If an error occurs, an error is returned.
+ *
  * @author Jade Carino
  */
 export async function PATCH(req) {

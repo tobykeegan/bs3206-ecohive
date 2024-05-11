@@ -6,6 +6,7 @@ import Typography from '@mui/joy/Typography';
 /**
  * A modal to be displayed if the BadgeEvaluator has determined
  * the user has achieved new badges based on their activity on EcoHive.
+ * @returns {JSX.Element} A modal showing the user's newly achieved badges.
  * @author Jade Carino
  */
 export default function NewBadges({ newBadges }) {

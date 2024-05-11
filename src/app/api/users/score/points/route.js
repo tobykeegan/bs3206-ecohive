@@ -8,7 +8,13 @@ import axios from 'axios';
 await connect();
 
 /**
- * Get a user's points to display on the Impact Page.
+ * GET request to /api/users/score/points.
+ * Retrieves the user's points to display on the Home and Impact pages.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response containing the user's points.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {
@@ -32,7 +38,15 @@ export async function GET(req) {
 }
 
 /**
- * Update a user's points by the number of points provided.
+ * PATCH request to /api/users/score/points.
+ * Updates the users points by the number provided in the request.
+ * Also calls the PATCH request to /api/users/score/level if their points
+ * will be increased above 1000 by the update.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response confirming a successful update.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function PATCH(req) {

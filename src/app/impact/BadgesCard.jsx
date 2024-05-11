@@ -4,7 +4,9 @@ import Typography from '@mui/joy/Typography';
 import styles from '../styles/impact/impact.scss';
 
 /**
- * The card to display the users current badges.
+ * A component for the Impact page that displays the user's
+ * currently achieved badges.
+ * @returns {JSX.Element} The EcoHive badges component.
  * @author Jade Carino
  */
 export default function BadgesCard({ badgeCards }) {
