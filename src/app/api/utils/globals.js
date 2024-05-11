@@ -18,6 +18,7 @@ function getDatabaseName() {
     case 'production':
       db = 'production';
       console.log('PROD_DB specified production database');
+      console.log(process.env);
       break;
     case 'development':
       console.log('PROD_DB specified development database');
@@ -27,7 +28,7 @@ function getDatabaseName() {
       console.log("PROD_DB not set, defaulting to 'development'");
       db = 'development';
   }
-  return db;
+  return 'development';
 }
 
 module.exports = {
