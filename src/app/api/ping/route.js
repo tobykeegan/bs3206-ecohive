@@ -12,6 +12,8 @@ export async function GET(request) {
     dbstate: {
       name: mongo.db,
       state: 'connected',
+      containerised: process.env.CONTAINER,
+      prod_db: process.env.PROD_DB,
     },
   };
   try {
