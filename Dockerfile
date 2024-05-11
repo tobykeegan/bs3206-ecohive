@@ -71,7 +71,7 @@ ENV CERT_PATH="./cert.pem"
 ARG next_secret
 ENV NEXTAUTH_SECRET ${next_secret}
 
-ARG db_conn
+ARG use_db
 ENV PROD_DB ${use_db}
 ENV CONTAINER="true"
 
