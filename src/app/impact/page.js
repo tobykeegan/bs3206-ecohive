@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Points from './Points';
 import LeaderboardCard from './LeaderboardCard';
 import Badge from './Badge';
@@ -14,6 +15,7 @@ import { URL } from '@/utils/globals';
 import axios from 'axios';
 
 import styles from '../styles/impact/impact.scss';
+import { Link } from '@mui/joy';
 
 /**
  * The Impact page, to provide gamification and
@@ -143,6 +145,10 @@ export default async function Impact() {
       }}
     >
       <Navbar />
+      <Breadcrumbs>
+        <Link href="/">Home</Link>
+        <Link href="/impact">My Impact</Link>
+      </Breadcrumbs>
       <div
         id="Impact-Page"
         style={{
