@@ -22,7 +22,6 @@ export default function BadgesCard({ badgeCards }) {
       }}
     >
       <Typography
-        startDecorator={<EmojiEventsIcon></EmojiEventsIcon>}
         level="h3"
         id="badges-heading"
         data-testid="badges-heading"

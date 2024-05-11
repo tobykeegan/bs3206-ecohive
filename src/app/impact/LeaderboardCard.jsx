@@ -33,7 +33,6 @@ export default function LeaderboardCard({ topUsers }) {
         }}
       >
         <Typography
-          startDecorator={<LeaderboardIcon></LeaderboardIcon>}
           level="h3"
           id="leaderboard-heading"
           data-testid="leaderboard-heading"
