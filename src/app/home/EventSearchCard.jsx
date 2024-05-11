@@ -1,24 +1,35 @@
+'use client';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import FormControl from '@mui/joy/FormControl';
-import Autocomplete from '@mui/joy/Autocomplete';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import { BiSearchAlt } from 'react-icons/bi';
 import { CiSquarePlus } from 'react-icons/ci';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { SlLocationPin } from 'react-icons/sl';
-import { GoTag } from 'react-icons/go';
 import { getTodaysDate } from '@/app/utils/date';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { Option, Select } from '@mui/joy';
+
 import styles from '@/styles/home';
+
+function formatDate(dateString) {
+  const parts = dateString.split('/');
+  const date = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+  return date.toISOString();
+}
 
 /**
  * The card for the Home page that lets the user search for events.
  * @author Jade Carino
  */
 export default function EventSearchCard() {
+  const router = useRouter();
+
   return (
     <Card
       id="Event-Search-Card"
@@ -46,6 +57,46 @@ export default function EventSearchCard() {
             display: 'flex',
             flexDirection: 'column',
             gap: 10,
+          }}
+          onSubmit={(event) => {
+            console.log('Searching for events with the search form');
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const nonNullEntries = Array.from(formData.entries()).filter(
+              ([key, value]) => value !== '',
+            );
+            const form = Object.fromEntries(nonNullEntries);
+
+            if (form.date) {
+              form.date = formatDate(form.date);
+            }
+
+            axios
+              .post(`/api/events`, {
+                ...form,
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  console.log('Search for events was successful');
+                  console.log('Response: ', res.data);
+                  const queryParams = Object.keys(form)
+                    .map(
+                      (key) =>
+                        `${encodeURIComponent(key)}=${encodeURIComponent(form[key])}`,
+                    )
+                    .join('&');
+                  router.push(`/events/discover?${queryParams}`);
+                } else {
+                  console.log('Search was not successful: ', res);
+                }
+              })
+              .catch((error) => {
+                console.log('There was an error during the search:', error);
+                if (error.response.status === 404) {
+                  console.log('Search did not find any events by the filter');
+                  router.push(`/events/discover?keyword=notfound`);
+                }
+              });
           }}
         >
           <Row
@@ -86,19 +137,18 @@ export default function EventSearchCard() {
             </Col>
             <Col md={8}>
               <FormControl>
-                <Autocomplete
-                  options={[
-                    'Demonstration',
-                    'Meet Up',
-                    'Clean Up',
-                    'Education',
-                  ]}
+                <Select
                   className="search-input"
                   name="type"
-                  placeholder="Demonstration, Meet Up"
+                  placeholder="Demonstration, Meet up"
                   size="sm"
                   startDecorator={<CiSquarePlus />}
-                />
+                >
+                  <Option value="demonstration">Demonstration</Option>
+                  <Option value="meet-up">Meet up</Option>
+                  <Option value="clean-up">Clean up</Option>
+                  <Option value="education">Education</Option>
+                </Select>
               </FormControl>
             </Col>
           </Row>
@@ -110,14 +160,14 @@ export default function EventSearchCard() {
           >
             <Col md={4}>
               <Typography className="search-label" level="body-md">
-                Attendee Limit
+                Attendee Capacity
               </Typography>
             </Col>
             <Col md={8}>
               <FormControl>
                 <Input
                   className="search-input"
-                  name="attendees"
+                  name="capacity"
                   type="number"
                   placeholder="50"
                   variant="outlined"
@@ -152,41 +202,16 @@ export default function EventSearchCard() {
               </FormControl>
             </Col>
           </Row>
-          <Row
-            className="justify-content-between"
-            xs={1}
-            md={2}
-            style={{ rowGap: '4px' }}
+          <Button
+            id="Search-Button"
+            endDecorator={<BiSearchAlt />}
+            size="md"
+            type="submit"
+            sx={{ alignSelf: 'end' }}
           >
-            <Col md={4}>
-              <Typography className="search-label" level="body-md">
-                Tags
-              </Typography>
-            </Col>
-            <Col md={8}>
-              <FormControl>
-                <Input
-                  className="search-input"
-                  name="tags"
-                  type="text"
-                  placeholder="winchester"
-                  variant="outlined"
-                  size="sm"
-                  startDecorator={<GoTag />}
-                />
-              </FormControl>
-            </Col>
-          </Row>
+            Search
+          </Button>
         </form>
-
-        <Button
-          id="Search-Button"
-          endDecorator={<BiSearchAlt />}
-          size="md"
-          sx={{ alignSelf: 'end' }}
-        >
-          Search
-        </Button>
       </div>
     </Card>
   );

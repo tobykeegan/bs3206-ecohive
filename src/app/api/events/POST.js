@@ -32,7 +32,28 @@ export default async function POST(request) {
   }
 
   // search for the event(s) in the database
-  let eventsList = await Event.find(body);
+  let eventsList;
+
+  if (body.capacity) {
+    // Do a fuzzy search for the capacity and exact search for everything else
+    let capacity = parseInt(body.capacity);
+    let minCapacity = capacity - capacity * 0.1; // Min capacity of 10% less than what was searched
+    let maxCapacity = capacity + capacity * 0.1; // Max capacity of 10% more than what was searched
+    // Remove capacity from the rest of the search body
+    delete body.capacity;
+
+    eventsList = await Event.find(
+      { 'attendance.capacity': { $lte: maxCapacity, $gte: minCapacity } },
+      body,
+    );
+  } else if (body.keyword) {
+    // If searching by keyword from the NavBar
+    eventsList = await Event.find({
+      name: { $regex: body.keyword, $options: 'i' },
+    }); // Case insensitive search for the keyword
+  } else {
+    eventsList = await Event.find(body);
+  }
 
   if (eventsList.length > 0) {
     return NextResponse.json(eventsList);
