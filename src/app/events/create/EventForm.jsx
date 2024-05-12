@@ -191,12 +191,7 @@ export default function EventForm({ session }) {
 
         <FormControl>
           <FormLabel>Image</FormLabel>
-          <input
-            id="image-field"
-            name="eventImage"
-            type="file"
-            accept="image/*"
-          />
+          <input id="image-field" name="image" type="file" accept="image/*" />
         </FormControl>
         <ButtonGroup buttonFlex={1} spacing={2} aria-label="Form buttons">
           <Button
