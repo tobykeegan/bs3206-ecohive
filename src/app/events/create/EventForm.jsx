@@ -86,7 +86,7 @@ export default function EventForm({ session }) {
                     console.log('Attendance record created for creator');
                     router.push(`/events/discover/${newEventId}`);
                   }
-                  rewardUserPoints(session.id, 500);
+                  rewardUserPoints(session.user.id, 500);
                 })
                 .catch((error) => {
                   // if the attendance record was not created successfully, delete the event
