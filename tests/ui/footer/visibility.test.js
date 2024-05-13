@@ -6,7 +6,7 @@ import { expect, test } from '@playwright/test';
  */
 test.describe('Footer visibility', () => {
   const pages = {
-    visible: ['/', '/settings', '/events/discover'],
+    visible: ['/', '/settings', '/events/discover', '/impact'],
     hidden: ['/login', '/register'],
   };
 

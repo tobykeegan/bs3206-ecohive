@@ -11,7 +11,7 @@ import Event from '@/models/event';
  * @throws {NextResponse} - If no events are found, returns a 404 error.
  *
  *
- * @author Toby Keegan
+ * @author Toby Keegan, Jade Carino
  */
 export default async function POST(request) {
   // parse the body of the request
@@ -32,7 +32,16 @@ export default async function POST(request) {
   }
 
   // search for the event(s) in the database
-  let eventsList = await Event.find(body);
+  let eventsList;
+
+  if (body.keyword) {
+    // If searching by keyword from the NavBar
+    eventsList = await Event.find({
+      name: { $regex: body.keyword, $options: 'i' },
+    }); // Case insensitive search for the keyword
+  } else {
+    eventsList = await Event.find(body);
+  }
 
   if (eventsList.length > 0) {
     return NextResponse.json(eventsList);

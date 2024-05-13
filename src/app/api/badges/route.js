@@ -7,7 +7,11 @@ import { HTTP } from '@/utils/globals';
 await connect();
 
 /**
- * Fetches all badges so they can be rendered.
+ * GET request to /api/badges. Retrieves all badges from the database
+ * so they can be rendered on the Impact page.
+ *
+ * @returns {NextResponse} - A next response containing an array of all badges.
+ *
  * @author Jade Carino
  */
 export async function GET() {

@@ -1,15 +1,19 @@
 import { connect } from '@/services/mongoose';
-import { getServerSession } from 'next-auth';
 import logger from '@/utils/logger';
 import { NextResponse } from 'next/server';
 import User from '@/models/user';
-import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { HTTP } from '@/utils/globals';
 
 await connect();
 
 /**
- * Get a user's level to display on the Impact Page.
+ * GET request to /api/users/score/level.
+ * Retrieves the user's level to display on the Home and Impact pages.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response containing the user's level.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {
@@ -33,18 +37,24 @@ export async function GET(req) {
 }
 
 /**
- * Update a user's level.
+ * PATCH request to /api/users/score/level.
+ * Updates the users level incrementing it by 1.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response confirming a successful update.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function PATCH(req) {
   const reqBody = await req.json();
-  let { email } = reqBody;
+  let { userid } = reqBody;
 
   const user = await User.findOne({
-    'details.email': email,
+    _id: userid,
   }).select('+score.level');
   if (!user) {
-    logger.warn(`Could not find user: ${email}`);
+    logger.warn(`Could not find user: ${userid}`);
     return NextResponse.json(
       { message: 'Unable to find user in database' },
       { status: HTTP.NOT_FOUND },

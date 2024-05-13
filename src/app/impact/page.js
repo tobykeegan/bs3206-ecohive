@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Points from './Points';
 import LeaderboardCard from './LeaderboardCard';
 import Badge from './Badge';
@@ -12,12 +13,16 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 import { URL } from '@/utils/globals';
 import axios from 'axios';
+import { Link } from '@mui/joy';
 
 import styles from '../styles/impact/impact.scss';
 
 /**
- * The Impact page, to provide gamification and
- * reward EcoHive users for their their eco-friendly activities.
+ * The Impact page, to provide gamification and reward
+ * EcoHive users for their their eco-friendly activities.
+ * This page is protected by the server route and requires
+ * authentication to access.
+ * @returns {JSX.Element} The Home page.
  * @author Jade Carino
  */
 export default async function Impact() {
@@ -38,22 +43,13 @@ export default async function Impact() {
     console.log(err);
   }
 
-  let points;
+  let points, level;
   try {
     let res = await axios.get(
-      `${URL}/api/users/score/points?email=${session.user.email}`,
+      `${URL}/api/users/score?email=${session.user.email}`,
     );
-    points = res.data.points;
-  } catch (err) {
-    console.log(err);
-  }
-
-  let level;
-  try {
-    let res = await axios.get(
-      `${URL}/api/users/score/level?email=${session.user.email}`,
-    );
-    level = res.data.level;
+    points = res.data.score.points;
+    level = res.data.score.level;
   } catch (err) {
     console.log(err);
   }
@@ -83,6 +79,8 @@ export default async function Impact() {
     console.log(err);
   }
 
+  let userStats = await getUserStats(session.user.id);
+
   let topUsers;
   try {
     let res = await axios.get(`${URL}/api/users?limit=5`);
@@ -91,16 +89,12 @@ export default async function Impact() {
     console.log(err);
   }
 
-  /**
+  /****************************************************
    * Call the Badge Evaluator to see if the user has
    * earned any new badges for their recent activity.
    * @author Jade Carino
-   */
-  const badgeEvaluator = new BadgeEvaluator(
-    allBadges,
-    usersBadges,
-    session.user,
-  );
+   ***************************************************/
+  const badgeEvaluator = new BadgeEvaluator(allBadges, usersBadges, userStats);
   const newBadgesEarned = badgeEvaluator.evaluateNewBadges();
 
   for (let index in newBadgesEarned) {
@@ -121,6 +115,30 @@ export default async function Impact() {
     newBadges = badgeEvaluator.renderNewBadgeComponents(newBadgesEarned);
   }
 
+  async function getUserStats(userid) {
+    console.log('Fetching user registration and creation stats');
+    let attendance,
+      creation = 0;
+    await axios
+      .get(`${URL}/api/events/registration?user=${userid}`)
+      .then((res) => {
+        attendance = res.data.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    await axios
+      .post(`${URL}/api/events`, JSON.stringify({ creator: userid }))
+      .then((res) => {
+        creation = res.data.length;
+      })
+      .catch((err) => [console.log(err)]);
+
+    let userStats = { attendance: attendance, creation: creation };
+    return userStats;
+  }
+
   return (
     <main
       style={{
@@ -128,6 +146,10 @@ export default async function Impact() {
       }}
     >
       <Navbar />
+      <Breadcrumbs>
+        <Link href="/">Home</Link>
+        <Link href="/impact">My Impact</Link>
+      </Breadcrumbs>
       <div
         id="Impact-Page"
         style={{

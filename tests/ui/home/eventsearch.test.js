@@ -28,35 +28,14 @@ const searchInputs = [
     placeholder: 'Winchester',
   },
   {
-    name: 'Event Type',
-    type: 'auto',
-    placeholder: 'Demonstration, Meet Up',
-  },
-  {
-    name: 'Attendee Limit',
-    type: 'number',
-    placeholder: '50',
-  },
-  {
     name: 'Date',
     type: 'text',
     placeholder: formattedDate,
   },
-  {
-    name: 'Tags',
-    type: 'text',
-    placeholder: 'winchester',
-  },
 ];
 
 test.describe('Event Search widget on Home Page visibility', () => {
-  const searchLabels = [
-    'Location',
-    'Event Type',
-    'Attendee Limit',
-    'Date',
-    'Tags',
-  ];
+  const searchLabels = ['Location', 'Event Type', 'Date'];
 
   searchLabels.forEach((searchLabel) => {
     test(`Check visibility of label '${searchLabel}'`, async ({ page }) => {
@@ -74,6 +53,10 @@ test.describe('Event Search widget on Home Page visibility', () => {
     });
   });
 
+  test(`Check visibility of search selection Event Type`, async ({ page }) => {
+    await expect(page.getByTestId('event-type')).toBeVisible();
+  });
+
   test(`Check search button is visible`, async ({ page }) => {
     await expect(
       page.getByRole('button', { name: 'Search', exact: true }),
@@ -82,7 +65,7 @@ test.describe('Event Search widget on Home Page visibility', () => {
 });
 
 test.describe('Event Search widget on Home Page functionality', () => {
-  const eventTypes = ['Demonstration', 'Meet Up', 'Clean Up', 'Education'];
+  const eventTypes = ['Demonstration', 'Meet up', 'Clean Up', 'Education'];
   const TEXT_INPUT = 'ABC';
   const NUMBER_INPUT = '123';
 

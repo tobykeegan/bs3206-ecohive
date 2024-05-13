@@ -1,16 +1,20 @@
 import { connect } from '@/services/mongoose';
-import { getServerSession } from 'next-auth';
 import logger from '@/utils/logger';
 import { NextResponse } from 'next/server';
 import User from '@/models/user';
-import { authOptions } from '@/api/auth/[...nextauth]/route';
-import { HTTP } from '@/utils/globals';
+import { HTTP, URL } from '@/utils/globals';
 import axios from 'axios';
 
 await connect();
 
 /**
- * Get a user's points to display on the Impact Page.
+ * GET request to /api/users/score/points.
+ * Retrieves the user's points to display on the Home and Impact pages.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response containing the user's points.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {
@@ -34,18 +38,26 @@ export async function GET(req) {
 }
 
 /**
- * Update a user's points by the number of points provided.
+ * PATCH request to /api/users/score/points.
+ * Updates the users points by the number provided in the request.
+ * Also calls the PATCH request to /api/users/score/level if their points
+ * will be increased above 1000 by the update.
+ *
+ * @param {Object} request - The request object.
+ * @returns {NextResponse} - A next response confirming a successful update.
+ * @throws {NextResponse} - A 404 error if the user cannot be found.
+ *
  * @author Jade Carino
  */
 export async function PATCH(req) {
   const reqBody = await req.json();
-  let { email, pointsToAdd } = reqBody;
+  let { userid, pointsToAdd } = reqBody;
 
   const user = await User.findOne({
-    'details.email': email,
+    _id: userid,
   }).select('+score.points');
   if (!user) {
-    logger.warn(`Could not find user: ${email}`);
+    logger.warn(`Could not find user: ${userid}`);
     return NextResponse.json(
       { message: 'Unable to find user in database' },
       { status: HTTP.NOT_FOUND },
@@ -69,9 +81,15 @@ export async function PATCH(req) {
       );
     }
   } else {
-    // To do:
-    // Their level also needs to be upgraded!
-    // That API call should happen in the component/page...
+    // Their points increase means they should also be upgraded levels too
+    try {
+      axios.patch(
+        `${URL}/api/users/score/level`,
+        JSON.stringify({ userid: userid }),
+      );
+    } catch (err) {
+      console.log(err);
+    }
 
     // Upgrade their points at the start of a new level
     try {

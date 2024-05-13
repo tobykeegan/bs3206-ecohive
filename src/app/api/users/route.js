@@ -149,7 +149,11 @@ function toTitleCase(str) {
 }
 
 /**
- * Fetches users sorting by points.
+ * GET request to /api/users.
+ * Retrieves the five users with the most points for the leaderboard.
+ *
+ * @returns {NextResponse} - A next response containing an array of the five top users.
+ *
  * @author Jade Carino
  */
 export async function GET(req) {

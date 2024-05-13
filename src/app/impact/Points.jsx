@@ -10,6 +10,7 @@ import styles from '../styles/impact/impact.scss';
 
 /**
  * The card for user's points and level, and to display their personal impact.
+ * @returns {JSX.Element} A points card.
  * @author Jade Carino
  */
 export default function Points({ points, level }) {

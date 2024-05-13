@@ -1,4 +1,3 @@
-import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Chip from '@mui/joy/Chip';
@@ -9,11 +8,12 @@ import PersonalImpactOffsets from '../impact/PersonalImpactOffsets';
 import styles from '@/styles/home';
 
 /**
- * The card for the Home page that welcomes the user and
- * has a quick view of their points, level and personal impact.
+ * A component for the Home page that displays information
+ * about the user's points and level, and welcomes them back.
+ * @returns {JSX.Element} The EcoHive welcome component.
  * @author Jade Carino
  */
-export default function WelcomeCard({ session }) {
+export default function WelcomeCard({ session, points, level }) {
   return (
     <Card
       id="Welcome-Card"
@@ -36,27 +36,23 @@ export default function WelcomeCard({ session }) {
         <Typography level="h3" id="welcome-message">
           Welcome back, {session.user.name.first}!
         </Typography>
-        <AspectRatio sx={{ height: '24px' }} variant="plain"></AspectRatio>
         <Chip
           variant="outlined"
           color="success"
           size="lg"
           startDecorator={<WorkspacePremiumIcon />}
         >
-          Level {session.user.score.level}
+          Level {level}
         </Chip>
         <Typography level="h3" id="points-earned">
-          {session.user.score.points} Points Earned
+          {points} Points Earned
         </Typography>
         <Typography level="body-sm" id="points-needed">
-          {1000 - session.user.score.points} Points Until Level Up!
+          {1000 - points} Points Until Level Up!
         </Typography>
         <Typography level="body-lg" id="personal-impact" mb={1}>
           Your personal impact has offset:{' '}
-          {getPersonalImpactOffset(
-            session.user.score.level,
-            session.user.score.points,
-          )}
+          {getPersonalImpactOffset(level, points)}
         </Typography>
       </CardContent>
     </Card>

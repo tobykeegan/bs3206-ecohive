@@ -7,9 +7,9 @@ require('dotenv').config();
 /**
  * Test requests to the /api/users/score/level endpoint.
  * These test the following scenarios:
- * - Retrieving a user's points
- * - Retrieving the points of a nonexistent user
- * - Updating a user's points
+ * - Retrieving a user's level
+ * - Retrieving the level of a nonexistent user
+ * - Updating a user's level
  * @author Jade Carino
  */
 test.describe('Test requests to endpoint /api/users/score/level', () => {
@@ -54,7 +54,7 @@ test.describe('Test requests to endpoint /api/users/score/level', () => {
     let user = await req.json();
 
     const response = await request.patch(`/api/users/score/level`, {
-      data: JSON.stringify({ email: user.email }),
+      data: JSON.stringify({ userid: user.id }),
     });
     const body = await response.json();
     expect(response.status()).toBe(HTTP.OK);
@@ -66,8 +66,9 @@ test.describe('Test requests to endpoint /api/users/score/level', () => {
   test('Should get a not found response from PATCH to /api/users/score/level with nonexistent user', async ({
     request,
   }) => {
+    // The ID 663a8237eed322ca1de11111 does not exist.
     const response = await request.patch(`/api/users/score/level`, {
-      data: JSON.stringify({ email: 'nonsense@noexist.com' }),
+      data: JSON.stringify({ userid: '663a8237eed322ca1de11111' }),
     });
     const body = await response.json();
     expect(response.status()).toBe(HTTP.NOT_FOUND);
