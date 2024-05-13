@@ -7,9 +7,11 @@ import React from 'react';
 import { FaBackspace } from 'react-icons/fa';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
+
 /**
  * Danger zone settings card
  * @author Alec Painter
+ * @returns {JSX.Element}
  */
 export default function DangerCard() {
   const [open, setOpen] = React.useState(false);

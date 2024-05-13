@@ -8,6 +8,12 @@ import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import axios from 'axios';
 import UserProfilePicture from '@/components/UserProfilePicture';
+
+/**
+ * Reset password card element
+ * @author Alec Painter
+ * @returns {JSX.Element}
+ */
 export default function ResetCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');

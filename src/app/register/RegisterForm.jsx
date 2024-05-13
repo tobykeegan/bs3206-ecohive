@@ -21,6 +21,13 @@ import {
 import { MdErrorOutline } from 'react-icons/md';
 import { AiFillSecurityScan } from 'react-icons/ai';
 
+/**
+ * Register account form element
+ * @author Alec Painter
+ * @param {function} onSubmit
+ * @param {string} error
+ * @returns {JSX.Element}
+ */
 export default function RegisterForm({ onSubmit, error }) {
   const [formData, setFormData] = React.useState({
     fullName: '',

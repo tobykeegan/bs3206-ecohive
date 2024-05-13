@@ -2,6 +2,7 @@ import style from '@/styles/login/login';
 import RegisterCard from './RegisterCard';
 
 /**
+ * Register account page
  * @author Alec Painter
  */
 export default function Register() {

@@ -10,6 +10,13 @@ import Link from 'next/link';
 import { Typography, Button, ButtonGroup } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 
+/**
+ * Login Form component
+ * @author Alec Painter
+ * @param {function} onSubmit
+ * @param {string} error
+ * @returns {JSX.Element}
+ */
 export default function LoginForm({ onSubmit, error }) {
   const [formData, setFormData] = React.useState({
     email: '',

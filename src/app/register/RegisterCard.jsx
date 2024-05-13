@@ -6,6 +6,12 @@ import RegisterForm from './RegisterForm';
 import styles from '@/styles/login/login.card';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+
+/**
+ * Register account card element
+ * @author Alec Painter
+ * @returns {JSX.Element}
+ */
 export default function RegisterCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');

@@ -13,9 +13,11 @@ import { UploadImage } from '../utils/images';
 import axios from 'axios';
 import UserProfilePicture from '@/components/UserProfilePicture';
 import { MdErrorOutline } from 'react-icons/md';
+
 /**
  * Account setting card
  * @author Alec Painter
+ * @returns {JSX.Element}
  */
 export default function AccountCard() {
   const router = useRouter();

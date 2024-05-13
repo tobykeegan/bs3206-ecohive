@@ -25,6 +25,13 @@ export async function UploadImage(file) {
   });
 }
 
+/**
+ * [Internal] Post request to upload a new image
+ * @author Alec Painter
+ * @param {string} image
+ * @param {string} type
+ * @returns {string} image id / error
+ */
 async function uploadImageReq(image, type) {
   try {
     const response = await axios.post(

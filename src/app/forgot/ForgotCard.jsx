@@ -6,6 +6,11 @@ import styles from '@/styles/login/login.card';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
+/**
+ * Forgot password card element
+ * @author Alec Painter
+ * @returns {JSX.Element}
+ */
 export default function ForgotCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');

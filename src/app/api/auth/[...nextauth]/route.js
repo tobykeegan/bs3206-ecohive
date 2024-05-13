@@ -4,6 +4,10 @@ import { connect } from '../../services/mongoose.service';
 import User from '../../models/user.model';
 import logger from '@/api/utils/logger';
 
+/**
+ * @author Alec Painter
+ * Next-Auth implementation
+ */
 export const authOptions = {
   session: {
     jwt: true, // Use JWTs for holding the sessions

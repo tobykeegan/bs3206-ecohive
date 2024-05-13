@@ -7,6 +7,15 @@ import { IoIosArrowRoundForward, IoMdKey, IoMdMail } from 'react-icons/io';
 import { Typography, Button, Modal, ModalDialog } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 import axios from 'axios';
+
+/**
+ * Forgot Password Security Question form
+ * @author Alec Painter
+ * @param {function} onSubmit
+ * @param {string} error
+ * @param {function} setError
+ * @returns {JSX.Element}
+ */
 export default function ForgotForm({ onSubmit, error, setError }) {
   const [open, setOpen] = React.useState(false);
   const [secQuestion, setSecQuestion] = React.useState('');

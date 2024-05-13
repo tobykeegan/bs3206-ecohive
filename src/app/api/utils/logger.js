@@ -1,5 +1,10 @@
 import winston from 'winston';
 
+/**
+ * Setup the API logger
+ * @author Alec Painter
+ */
+
 const levels = {
   error: 0,
   warn: 1,

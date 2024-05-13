@@ -7,6 +7,13 @@ import { IoIosArrowRoundForward, IoIosLock } from 'react-icons/io';
 import { Typography, Button } from '@mui/joy';
 import { MdErrorOutline } from 'react-icons/md';
 
+/**
+ * Reset password form element
+ * @author Alec Painter
+ * @param {function} onSubmit
+ * @param {string} error
+ * @returns {JSX.Element}
+ */
 export default function ResetForm({ onSubmit, error }) {
   const [formData, setFormData] = React.useState({
     password: '',

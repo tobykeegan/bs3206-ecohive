@@ -2,6 +2,7 @@ import LoginCard from './LoginCard';
 import style from '@/styles/login/login';
 
 /**
+ * Login page
  * @author Alec Painter
  */
 export default function Login() {

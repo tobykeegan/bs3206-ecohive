@@ -2,6 +2,7 @@ import ForgotCard from './ForgotCard';
 import style from '@/styles/login/login';
 
 /**
+ * Forgot password authentication page
  * @author Alec Painter
  */
 export default function Forgot() {

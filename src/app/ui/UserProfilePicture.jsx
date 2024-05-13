@@ -4,6 +4,12 @@ import { FaUser } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
+/**
+ * User Profile Picture component
+ * @author Alec Painter
+ * @param {any} props
+ * @returns {JSX.Element}
+ */
 export default function UserProfilePicture(props) {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

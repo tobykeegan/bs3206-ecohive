@@ -9,6 +9,11 @@ import { Ratio } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
+/**
+ * Login card element
+ * @author Alec Painter
+ * @returns {JSX.Element}
+ */
 export default function LoginCard() {
   const router = useRouter();
   const [error, setError] = React.useState('');

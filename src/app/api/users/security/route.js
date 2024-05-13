@@ -1,11 +1,17 @@
 import logger from '@/utils/logger';
 import { connect } from '@/services/mongoose';
 import User from '@/models/user';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { HTTP } from '@/utils/globals';
 
 await connect();
 
+/**
+ * Get the security question for the user
+ * @author Alec Painter
+ * @param {NextRequest} req
+ * @returns {NextResponse}
+ */
 export async function GET(req) {
   const queryParams = req.nextUrl.searchParams;
   const email = queryParams.get('email');
