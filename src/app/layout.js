@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/global';
 import Navbar from '@/components/Navbar';
 import globals from './global.vars';
+import { authOptions } from './api/auth/[...nextauth]/route';
+
 import { getServerSession } from 'next-auth';
 import SessionProvider from './ui/SessionProvider';
 
@@ -15,7 +17,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <head>
