@@ -117,11 +117,11 @@ export default async function Discover(req) {
         <Link href="/events/discover">Events</Link>
       </Breadcrumbs>
       <Box
-        my={4}
+        // my={4}
         display="flex"
         alignItems="center"
         flexDirection="column"
-        gap={4}
+        // gap={4}
         p={2}
       >
         {rendered}
