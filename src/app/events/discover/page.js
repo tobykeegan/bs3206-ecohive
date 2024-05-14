@@ -37,15 +37,23 @@ export default async function Discover(req) {
   // if 'attending' is in the query params, get all events the user is attending
   if (params.attending === 'true' || params.attending === 'yes') {
     try {
-      const eventsForThisUser =
-        await `${URL}/api/events/registration?user=${await session.user.id}`;
+      const eventsForThisUser = `${URL}/api/events/registration?user=${session.user.id}`;
       console.log(eventsForThisUser);
       let res = await axios.get(eventsForThisUser);
+      console.log('res is: ', res.data);
       eventCards = res.data.map((event) => {
         return (
-          <Col className="m-1" key={event._id}>
-            <EventWidget key={event._id} event={event} />
-          </Col>
+          // the event might be null, if it was deleted but an attendance record
+
+          event && (
+            <Col className="m-1" key={event._id}>
+              <EventWidget
+                key={event._id}
+                event={event}
+                userid={session.user.id}
+              />
+            </Col>
+          )
         );
       });
     } catch (err) {
@@ -71,6 +79,19 @@ export default async function Discover(req) {
   let grid = <Row>{eventCards}</Row>;
   let rendered;
 
+  if (params.creator) {
+    console.log('Getting events owned by this ID');
+  }
+
+  let pageTitle;
+  if (params.attending === 'true' || params.attending === 'yes') {
+    pageTitle = 'Upcoming Events';
+  } else if (params.creator) {
+    pageTitle = 'Your Events';
+  } else {
+    pageTitle = 'Discover Events';
+  }
+
   if (!eventCards) {
     rendered = (
       <div>
@@ -81,11 +102,7 @@ export default async function Discover(req) {
   } else {
     rendered = (
       <Box display="flex" alignItems="center" flexDirection="column">
-        <h1>
-          {params.attending === 'true' || params.attending === 'yes'
-            ? 'Upcoming Events'
-            : 'Discover Events'}
-        </h1>
+        <h1>{pageTitle}</h1>
         <CollapsibleEventSearch />
         {eventCards.length != 0 ? grid : <h1>No events found</h1>}
       </Box>
